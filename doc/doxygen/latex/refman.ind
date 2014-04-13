@@ -1,0 +1,264 @@
+\begin{theindex}
+
+  \item {arguements}, \hyperpage{5}
+
+  \indexspace
+
+  \item {check\discretionary {-}{}{}\_\discretionary {-}{}{}column\discretionary {-}{}{}\_\discretionary {-}{}{}types}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{14}
+  \item {check\discretionary {-}{}{}\_\discretionary {-}{}{}mycolumns}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{14}
+  \item {check\discretionary {-}{}{}\_\discretionary {-}{}{}mycolumns\discretionary {-}{}{}\_\discretionary {-}{}{}pred}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{15}
+  \item {check\discretionary {-}{}{}\_\discretionary {-}{}{}predicates}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{15}
+  \item {config\discretionary {-}{}{}\_\discretionary {-}{}{}params}, 
+		\hyperpage{5}
+
+  \indexspace
+
+  \item {D\discretionary {-}{}{}B\discretionary {-}{}{}G}
+    \subitem {utils.\discretionary {-}{}{}h}, \hyperpage{36}
+  \item {delete\discretionary {-}{}{}\_\discretionary {-}{}{}command}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{16}
+
+  \indexspace
+
+  \item {encrypt\discretionary {-}{}{}\_\discretionary {-}{}{}passwd.\discretionary {-}{}{}c}, 
+		\hyperpage{11}
+
+  \indexspace
+
+  \item {generate\discretionary {-}{}{}\_\discretionary {-}{}{}encrypted\discretionary {-}{}{}\_\discretionary {-}{}{}password}
+    \subitem {utils.\discretionary {-}{}{}c}, \hyperpage{33}
+    \subitem {utils.\discretionary {-}{}{}h}, \hyperpage{36}
+  \item {get\discretionary {-}{}{}\_\discretionary {-}{}{}column\discretionary {-}{}{}\_\discretionary {-}{}{}index}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{16}
+  \item {get\discretionary {-}{}{}\_\discretionary {-}{}{}column\discretionary {-}{}{}\_\discretionary {-}{}{}type}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{17}
+  \item {get\discretionary {-}{}{}\_\discretionary {-}{}{}command}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{17}
+  \item {get\discretionary {-}{}{}\_\discretionary {-}{}{}param}
+    \subitem {utils.\discretionary {-}{}{}c}, \hyperpage{33}
+    \subitem {utils.\discretionary {-}{}{}h}, \hyperpage{37}
+
+  \indexspace
+
+  \item {handle\discretionary {-}{}{}\_\discretionary {-}{}{}command}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{17}
+  \item {has\discretionary {-}{}{}\_\discretionary {-}{}{}column}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{18}
+  \item {has\discretionary {-}{}{}\_\discretionary {-}{}{}table}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{18}
+
+  \indexspace
+
+  \item {key\discretionary {-}{}{}\_\discretionary {-}{}{}exist}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{18}
+
+  \indexspace
+
+  \item {L\discretionary {-}{}{}O\discretionary {-}{}{}G}
+    \subitem {utils.\discretionary {-}{}{}h}, \hyperpage{36}
+  \item {logger}
+    \subitem {utils.\discretionary {-}{}{}c}, \hyperpage{34}
+    \subitem {utils.\discretionary {-}{}{}h}, \hyperpage{37}
+
+  \indexspace
+
+  \item {main}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{19}
+
+  \indexspace
+
+  \item {num\discretionary {-}{}{}\_\discretionary {-}{}{}col\discretionary {-}{}{}\_\discretionary {-}{}{}val}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{19}
+  \item {num\discretionary {-}{}{}\_\discretionary {-}{}{}of\discretionary {-}{}{}\_\discretionary {-}{}{}predicates}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{19}
+
+  \indexspace
+
+  \item {parse\discretionary {-}{}{}\_\discretionary {-}{}{}predicates}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{20}
+  \item {parse\discretionary {-}{}{}\_\discretionary {-}{}{}value}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{20}
+  \item {predicate\discretionary {-}{}{}\_\discretionary {-}{}{}true}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{20}
+  \item {predicates\discretionary {-}{}{}\_\discretionary {-}{}{}true}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{21}
+
+  \indexspace
+
+  \item {query\discretionary {-}{}{}\_\discretionary {-}{}{}command}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{21}
+
+  \indexspace
+
+  \item {read\discretionary {-}{}{}\_\discretionary {-}{}{}config}
+    \subitem {utils.\discretionary {-}{}{}c}, \hyperpage{34}
+    \subitem {utils.\discretionary {-}{}{}h}, \hyperpage{37}
+  \item {recvline}
+    \subitem {utils.\discretionary {-}{}{}c}, \hyperpage{34}
+    \subitem {utils.\discretionary {-}{}{}h}, \hyperpage{38}
+
+  \indexspace
+
+  \item {sendall}
+    \subitem {utils.\discretionary {-}{}{}c}, \hyperpage{34}
+    \subitem {utils.\discretionary {-}{}{}h}, \hyperpage{38}
+  \item {server.\discretionary {-}{}{}c}, \hyperpage{11}
+    \subitem {check\discretionary {-}{}{}\_\discretionary {-}{}{}column\discretionary {-}{}{}\_\discretionary {-}{}{}types}, 
+		\hyperpage{14}
+    \subitem {check\discretionary {-}{}{}\_\discretionary {-}{}{}mycolumns}, 
+		\hyperpage{14}
+    \subitem {check\discretionary {-}{}{}\_\discretionary {-}{}{}mycolumns\discretionary {-}{}{}\_\discretionary {-}{}{}pred}, 
+		\hyperpage{15}
+    \subitem {check\discretionary {-}{}{}\_\discretionary {-}{}{}predicates}, 
+		\hyperpage{15}
+    \subitem {delete\discretionary {-}{}{}\_\discretionary {-}{}{}command}, 
+		\hyperpage{16}
+    \subitem {get\discretionary {-}{}{}\_\discretionary {-}{}{}column\discretionary {-}{}{}\_\discretionary {-}{}{}index}, 
+		\hyperpage{16}
+    \subitem {get\discretionary {-}{}{}\_\discretionary {-}{}{}column\discretionary {-}{}{}\_\discretionary {-}{}{}type}, 
+		\hyperpage{17}
+    \subitem {get\discretionary {-}{}{}\_\discretionary {-}{}{}command}, 
+		\hyperpage{17}
+    \subitem {handle\discretionary {-}{}{}\_\discretionary {-}{}{}command}, 
+		\hyperpage{17}
+    \subitem {has\discretionary {-}{}{}\_\discretionary {-}{}{}column}, 
+		\hyperpage{18}
+    \subitem {has\discretionary {-}{}{}\_\discretionary {-}{}{}table}, 
+		\hyperpage{18}
+    \subitem {key\discretionary {-}{}{}\_\discretionary {-}{}{}exist}, 
+		\hyperpage{18}
+    \subitem {main}, \hyperpage{19}
+    \subitem {num\discretionary {-}{}{}\_\discretionary {-}{}{}col\discretionary {-}{}{}\_\discretionary {-}{}{}val}, 
+		\hyperpage{19}
+    \subitem {num\discretionary {-}{}{}\_\discretionary {-}{}{}of\discretionary {-}{}{}\_\discretionary {-}{}{}predicates}, 
+		\hyperpage{19}
+    \subitem {parse\discretionary {-}{}{}\_\discretionary {-}{}{}predicates}, 
+		\hyperpage{20}
+    \subitem {parse\discretionary {-}{}{}\_\discretionary {-}{}{}value}, 
+		\hyperpage{20}
+    \subitem {predicate\discretionary {-}{}{}\_\discretionary {-}{}{}true}, 
+		\hyperpage{20}
+    \subitem {predicates\discretionary {-}{}{}\_\discretionary {-}{}{}true}, 
+		\hyperpage{21}
+    \subitem {query\discretionary {-}{}{}\_\discretionary {-}{}{}command}, 
+		\hyperpage{21}
+    \subitem {set\discretionary {-}{}{}\_\discretionary {-}{}{}command}, 
+		\hyperpage{22}
+    \subitem {split\discretionary {-}{}{}\_\discretionary {-}{}{}query\discretionary {-}{}{}\_\discretionary {-}{}{}get\discretionary {-}{}{}\_\discretionary {-}{}{}column}, 
+		\hyperpage{22}
+    \subitem {split\discretionary {-}{}{}\_\discretionary {-}{}{}query\discretionary {-}{}{}\_\discretionary {-}{}{}get\discretionary {-}{}{}\_\discretionary {-}{}{}value}, 
+		\hyperpage{23}
+    \subitem {trim}, \hyperpage{23}
+    \subitem {update\discretionary {-}{}{}\_\discretionary {-}{}{}command}, 
+		\hyperpage{23}
+  \item {server\discretionary {-}{}{}\_\discretionary {-}{}{}record}, 
+		\hyperpage{6}
+  \item {set\discretionary {-}{}{}\_\discretionary {-}{}{}command}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{22}
+  \item {split\discretionary {-}{}{}\_\discretionary {-}{}{}query\discretionary {-}{}{}\_\discretionary {-}{}{}get\discretionary {-}{}{}\_\discretionary {-}{}{}column}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{22}
+  \item {split\discretionary {-}{}{}\_\discretionary {-}{}{}query\discretionary {-}{}{}\_\discretionary {-}{}{}get\discretionary {-}{}{}\_\discretionary {-}{}{}value}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{23}
+  \item {storage.\discretionary {-}{}{}c}, \hyperpage{24}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}auth}, 
+		\hyperpage{25}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}connect}, 
+		\hyperpage{25}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}disconnect}, 
+		\hyperpage{25}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}get}, 
+		\hyperpage{26}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}set}, 
+		\hyperpage{26}
+  \item {storage.\discretionary {-}{}{}h}, \hyperpage{27}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}auth}, 
+		\hyperpage{28}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}connect}, 
+		\hyperpage{29}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}disconnect}, 
+		\hyperpage{29}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}get}, 
+		\hyperpage{30}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}query}, 
+		\hyperpage{31}
+    \subitem {storage\discretionary {-}{}{}\_\discretionary {-}{}{}set}, 
+		\hyperpage{31}
+  \item {storage\discretionary {-}{}{}\_\discretionary {-}{}{}auth}
+    \subitem {storage.\discretionary {-}{}{}c}, \hyperpage{25}
+    \subitem {storage.\discretionary {-}{}{}h}, \hyperpage{28}
+  \item {storage\discretionary {-}{}{}\_\discretionary {-}{}{}connect}
+    \subitem {storage.\discretionary {-}{}{}c}, \hyperpage{25}
+    \subitem {storage.\discretionary {-}{}{}h}, \hyperpage{29}
+  \item {storage\discretionary {-}{}{}\_\discretionary {-}{}{}disconnect}
+    \subitem {storage.\discretionary {-}{}{}c}, \hyperpage{25}
+    \subitem {storage.\discretionary {-}{}{}h}, \hyperpage{29}
+  \item {storage\discretionary {-}{}{}\_\discretionary {-}{}{}get}
+    \subitem {storage.\discretionary {-}{}{}c}, \hyperpage{26}
+    \subitem {storage.\discretionary {-}{}{}h}, \hyperpage{30}
+  \item {storage\discretionary {-}{}{}\_\discretionary {-}{}{}query}
+    \subitem {storage.\discretionary {-}{}{}h}, \hyperpage{31}
+  \item {storage\discretionary {-}{}{}\_\discretionary {-}{}{}record}, 
+		\hyperpage{7}
+  \item {storage\discretionary {-}{}{}\_\discretionary {-}{}{}set}
+    \subitem {storage.\discretionary {-}{}{}c}, \hyperpage{26}
+    \subitem {storage.\discretionary {-}{}{}h}, \hyperpage{31}
+
+  \indexspace
+
+  \item {trim}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{23}
+
+  \indexspace
+
+  \item {update\discretionary {-}{}{}\_\discretionary {-}{}{}command}
+    \subitem {server.\discretionary {-}{}{}c}, \hyperpage{23}
+  \item {utils.\discretionary {-}{}{}c}, \hyperpage{32}
+    \subitem {generate\discretionary {-}{}{}\_\discretionary {-}{}{}encrypted\discretionary {-}{}{}\_\discretionary {-}{}{}password}, 
+		\hyperpage{33}
+    \subitem {get\discretionary {-}{}{}\_\discretionary {-}{}{}param}, 
+		\hyperpage{33}
+    \subitem {logger}, \hyperpage{34}
+    \subitem {read\discretionary {-}{}{}\_\discretionary {-}{}{}config}, 
+		\hyperpage{34}
+    \subitem {recvline}, \hyperpage{34}
+    \subitem {sendall}, \hyperpage{34}
+  \item {utils.\discretionary {-}{}{}h}, \hyperpage{35}
+    \subitem {D\discretionary {-}{}{}B\discretionary {-}{}{}G}, 
+		\hyperpage{36}
+    \subitem {generate\discretionary {-}{}{}\_\discretionary {-}{}{}encrypted\discretionary {-}{}{}\_\discretionary {-}{}{}password}, 
+		\hyperpage{36}
+    \subitem {get\discretionary {-}{}{}\_\discretionary {-}{}{}param}, 
+		\hyperpage{37}
+    \subitem {L\discretionary {-}{}{}O\discretionary {-}{}{}G}, 
+		\hyperpage{36}
+    \subitem {logger}, \hyperpage{37}
+    \subitem {read\discretionary {-}{}{}\_\discretionary {-}{}{}config}, 
+		\hyperpage{37}
+    \subitem {recvline}, \hyperpage{38}
+    \subitem {sendall}, \hyperpage{38}
+
+  \indexspace
+
+  \item {Y\discretionary {-}{}{}Y\discretionary {-}{}{}S\discretionary {-}{}{}T\discretionary {-}{}{}Y\discretionary {-}{}{}P\discretionary {-}{}{}E}, 
+		\hyperpage{9}
+  \item {yy\discretionary {-}{}{}\_\discretionary {-}{}{}bs\discretionary {-}{}{}\_\discretionary {-}{}{}column}
+    \subitem {yy\discretionary {-}{}{}\_\discretionary {-}{}{}buffer\discretionary {-}{}{}\_\discretionary {-}{}{}state}, 
+		\hyperpage{8}
+  \item {yy\discretionary {-}{}{}\_\discretionary {-}{}{}bs\discretionary {-}{}{}\_\discretionary {-}{}{}lineno}
+    \subitem {yy\discretionary {-}{}{}\_\discretionary {-}{}{}buffer\discretionary {-}{}{}\_\discretionary {-}{}{}state}, 
+		\hyperpage{8}
+  \item {yy\discretionary {-}{}{}\_\discretionary {-}{}{}buffer\discretionary {-}{}{}\_\discretionary {-}{}{}state}, 
+		\hyperpage{7}
+    \subitem {yy\discretionary {-}{}{}\_\discretionary {-}{}{}bs\discretionary {-}{}{}\_\discretionary {-}{}{}column}, 
+		\hyperpage{8}
+    \subitem {yy\discretionary {-}{}{}\_\discretionary {-}{}{}bs\discretionary {-}{}{}\_\discretionary {-}{}{}lineno}, 
+		\hyperpage{8}
+  \item {yy\discretionary {-}{}{}\_\discretionary {-}{}{}trans\discretionary {-}{}{}\_\discretionary {-}{}{}info}, 
+		\hyperpage{8}
+  \item {yyalloc}, \hyperpage{8}
+
+\end{theindex}

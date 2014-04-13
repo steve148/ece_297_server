@@ -1,0 +1,1424 @@
+/**
+ * @file
+ * @brief This file implements the storage server.
+ *
+ * The storage server should be named "server" and should take a single
+ * command line argument that refers to the configuration file.
+ *
+ * The storage server should be able to communicate with the client
+ * library functions declared in storage.h and implemented in storage.c.
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netdb.h>
+#include <string.h>
+#include <assert.h>
+#include <signal.h>
+#include "utils.h"
+#include <time.h>
+#include <stdbool.h>
+#include <ctype.h>
+#include <math.h>
+#include <sys/resource.h>
+
+#define MAX_LISTENQUEUELEN 20   ///< The maximum number of queued connections.
+#define storage_PERM 0 // FROM CONFIG FILE => 1 = permanent storage, 0 = memory
+#define MAX_NUM_OF_VAL 1 // FROM CONFIG FILE => replace
+
+FILE *fserverOut;
+
+/**
+ * @brief Check if key exists in the server
+ *
+ * @param key_to_search key to search for in server
+ * @param keys array holding all the key strings
+ * @param first_empty index of the first empty spot in keys & values
+ * @return returns true(1) if it exists, false(0) if it doesn't
+ */
+int key_exist(char key_to_search_for[MAX_KEY_LEN], char tables [MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num)
+{
+    int i = 0;
+    for (i = 0; i < first_empty; i++)
+    {
+        if (!strcmp(key_to_search_for, tables[table_num][0][i]))
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+char *trim(char *str)
+{
+    size_t len = 0;
+    char *frontp = str - 1;
+    char *endp = NULL;
+
+    if ( str == NULL )
+        return NULL;
+
+    if ( str[0] == '\0' )
+        return str;
+
+    len = strlen(str);
+    endp = str + len;
+
+    /* Move the front and back pointers to address
+     * the first non-whitespace characters from
+     * each end.
+     */
+    while ( isspace(*(++frontp)) );
+    while ( isspace(*(--endp)) && endp != frontp );
+
+    if ( str + len - 1 != endp )
+        *(endp + 1) = '\0';
+    else if ( frontp != str &&  endp == frontp )
+        *str = '\0';
+
+    /* Shift the string so that it starts at str so
+     * that if it's dynamically allocated, we can
+     * still free it on the returned pointer.  Note
+     * the reuse of endp to mean the front of the
+     * string buffer now.
+     */
+    endp = str;
+    if ( frontp != str )
+    {
+        while ( *frontp ) *endp++ = *frontp++;
+        *endp = '\0';
+    }
+
+
+    return str;
+}
+
+/**
+ * @brief Split a string and return one of the split strings.
+ *
+ * @param str string to be split
+ * @param to_return place to return the specified paramter in str
+ * @param param_num which index of the split str to return
+ * @return no return value
+ */
+void get_param(char str[MAX_VALUE_LEN], char to_return[MAX_VALUE_LEN], int param_num, char *delims)
+{
+    int i = 0;
+    char *pch;
+    pch = strtok (str, delims);
+
+    while (pch != NULL)
+    {
+        if (param_num - i > 0)
+        {
+            pch = strtok (NULL, delims);
+            i++;
+        }
+        else
+        {
+            break;
+        }
+    }
+    if (pch == NULL)
+    {
+        // param doesn't exist, something messed up
+        // don't need to catch it here, should be done in parsing
+        // of command in client.c or storage.c
+    }
+    else
+    {
+        strcpy(to_return, pch);
+    }
+}
+
+/**
+ * @brief Check if table exists in the server
+ *
+ * @param key_to_search key to search for in server
+ * @param keys array holding all the key strings
+ * @param first_empty index of the first empty spot in keys & values
+ * @return returns true(1) if it exists, false(0) if it doesn't
+ */
+int has_table(struct config_params params, char table_name[MAX_TABLE_LEN])
+{
+    int i;
+    for (i = 0; i < params.tablecount; i++)
+    {
+        if (!strcmp(table_name, params.mytables[i]))
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+int check_column_types(char val_to_set[MAX_VALUE_LEN], int num_columns, int table_num, char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10])
+{
+    int i, len_str;
+    char val[MAX_VALUE_LEN], strtoktemp[MAX_VALUE_LEN];
+
+    for (i = 1; i < num_columns; i++)
+    {
+
+        strcpy(strtoktemp, val_to_set);
+        get_param(strtoktemp, val, i, ",");
+
+        strcpy(strtoktemp, val);
+        get_param(strtoktemp, val, 1, " ");
+        trim(val);
+
+        len_str = strlen(val);
+
+        if (atoi(val) != 0 && len_str != (floor(log10(abs(atoi(val)))) + 1))
+        {
+            // val is an integer but has alpha characters in it
+            return -1;
+        }
+        // Is the value a string
+        if (strstr(column_types[table_num][i], "char") != NULL)
+        {
+
+            char temp[MAX_VALUE_LEN];
+            // Get the max size of the records in the string column
+            int start_recording = 0;
+            int index = 0, j;
+            for (j = 0; column_types[table_num][i][j] != '\0'; j++ )
+            {
+                if (column_types[table_num][i][j] == '[')
+                {
+                    start_recording = 1;
+                }
+                else if (column_types[table_num][i][j] == ']')
+                {
+                    start_recording = 0;
+                }
+                else if (start_recording)
+                {
+                    temp[index] = column_types[table_num][i][j];
+                    index++;
+                }
+            }
+            int col_size = atoi(temp);
+            if (col_size < len_str)
+            {
+                return -1;
+            }
+        }
+    }
+    return 1;
+}
+
+int check_mycolumns(char val_to_set[MAX_VALUE_LEN], int num_columns, int table_num, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+{
+    int i;
+    char val[MAX_VALUE_LEN], val_temp[MAX_VALUE_LEN], strtoktemp[MAX_VALUE_LEN];
+
+    for (i = 1; i < num_columns; i++)
+    {
+        strcpy(strtoktemp, val_to_set);
+        get_param(strtoktemp, val_temp, i, ",");
+
+        strcpy(strtoktemp, val_temp);
+        get_param(strtoktemp, val, 0, " ");
+
+        if (strcmp(val, mycolumns[table_num][i]))
+        {
+            return -1;
+        }
+    }
+    return 1;
+}
+
+int num_col_val(char val_to_set[MAX_VALUE_LEN], int num_columns)
+{
+    int i;
+    char val[MAX_VALUE_LEN], old_val[MAX_VALUE_LEN], strtoktemp[MAX_VALUE_LEN];
+    strcpy(old_val,"");
+
+    for (i = 0; i < num_columns; i++)
+    {
+        strcpy(strtoktemp, val_to_set);
+        get_param(strtoktemp, val, i, ",");
+        trim(val);
+        if (!strcmp(val, old_val))
+        {
+            //too few columns in val_to_set
+            return -1;
+        }
+        strcpy(old_val, val);
+    }
+    strcpy(strtoktemp, val_to_set);
+    get_param(strtoktemp, val, i-1, ",");
+    if (!strcmp(trim(val), old_val))
+    {
+        // correct number of columns in val_to_set
+        return 1;
+    }
+    // too many columns in val_to_set
+    return -1;
+}
+
+int parse_value(char val_to_set[MAX_VALUE_LEN], int first_empty, int table_num, struct config_params params)
+{
+    if (num_col_val(val_to_set, params.numcolumnspertable[table_num]) == -1 || check_mycolumns(val_to_set, params.numcolumnspertable[table_num], table_num, params.mycolumns) == -1 || check_column_types(val_to_set, params.numcolumnspertable[table_num], table_num, params.column_types) == -1)
+    {
+        return -1;
+    }
+    return 1;
+}
+
+int num_of_predicates(char predicates[MAX_VALUE_LEN], int num_columns)
+{
+    int i;
+    char pred[MAX_VALUE_LEN], old_pred[MAX_VALUE_LEN], strtoktemp[MAX_VALUE_LEN];
+    strcpy(old_pred, "");
+
+    for (i = 0; i < num_columns - 1; i++)
+    {
+        strcpy(strtoktemp, predicates);
+        get_param(strtoktemp, pred, i, ",");
+
+        if (!strcmp(pred, old_pred))
+        {
+            //too few columns in val_to_set
+            return 1;
+        }
+        strcpy(old_pred, pred);
+    }
+    strcpy(strtoktemp, predicates);
+    get_param(strtoktemp, pred, i, ",");
+    if (!strcmp(pred, old_pred))
+    {
+        // correct number of columns in val_to_set
+        return 1;
+    }
+    // too many columns in val_to_set
+    return -1;
+}
+
+char *get_column_type(char column_name[MAX_COLNAME_LEN], int num_columns, int table_num, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10])
+{
+    int i;
+    for (i = 1; i < num_columns; i ++)
+    {
+        if (!strcmp(mycolumns[table_num][i], column_name))
+        {
+            if (!strcmp(column_types[table_num][i], "int"))
+            {
+                return "int";
+            }
+            else
+            {
+                return "char";
+            }
+        }
+    }
+}
+
+int check_predicates(char predicates[MAX_VALUE_LEN], int num_columns, int table_num, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10])
+{
+    int i;
+    char strtoktemp[MAX_VALUE_LEN], pred[MAX_VALUE_LEN], old_pred[MAX_VALUE_LEN], operator[MAX_VALUE_LEN], column_name[MAX_COLNAME_LEN];
+
+    strcpy(old_pred, "");
+    for (i = 0; i < num_columns - 1; i++)
+    {
+        strcpy(strtoktemp, predicates);
+        get_param(strtoktemp, pred, i, ",\0");
+
+        if (!strcmp(pred, old_pred))
+        {
+            return 1;
+        }
+
+        strcpy(strtoktemp, pred);
+        get_param(strtoktemp, column_name, 0, " \0");
+        char *temp = get_column_type(column_name, num_columns, table_num, mycolumns, column_types);
+
+        if (!strcmp(temp, "int"))
+        {
+            strcpy(strtoktemp, pred);
+            get_param(strtoktemp, operator, 1, " \0");
+            if (strcmp(operator, "=") && strcmp(operator, ">") && strcmp(operator, "<"))
+            {
+                // Uses an illegal operator
+                return -1;
+            }
+        }
+        else
+        {
+            strcpy(strtoktemp, pred);
+            get_param(strtoktemp, operator, 1, " \0");
+            if (strcmp(operator, "="))
+            {
+                // Uses an illegal operator
+                return -1;
+            }
+        }
+        strcpy(old_pred, pred);
+    }
+    return 1;
+}
+
+int parse_predicates(char predicates[MAX_VALUE_LEN], int table_num, struct config_params params)
+{
+    if (num_of_predicates(predicates, params.numcolumnspertable[table_num]) == -1 || check_mycolumns(predicates, params.numcolumnspertable[table_num], table_num, params.mycolumns) || check_predicates(predicates, params.numcolumnspertable[table_num], table_num, params.mycolumns, params.column_types))
+    {
+        return -1;
+    }
+    return 1;
+}
+
+void get_all_values(char tables [MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], char row[MAX_VALUE_LEN], int table_num, int index, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+{
+    char value_temp[MAX_VALUE_LEN];
+    int i;
+    strcpy(value_temp, "");
+    for (i = 0; i < num_columns; i++ )
+    {
+        // Concatenate the column name to the value
+        if (i != 0)
+        {
+            strcat(value_temp, " , ");
+        }
+        strcat(value_temp, mycolumns[table_num][i]);
+        strcat(value_temp, " ");
+        strcat(value_temp, tables[table_num][i+1][index]);
+    }
+    strcpy(row, value_temp);
+}
+
+void set_all_values(char tables [MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], char value_to_set[MAX_VALUE_LEN], int table_num, int index, int num_columns)
+{
+    char strtoktemp[MAX_STRTYPE_SIZE], value_temp[MAX_VALUE_LEN], key_temp[MAX_KEY_LEN];
+    int i;
+    for (i = 0; i < num_columns + 1; i++)
+    {
+        if (i == 0)
+        {
+            strcpy(strtoktemp, value_to_set);
+            get_param(strtoktemp, key_temp, i, ",\0");
+            strcpy(strtoktemp, key_temp);
+            get_param(strtoktemp, key_temp, 1, " \0");
+            strcpy(tables[table_num][i][index], key_temp);
+        }
+        else
+        {
+            strcpy(strtoktemp, value_to_set);
+            get_param(strtoktemp, value_temp, i, ",\0");
+            strcpy(strtoktemp, value_temp);
+            get_param(strtoktemp, value_temp, 1, " \0");
+            strcpy(tables[table_num][i][index], value_temp);
+        }
+    }
+}
+
+/**
+ * @brief Get the specified value based on the key_to_get
+ *
+ * @param key_to_get key to serach for in keys
+ * @param tables main data structure
+ * @param first_empty index of the first empty spot in keys & values
+ * @param tablenum which table the get is being preformed on
+ * @param numcolumns number of columns in the table
+ * @return returns the value of the search (ERR_KEY_NOT_FOUND if it DNE)
+ */
+void get_command(char key_to_get[MAX_KEY_LEN], char value_to_get[MAX_VALUE_LEN], char tables [MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int tablenum, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+{
+    int index = 0, start = 0, i;
+    char val_to_ret[MAX_VALUE_LEN];
+    strcpy(val_to_ret,"");
+
+    if (first_empty == 0)
+    {
+        strcpy(value_to_get, "ERR_KEY_NOT_FOUND");
+        return;
+    }
+    while (index < first_empty)
+    {
+        if (!strcmp(tables[tablenum][0][index], key_to_get))
+        {
+            break;
+        }
+        index++;
+    }
+    if (index == first_empty && strcmp(tables[tablenum][0][index], key_to_get))
+    {
+        strcpy(value_to_get, "ERR_KEY_NOT_FOUND");
+        return;
+    }
+
+    get_all_values(tables, val_to_ret, tablenum, index, num_columns, mycolumns);
+    trim(val_to_ret);
+    strcpy(value_to_get, val_to_ret);
+}
+
+void get_command_perm(char key_to_get[MAX_KEY_LEN], FILE *fileLoadData, char value_to_get[MAX_VALUE_LEN])
+{
+
+    char loadLine[MAX_VALUE_LEN];
+    char loadLineTemp1[MAX_VALUE_LEN];
+    char loadlineTemp2[MAX_VALUE_LEN];
+    char *pch = NULL;
+
+    bool stopLoad;
+    bool firstPass;
+    bool found;
+    size_t lengthString;
+
+    firstPass = true;
+    stopLoad = false;
+    found = false;
+
+    strcpy(loadLine, "");
+    strcpy(loadLineTemp1, "");
+    strcpy(loadlineTemp2, "");
+    strcpy(value_to_get, "");
+
+    do
+    {
+        strcpy (loadLineTemp1, loadLine);
+        fgets(loadLine, MAX_VALUE_LEN, fileLoadData);
+
+        lengthString = strlen(loadLine) - 1;
+        if (loadLine[lengthString] == '\n')
+            loadLine[lengthString] = '\0';
+        strcpy (loadlineTemp2, loadLine);
+        pch = strtok (loadlineTemp2, ":");
+
+        if ( (firstPass == false) && (strcmp(loadLineTemp1, loadLine) == 0) )
+            stopLoad = true;
+        else
+        {
+            if (strcmp(loadlineTemp2, key_to_get) == 0)
+            {
+                found = true;
+                pch = strtok (NULL, ":");
+                strcpy(value_to_get, pch);
+            }
+        }
+
+        if (firstPass == true)
+            firstPass = false;
+
+    }
+    while (stopLoad == false);
+
+    if (found == false)
+        strcpy(value_to_get, "ERR_KEY_NOT_FOUND");
+
+}
+
+/**
+ * @brief Set the item using key_to_set and value_to_set
+ *
+ * @param key_to_set key to set
+ * @param value_to_set value to set
+ * @param keys array holding all the key strings
+ * @param values array holding all the value strings
+ * @param first_empty index of the first empty spot in keys & values
+ * @return returns success string if it works (ERR_UNKNOWN if table already at max)
+ */
+char *set_command(char key_to_set[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], char tables [MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+{
+
+    if (first_empty > MAX_RECORDS_PER_TABLE)
+    {
+        return "ERR_UNKNOWN";
+    }
+    char row[MAX_VALUE_LEN];
+    strcpy(row, "");
+    strcat(row, key_to_set);
+    strcat(row, ",");
+    strcat(row, value_to_set);
+    set_all_values(tables, row, table_num, first_empty, num_columns);
+    return "SUCCESS";
+}
+
+char *set_command_perm(char key_to_set[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], FILE *fileLoadData, FILE *fileWriteData)
+{
+
+    // Set, Update, Delete Functionality
+
+    char loadLine[MAX_VALUE_LEN];
+    char loadLineTemp1[MAX_VALUE_LEN];
+    char loadLineTemp2[MAX_VALUE_LEN];
+    char *pch = NULL;
+
+    bool stopLoad;
+    bool firstPass;
+    bool found;
+    bool insert;
+    bool deletef;
+
+    size_t lengthString;
+
+    strcpy(loadLine, "");
+    strcpy(loadLineTemp1, "");
+    strcpy(loadLineTemp2, "");
+
+    firstPass = true;
+    stopLoad = false;
+    insert = true;
+    deletef = false;
+
+    do
+    {
+        strcpy (loadLineTemp1, loadLine);
+        fgets(loadLine, 100, fileLoadData);
+
+        lengthString = strlen(loadLine) - 1;
+        if (loadLine[lengthString] == '\n')
+            loadLine[lengthString] = '\0';
+        strcpy (loadLineTemp2, loadLine);
+        pch = strtok (loadLineTemp2, ":");
+
+        if ( (firstPass == false) && (strcmp(loadLineTemp1, loadLine) == 0) )
+            stopLoad = true;
+        else
+        {
+            if (strcmp(loadLineTemp2, key_to_set) == 0)
+            {
+                insert = false;
+                if (deletef == false)
+                {
+                    fprintf(fileWriteData, "%s:", key_to_set);
+                    fprintf(fileWriteData, "%s", value_to_set);
+                    fprintf(fileWriteData, "\n");
+                }
+            }
+            else
+            {
+                if (strcmp(loadLine, "") != 0)
+                    fprintf(fileWriteData, "%s\n", loadLine);
+            }
+        }
+
+        if (firstPass == true)
+            firstPass = false;
+
+    }
+    while (stopLoad == false);
+
+    if (insert == true)
+    {
+        fprintf(fileWriteData, "%s:", key_to_set);
+        fprintf(fileWriteData, "%s", value_to_set);
+        fprintf(fileWriteData, "\n");
+    }
+    return "SUCCESS";
+}
+
+/**
+ * @brief Set the item using key_to_set and value_to_set
+ *
+ * @param key_to_update key to set
+ * @param value_to_update value to set
+ * @param keys array holding all the key strings
+ * @param values array holding all the value strings
+ * @param first_empty index of the first empty spot in keys & values
+ * @return returns success string if it works (always successful, due to key_exist() check)
+ */
+char *update_command(char key_to_update[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], char tables [MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+{
+
+    int index = 0;
+    char row[MAX_VALUE_LEN];
+    while (index < first_empty)
+    {
+        if (!strcmp(tables[table_num][0][index], key_to_update))
+        {
+            strcpy(row, "");
+            strcat(row, mycolumns[table_num][0]);
+            strcat(row, " ");
+            strcat(row, key_to_update);
+            strcat(row, ",");
+            strcat(row, value_to_set);
+            set_all_values(tables, row, table_num, index, num_columns);
+            return "SUCCESS";
+        }
+        index++;
+    }
+}
+
+int get_column_index(char column_name[MAX_COLNAME_LEN], char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], int table_num)
+{
+    int i;
+    for (i = 0; i < MAX_COLUMNS_PER_TABLE; i++)
+    {
+        if (!strcmp(column_name, mycolumns[table_num][i]))
+        {
+            return i;
+        }
+    }
+}
+
+int predicate_true(char predicate[MAX_VALUE_LEN], char tables [MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int table_num, int column_index, int row_index, char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10])
+{
+    char strtoktemp[MAX_VALUE_LEN], operator[MAX_VALUE_LEN], val_to_measure[MAX_VALUE_LEN];
+    int int_to_measure, val_in_table;
+
+    if (!strcmp(column_types[table_num][column_index], "int"))
+    {
+        // column is of type int
+        strcpy(strtoktemp, predicate);
+        get_param(strtoktemp, operator, 1, " \0");
+        strcpy(strtoktemp, predicate);
+        get_param(strtoktemp, val_to_measure, 2, " \0");
+
+        trim(operator);
+        trim(val_to_measure);
+        int_to_measure = atoi(val_to_measure);
+        val_in_table = atoi(tables[table_num][column_index][row_index]);
+        if (operator[0] == '>')
+        {
+            if (val_in_table > int_to_measure)
+            {
+                return 1;
+            }
+            return -1;
+        }
+        else if (operator[0] == '<')
+        {
+            if (val_in_table < int_to_measure)
+            {
+                return 1;
+            }
+            return -1;
+        }
+        else if (operator[0] == '=')
+        {
+            if (val_in_table == int_to_measure)
+            {
+                return 1;
+            }
+            return -1;
+        }
+    }
+    else
+    {
+        // column is of type int, only operator is '='
+        strcpy(strtoktemp, predicate);
+        get_param(strtoktemp, val_to_measure, 2, " \0");
+        if (!strcmp(val_to_measure, tables[table_num][column_index][row_index]))
+        {
+            // String equals the predicate value
+            return 1;
+        }
+        // String does not equal the predicate value
+        return -1;
+    }
+}
+
+int predicates_true(char predicates[MAX_VALUE_LEN], char tables [MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int num_columns, int table_num, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10], int row_index)
+{
+    char strtoktemp[MAX_VALUE_LEN], pred[MAX_VALUE_LEN], old_pred[MAX_VALUE_LEN], column_name[MAX_COLNAME_LEN];
+    int index = 0, col_index;
+
+    strcpy(old_pred, "");
+    strcpy(strtoktemp, predicates);
+    get_param(strtoktemp, pred, index, ",\0");
+
+    while (!strcmp(pred, old_pred))
+    {
+        strcpy(strtoktemp, pred);
+        get_param(strtoktemp, column_name, 0, " \0");
+
+        col_index = get_column_index(column_name, mycolumns, table_num);
+        if (predicate_true(pred, tables, table_num, col_index, row_index, column_types) == -1)
+        {
+            return -1;
+        }
+        index++;
+        strcpy(old_pred, pred);
+
+        strcpy(strtoktemp, predicates);
+        get_param(strtoktemp, pred, index, ",\0");
+    }
+    return 1;
+}
+
+/**
+ * @brief Set the item using key_to_set and value_to_set
+ *
+ * @param key_to_update key to set
+ * @param value_to_update value to set
+ * @param keys array holding all the key strings
+ * @param values array holding all the value strings
+ * @param first_empty index of the first empty spot in keys & values
+ * @return returns success string if it works (always successful, due to key_exist() check)
+ */
+void query_command(int sock, char predicates[MAX_VALUE_LEN], char tables [MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10])
+{
+    int matched_lines[MAX_RECORDS_PER_TABLE];
+    char comm_string[MAX_CMD_LEN], value_temp[MAX_VALUE_LEN];
+    int i, index = 0;
+    strcpy(comm_string, "");
+
+    for (i = 0; i < first_empty; i++ )
+    {
+        if (predicates_true(predicates, tables, num_columns, table_num, mycolumns, column_types, i))
+        {
+            matched_lines[index] = i;
+            index++;
+        }
+    }
+
+    if (!index)
+    {
+        // There are no records in the table that match the predicates
+        strcpy(comm_string, "ERR_KEY_NOT_FOUND");
+        sendall(sock, comm_string, strlen(comm_string));
+        sendall(sock, "\n", 1);
+    }
+
+    for (i = 0; i < index; i++)
+    {
+        get_all_values(tables, value_temp, table_num, matched_lines[i], num_columns, mycolumns);
+        sprintf(comm_string, "%d", index - 1 - i);
+        strcat(comm_string, ";");
+        strcat(comm_string, value_temp);
+        sendall(sock, comm_string, strlen(comm_string));
+        sendall(sock, "\n", 1);
+
+        int wait_for_commands = 1;
+        do
+        {
+            // Read a line from the client.
+            char cmd[MAX_CMD_LEN];
+            int status = recvline(sock, cmd, MAX_CMD_LEN);
+            if (status != 0)
+            {
+                // Either an error occurred or the client closed the connection.
+                wait_for_commands = 0;
+            }
+            else
+            {
+                // Handle the command from the client.
+                if (strstr(cmd, "SUCCESS"))
+                    wait_for_commands = 0; // Got the message, don't need to wait anymore
+            }
+        }
+        while (wait_for_commands);
+    }
+}
+
+/**
+ * @brief Delete the item in the server based on key_to_delete
+ *
+ * @param key_to_delete key to set
+ * @param keys array holding all the key strings
+ * @param values array holding all the value strings
+ * @param first_empty index of the first empty spot in keys & values
+ * @return returns success string if it works (ERR_KEY_NOT_FOUND if key_to_delete DNE in keys)
+ */
+char *delete_command(char key_to_delete[MAX_KEY_LEN], char tables [MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN] )
+{
+    char row[MAX_VALUE_LEN];
+    int index = 0;
+    if (first_empty == 0)
+    {
+        return "ERR_KEY_NOT_FOUND";
+    }
+    while (index < first_empty)
+    {
+        if (!strcmp(tables[table_num][0][index], key_to_delete))
+        {
+            break;
+        }
+        index++;
+    }
+    if (index == first_empty)
+    {
+        return "ERR_KEY_NOT_FOUND";
+    }
+    while (index < first_empty)
+    {
+        strcpy(row, "");
+        get_all_values(tables, row, table_num, index + 1, num_columns, mycolumns);
+        set_all_values(tables, row, table_num, index, num_columns);
+        index++;
+    }
+    return "SUCCESS";
+}
+
+char *delete_command_perm(char key_to_set[MAX_KEY_LEN], FILE *fileLoadData, FILE *fileWriteData)
+{
+
+    // Set, Update, Delete Functionality
+
+    char loadLine[MAX_VALUE_LEN];
+    char loadLineTemp1[MAX_VALUE_LEN];
+    char loadLineTemp2[MAX_VALUE_LEN];
+    char *pch = NULL;
+
+    bool stopLoad;
+    bool firstPass;
+    bool found;
+    bool insert;
+    bool deletef;
+
+    size_t lengthString;
+
+    strcpy(loadLine, "");
+    strcpy(loadLineTemp1, "");
+    strcpy(loadLineTemp2, "");
+
+    firstPass = true;
+    stopLoad = false;
+    insert = true;
+    deletef = true;
+
+    do
+    {
+        strcpy (loadLineTemp1, loadLine);
+        fgets(loadLine, 100, fileLoadData);
+
+        lengthString = strlen(loadLine) - 1;
+        if (loadLine[lengthString] == '\n')
+            loadLine[lengthString] = '\0';
+        strcpy (loadLineTemp2, loadLine);
+        pch = strtok (loadLineTemp2, ":");
+
+        if ( (firstPass == false) && (strcmp(loadLineTemp1, loadLine) == 0) )
+            stopLoad = true;
+        else
+        {
+            if (strcmp(loadLineTemp2, key_to_set) == 0)
+            {
+                insert = false;
+            }
+        }
+
+        if (firstPass == true)
+            firstPass = false;
+
+    }
+    while (stopLoad == false);
+
+    if (insert == true)
+        return "ERR_KEY_NOT_FOUND";
+
+    return "SUCCESS";
+}
+
+/**
+ * @brief Process a command from the client.
+ *
+ * @param sock The socket connected to the client.
+ * @param params struct that holds all the key config_file information
+ * @param cmd The command received from the client.
+ * @param keys array holding all the key strings
+ * @param values array holding all the value strings
+ * @param *first_empty index of the first empty spot in keys & values
+ * @param *auth_var variable that keeps track if client is authorized or not
+ * @return Returns 0 on success, -1 otherwise.
+ */
+int handle_command(int sock, struct config_params params, char cmd[MAX_CMD_LEN], char tables [MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty[MAX_TABLES], int *auth_var)
+{
+
+    char key_temp[MAX_KEY_LEN];
+    char value_temp[MAX_VALUE_LEN];
+    char strtok_temp[MAX_CMD_LEN];
+    char username_temp[MAX_USERNAME_LEN];
+    char passwd_temp[MAX_ENC_PASSWORD_LEN];
+    char update_value_temp[MAX_VALUE_LEN];
+    char table_temp[MAX_TABLE_LEN];
+    char pred_temp[MAX_VALUE_LEN];
+
+    char *is_auth = strstr(cmd, "AUTH");
+    char *is_get = strstr(cmd, "GET");
+    char *is_set = strstr(cmd, "SET");
+    char *is_delete = strstr(cmd, "DELETE");
+    char *is_query = strstr(cmd, "QUERY");
+
+    int table_index;
+
+    // AUTH comand called
+    if (is_auth)
+    {
+        // Get the username and password from the communication string
+        strcpy(strtok_temp, cmd);
+        get_param(strtok_temp, username_temp, 1, ";\0");
+        strcpy(strtok_temp, cmd);
+        get_param(strtok_temp, passwd_temp, 2, ";\0");
+
+        if (!strcmp(params.username, username_temp) && !strcmp(params.password, passwd_temp))
+        {
+            // Username and password from client cmd are the same as in the config file
+            *auth_var = 1;
+            strcpy(value_temp, "SUCCESS");
+            sendall(sock, value_temp, strlen(value_temp));
+            sendall(sock, "\n", 1);
+        }
+        else
+        {
+            // Username and password from client cmd are not the same as in the config file
+            strcpy(value_temp, "ERR_AUTHENTICATION_FAILED");
+            sendall(sock, value_temp, strlen(value_temp));
+            sendall(sock, "\n", 1);
+            return -1;
+        }
+    }
+    else if (is_get)
+    {
+        if (*auth_var)
+        {
+            // Get table name from cmd
+            strcpy(strtok_temp, cmd);
+            get_param(strtok_temp, table_temp, 1, ";\0");
+
+            table_index = has_table(params, table_temp);
+            if (table_index == -1)
+            {
+                // table name doesn't exist in the config file / server
+                strcpy(value_temp, "ERR_TABLE_NOT_FOUND");
+                sendall(sock, value_temp, strlen(value_temp));
+                sendall(sock, "\n", 1);
+                return -1;
+            }
+            // table exists in config file, continue
+
+            // Get key name from cmd
+            strcpy(strtok_temp, cmd);
+            get_param(strtok_temp, key_temp, 2, ";\0");
+
+            if (storage_PERM == 0)
+            {
+                // Use memory for server storage
+                get_command(key_temp, value_temp, tables, first_empty[table_index], table_index, params.numcolumnspertable[table_index], params.mycolumns);
+                sendall(sock, value_temp, strlen(value_temp));
+                sendall(sock, "\n", 1);
+            }
+            else
+            {
+                FILE *fileLoadData;
+                char tablenamestring[MAX_TABLE_LEN + 100];
+                char datadirectory[MAX_TABLE_LEN + 100];
+                strcpy(datadirectory, "data/"); // from config file !!! REPLACE W/ PARSING
+                strcpy(tablenamestring, table_temp);
+                strcat(tablenamestring, "_tbl.txt");
+                strcat(datadirectory, tablenamestring);
+                fileLoadData = fopen (datadirectory, "rt");
+                get_command_perm(key_temp, fileLoadData, value_temp);
+                fclose(fileLoadData);
+                sendall(sock, value_temp, strlen(value_temp));
+                sendall(sock, "\n", 1);
+            }
+        }
+        else
+        {
+            // Client is not authenticated to the server yet
+            strcpy(value_temp, "ERR_NOT_AUTHENTICATED");
+            sendall(sock, value_temp, strlen(value_temp));
+            sendall(sock, "\n", 1);
+            return -1;
+        }
+    }
+    else if (is_set)
+    {
+        if (*auth_var)
+        {
+            // Client is authenticated
+
+            // Get the table name from cmd
+            strcpy(strtok_temp, cmd);
+            get_param(strtok_temp, table_temp, 1, ";\0");
+
+            table_index = has_table(params, table_temp);
+            if (table_index == -1)
+            {
+                // table name DNE in the config params
+                strcpy(value_temp, "ERR_TABLE_NOT_FOUND");
+                sendall(sock, value_temp, strlen(value_temp));
+                sendall(sock, "\n", 1);
+                return -1;
+            }
+            // table does exist in config params
+
+            // Get the key and value to store from cmd
+            strcpy(strtok_temp, cmd);
+            get_param(strtok_temp, key_temp, 2, ";\0");
+            strcpy(strtok_temp, cmd);
+            get_param(strtok_temp, value_temp, 3, ";\0");
+
+            if (storage_PERM == 0)
+            {
+                // Use memory for storing the server
+                if (key_exist(key_temp, tables, first_empty[table_index], table_index))
+                {
+                    // Key exists, do an update
+                	trim(value_temp);
+                    if (parse_value(value_temp, first_empty[table_index], table_index, params) == 1)
+                    {
+                        // value string matches the setup of the table
+                        strcpy(update_value_temp, update_command(key_temp, value_temp, tables, first_empty[table_index], table_index, params.numcolumnspertable[table_index], params.mycolumns));
+                        sendall(sock, update_value_temp, strlen(value_temp));
+                        sendall(sock, "\n", 1);
+                    }
+                    else
+                    {
+                        // value string does not match the setup of the table
+                        strcpy(update_value_temp, "ERR_INVALID_PARAM");
+                        sendall(sock, update_value_temp, strlen(update_value_temp));
+                        sendall(sock, "\n", 1);
+                        return -1;
+                    }
+                }
+                else
+                {
+                    if (parse_value(value_temp, first_empty[table_index], table_index, params) == 1)
+                    {
+                        // value string matches the setup of the table
+                        strcpy(value_temp, set_command(key_temp, value_temp, tables, first_empty[table_index], table_index, params.numcolumnspertable[table_index], params.mycolumns));
+                        sendall(sock, value_temp, strlen(value_temp));
+                        sendall(sock, "\n", 1);
+                        first_empty[table_index] = first_empty[table_index] + 1;
+                    }
+                    else
+                    {
+                        // value string does not match the setup of the table
+                        strcpy(update_value_temp, "ERR_INVALID_PARAM");
+                        sendall(sock, update_value_temp, strlen(update_value_temp));
+                        sendall(sock, "\n", 1);
+                        return -1;
+                    }
+                }
+            }
+            else
+            {
+                if (parse_value(value_temp, first_empty[table_index], table_index, params))
+                {
+
+                    // check if matches set up
+                    FILE *fileLoadData;
+                    FILE *fileWriteData;
+
+                    char tablenamestring[MAX_TABLE_LEN + 100];
+                    char datadirectory[MAX_TABLE_LEN + 100];
+
+                    char tablenamestringTEMP[MAX_TABLE_LEN + 104];
+                    char datadirectoryTEMP[MAX_TABLE_LEN + 104];
+
+                    strcpy(datadirectory, "data/"); // from config file !!! REPLACE W/ PARSING
+
+                    strcpy(tablenamestring, table_temp);
+                    strcpy (tablenamestringTEMP, tablenamestring);
+                    strcat(tablenamestring, "_tbl.txt");
+                    strcat(tablenamestringTEMP, "_tbl_TEMP.txt");
+                    strcat(datadirectory, tablenamestring);
+                    strcat(datadirectoryTEMP, tablenamestringTEMP);
+                    fileLoadData = fopen (datadirectory, "rt");
+                    fileWriteData = fopen (datadirectoryTEMP, "w");
+                    strcpy(update_value_temp, set_command_perm(key_temp, value_temp, fileLoadData, fileWriteData));
+                    fclose(fileLoadData);
+                    fclose(fileWriteData);
+
+                    remove (datadirectory);
+                    rename (datadirectoryTEMP, datadirectory);
+
+                    sendall(sock, value_temp, strlen(value_temp));
+                    sendall(sock, "\n", 1);
+                }
+                else
+                {
+                    // value string does not match the setup of the table
+                    strcpy(update_value_temp, "ERR_INVALID_PARAM");
+                    sendall(sock, update_value_temp, strlen(update_value_temp));
+                    sendall(sock, "\n", 1);
+                    return -1;
+                }
+
+            }
+        }
+        else
+        {
+            strcpy(value_temp, "ERR_NOT_AUTHENTICATED");
+            sendall(sock, value_temp, strlen(value_temp));
+            sendall(sock, "\n", 1);
+            return -1;
+        }
+    }
+    else if (is_query)
+    {
+        if (*auth_var)
+        {
+            // Client is authorized to access server
+
+            // Get the table name from the command
+            strcpy(strtok_temp, cmd);
+            get_param(strtok_temp, table_temp, 1, ";\0");
+
+            table_index = has_table(params, table_temp);
+            if (table_index == -1)
+            {
+                // table name DNE in the config params
+                strcpy(value_temp, "ERR_TABLE_NOT_FOUND");
+                sendall(sock, value_temp, strlen(value_temp));
+                sendall(sock, "\n", 1);
+                return -1;
+            }
+            // Table does exist in the config_params
+
+            strcpy(strtok_temp, cmd);
+            get_param(strtok_temp, pred_temp, 2, ";\0");
+
+            if (parse_predicates(pred_temp, table_index, params))
+            {
+                query_command(sock, pred_temp, tables, first_empty[table_index], table_index, params.numcolumnspertable[table_index], params.mycolumns, params.column_types);
+                return 1;
+            }
+            else
+            {
+                strcpy(value_temp, "ERR_INVALID_PARAM");
+                sendall(sock, value_temp, strlen(value_temp));
+                sendall(sock, "\n", 1);
+                return -1;
+            }
+        }
+        else
+        {
+            strcpy(value_temp, "ERR_NOT_AUTHENTICATED");
+            sendall(sock, value_temp, strlen(value_temp));
+            sendall(sock, "\n", 1);
+            return -1;
+        }
+    }
+    else if (is_delete)
+    {
+        if (*auth_var)
+        {
+            // Client is authorized to access server
+
+            // Get the table name from the command
+            strcpy(strtok_temp, cmd);
+            get_param(strtok_temp, table_temp, 1, ";\0");
+
+            if (!has_table(params, table_temp))
+            {
+                // Table does not exist in the config_params
+                strcpy(value_temp, "ERR_TABLE_NOT_FOUND");
+                sendall(sock, value_temp, strlen(value_temp));
+                sendall(sock, "\n", 1);
+                return -1;
+            }
+            // Table does exist in the config_params
+
+            // Get the key of the value to delete
+            strcpy(strtok_temp, cmd);
+            get_param(strtok_temp, key_temp, 2, ";\0");
+
+            if (storage_PERM == 0)
+            {
+                // Use memory for storing the server
+                strcpy(value_temp, delete_command(key_temp, tables, first_empty[table_index], table_index, params.numcolumnspertable[table_index], params.mycolumns));
+                (*first_empty)--;
+                sendall(sock, value_temp, strlen(value_temp));
+                sendall(sock, "\n", 1);
+            }
+            else
+            {
+
+                FILE *fileLoadData;
+                FILE *fileWriteData;
+
+                char tablenamestring[MAX_TABLE_LEN + 100];
+                char datadirectory[MAX_TABLE_LEN + 100];
+
+                char tablenamestringTEMP[MAX_TABLE_LEN + 104];
+                char datadirectoryTEMP[MAX_TABLE_LEN + 104];
+
+                strcpy(datadirectory, "data/"); // from config file !!! REPLACE W/ PARSING
+                strcpy(tablenamestring, table_temp);
+                strcpy (tablenamestringTEMP, tablenamestring);
+                strcat(tablenamestring, "_tbl.txt");
+                strcat(tablenamestringTEMP, "_tbl_TEMP.txt");
+                strcat(datadirectory, tablenamestring);
+                strcat(datadirectoryTEMP, tablenamestringTEMP);
+                fileLoadData = fopen (datadirectory, "rt");
+                fileWriteData = fopen (datadirectoryTEMP, "w");
+                strcpy(value_temp, delete_command_perm(key_temp, fileLoadData, fileWriteData));
+                fclose(fileLoadData);
+                fclose(fileWriteData);
+
+                remove (datadirectory);
+                rename (datadirectoryTEMP, datadirectory);
+
+                sendall(sock, value_temp, strlen(value_temp));
+                sendall(sock, "\n", 1);
+            }
+        }
+        else
+        {
+            strcpy(value_temp, "ERR_NOT_AUTHENTICATED");
+            sendall(sock, value_temp, strlen(value_temp));
+            sendall(sock, "\n", 1);
+            return -1;
+        }
+    }
+    else
+    {
+        strcpy(value_temp, "ERR_UNKNOWN");
+        sendall(sock, value_temp, strlen(value_temp));
+        return -1;
+    }
+    return 0;
+}
+
+
+/**
+ * @brief Start the storage server.
+ *
+ * This is the main entry point for the storage server.  It reads the
+ * configuration file, starts listening on a port, and proccesses
+ * commands from clients.
+ */
+int main(int argc, char *argv[])
+{
+<<<<<<< .mine
+    static char tables [MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE];
+    int first_empty[MAX_TABLES], is_auth = 0;
+    struct config_params params;
+
+=======
+	static char tables [MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE];
+>>>>>>> .r77
+<<<<<<< .mine
+    time_t rawtime;
+    struct tm *timeinfo;
+    char timeStamp [50];
+
+    time (&rawtime);
+    timeinfo = localtime (&rawtime);
+=======
+	printf("It gets to here\n");
+	int first_empty[MAX_TABLES], is_auth = 0;
+	printf("It gets to here\n");
+	struct config_params params;
+>>>>>>> .r77
+
+    strftime (timeStamp, 50, "Server-%F-%H-%M-%S.log", timeinfo);
+    if (LOGGING_SERVER == 2)
+    {
+        fserverOut = fopen (timeStamp, "w+");
+    }
+    // Process command line arguments.
+    // This program expects exactly one argument: the config file name.
+    assert(argc > 0);
+    if (argc != 2)
+    {
+        printf("Usage %s <config_file>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+    char *config_file = argv[1];
+
+    // Read the config file.
+
+    int status = read_config(config_file, &params);
+    if (status != 0)
+    {
+        printf("Error processing config file.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    char log_message_serveron[150];
+    sprintf(log_message_serveron, "Server on %s:%d\n", params.server_host, params.server_port);
+    logger(fserverOut, log_message_serveron, LOGGING_SERVER);
+
+    // Create a socket.
+    int listensock = socket(PF_INET, SOCK_STREAM, 0);
+    if (listensock < 0)
+    {
+        printf("Error creating socket.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Allow listening port to be reused if defunct.
+    int yes = 1;
+    status = setsockopt(listensock, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof yes);
+    if (status != 0)
+    {
+        printf("Error configuring socket.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Bind it to the listening port.
+    struct sockaddr_in listenaddr;
+    memset(&listenaddr, 0, sizeof listenaddr);
+    listenaddr.sin_family = AF_INET;
+    listenaddr.sin_port = htons(params.server_port);
+    inet_pton(AF_INET, params.server_host, &(listenaddr.sin_addr)); // bind to local IP address
+    status = bind(listensock, (struct sockaddr *) &listenaddr, sizeof listenaddr);
+    if (status != 0)
+    {
+        printf("Error binding socket.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Listen for connections.
+    status = listen(listensock, MAX_LISTENQUEUELEN);
+    if (status != 0)
+    {
+        printf("Error listening on socket.\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // Listen loop.
+    int wait_for_connections = 1;
+    while (wait_for_connections)
+    {
+        // Wait for a connection.
+        struct sockaddr_in clientaddr;
+        socklen_t clientaddrlen = sizeof clientaddr;
+        int clientsock = accept(listensock, (struct sockaddr *)&clientaddr, &clientaddrlen);
+        if (clientsock < 0)
+        {
+            printf("Error accepting a connection.\n");
+            exit(EXIT_FAILURE);
+        }
+
+        char log_message_getconnection[150];
+        sprintf(log_message_getconnection, "Got a connection from %s:%d.\n", inet_ntoa(clientaddr.sin_addr), clientaddr.sin_port);
+        logger(fserverOut, log_message_getconnection, LOGGING_SERVER);
+
+        // Get commands from client.edit
+        int wait_for_commands = 1;
+        do
+        {
+            // Read a line from the client.
+            char cmd[MAX_CMD_LEN];
+            int status = recvline(clientsock, cmd, MAX_CMD_LEN);
+            if (status != 0)
+            {
+                // Either an error occurred or the client closed the connection.
+                wait_for_commands = 0;
+            }
+            else
+            {
+                // Handle the command from the client.
+                int status = handle_command(clientsock, params, cmd, tables, first_empty, &is_auth);
+                if (status !=    0)
+                    wait_for_commands = 0; // Oops.  An error occured.
+            }
+        }
+        while (wait_for_commands);
+
+        // Close the connection with the client.
+        close(clientsock);
+        is_auth = 0;
+
+        char log_message_closeconnection[150];
+        sprintf(log_message_closeconnection, "Closed connection from %s:%d.\n", inet_ntoa(clientaddr.sin_addr), clientaddr.sin_port);
+        logger(fserverOut, log_message_closeconnection, LOGGING_SERVER);
+    }
+
+    // Stop listening for connections.
+    close(listensock);
+
+    return EXIT_SUCCESS;
+}
+

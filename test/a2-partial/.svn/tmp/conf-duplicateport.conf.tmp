@@ -1,0 +1,15 @@
+<<<<<<< .mine
+server_host localhost
+server_port 6066
+server_port 2222
+username admin
+password xxxnq.BMCifhU
+table foo
+=======
+server_host localhost
+server_port 6355
+server_port 2222
+username admin
+password xxxnq.BMCifhU
+table foo
+>>>>>>> .r133

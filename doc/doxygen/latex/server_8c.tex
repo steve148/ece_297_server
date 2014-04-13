@@ -1,0 +1,1069 @@
+\hypertarget{server_8c}{\section{server.\-c File Reference}
+\label{server_8c}\index{server.\-c@{server.\-c}}
+}
+
+
+This file implements the storage server.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
+{\ttfamily \#include $<$sys/types.\-h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\-h$>$}\\*
+{\ttfamily \#include $<$arpa/inet.\-h$>$}\\*
+{\ttfamily \#include $<$netdb.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$assert.\-h$>$}\\*
+{\ttfamily \#include $<$signal.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}utils.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$time.\-h$>$}\\*
+{\ttfamily \#include $<$stdbool.\-h$>$}\\*
+{\ttfamily \#include $<$ctype.\-h$>$}\\*
+{\ttfamily \#include $<$math.\-h$>$}\\*
+{\ttfamily \#include $<$sys/resource.\-h$>$}\\*
+{\ttfamily \#include $<$sys/stat.\-h$>$}\\*
+{\ttfamily \#include $<$pthread.\-h$>$}\\*
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{server_8c_a36b090ddf192f97d9fecf8ff5a98996e}{\#define \hyperlink{server_8c_a36b090ddf192f97d9fecf8ff5a98996e}{M\-A\-X\-\_\-\-L\-I\-S\-T\-E\-N\-Q\-U\-E\-U\-E\-L\-E\-N}~20}\label{server_8c_a36b090ddf192f97d9fecf8ff5a98996e}
+
+\begin{DoxyCompactList}\small\item\em The maximum number of queued connections. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{server_8c_ac4345ba7989eed70b19d584d8df55d7e}{key\-\_\-exist} (char key\-\_\-to\-\_\-search\-\_\-for\mbox{[}\hyperlink{storage_8h_ad91bfaf106e42aa552f1605c5b8a9ef2}{M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N}\mbox{]}, int first\-\_\-empty, int table\-\_\-num)
+\begin{DoxyCompactList}\small\item\em Check if key exists in the server. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{server_8c_abd2fb51ab5a17288cdf4d0c2ffc6beb3}{get\-\_\-column\-\_\-type} (char column\-\_\-name\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns, int table\-\_\-num, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, char column\-\_\-types\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}10\mbox{]})
+\begin{DoxyCompactList}\small\item\em Get the name of the column based on name given to search for. \end{DoxyCompactList}\item 
+void \hyperlink{server_8c_a6d7947e031e9aefdd998ebb9872b0a89}{split\-\_\-query\-\_\-get\-\_\-column} (char pred\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, char ret\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Get the column name from a query predicate. \end{DoxyCompactList}\item 
+void \hyperlink{server_8c_aa95f1890335c4fc794e4566d8ae3ad61}{split\-\_\-query\-\_\-get\-\_\-value} (char pred\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, char ret\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Get the comparison value from a query predicate. \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{server_8c_a06798d058792d39a2eb6f3b784ae1532}{trim} (char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Remove whitespace from beginning and end of string. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_a26122d608fea873614895976a63dea05}{has\-\_\-table} (char table\-\_\-name\mbox{[}\hyperlink{storage_8h_ae7854bc280576d57ec5c80995d5ea94c}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-\_\-\-L\-E\-N}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Check if table exists in the server. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_a987d9928862a44ca91238947d84362f6}{has\-\_\-column} (char col\-\_\-to\-\_\-search\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns, int table\-\_\-num)
+\begin{DoxyCompactList}\small\item\em Check if table exists in the server. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_ac2d55273fd82b8bf4c0ebc7b981a67e4}{check\-\_\-column\-\_\-types} (char val\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns, int table\-\_\-num, char column\-\_\-types\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}10\mbox{]})
+\begin{DoxyCompactList}\small\item\em Check if the column types match the values given. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_a05ed999d057f20b4305dbb49f1feaece}{check\-\_\-mycolumns} (char val\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns, int table\-\_\-num, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Check if the value has the correct matching column names. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_aca78ee0cd989674d75af0350dd141319}{num\-\_\-col\-\_\-val} (char val\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns)
+\begin{DoxyCompactList}\small\item\em Check if the value has the correct number of columns. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_acd5ca6d0d7a4ef941fc7fb68fcfc84a6}{parse\-\_\-value} (char val\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int table\-\_\-num)
+\begin{DoxyCompactList}\small\item\em Checks if the value passes all parsing. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_a3d464ce1a95d6883220042500f998eb7}{check\-\_\-predicates} (char predicates\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns, int table\-\_\-num, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, char column\-\_\-types\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}10\mbox{]}, int num\-\_\-pred)
+\begin{DoxyCompactList}\small\item\em Check if all the predicates in the string are formatted correctly. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_a2a84645f2f244d5751250b88b21be88c}{check\-\_\-mycolumns\-\_\-pred} (char pred\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns, int table\-\_\-num, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-pred)
+\begin{DoxyCompactList}\small\item\em Check if the predicate has the correct matching column names. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_ad9859876442b8f4c102395051e87a818}{num\-\_\-of\-\_\-predicates} (char predicates\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns)
+\begin{DoxyCompactList}\small\item\em Check if the predicate string has the correct number of predicates. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_adbcf898f1e1bcdf0a798e15fe0cdfb4c}{parse\-\_\-predicates} (char predicates\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int table\-\_\-num)
+\begin{DoxyCompactList}\small\item\em Umbrella function for all predicate parsing. \end{DoxyCompactList}\item 
+void \hyperlink{server_8c_af514264bb0a833600274010d575cdcc1}{get\-\_\-command} (char key\-\_\-to\-\_\-get\mbox{[}\hyperlink{storage_8h_ad91bfaf106e42aa552f1605c5b8a9ef2}{M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N}\mbox{]}, char value\-\_\-to\-\_\-get\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int first\-\_\-empty, int table\-\_\-num)
+\begin{DoxyCompactList}\small\item\em Get the specified value based on the key\-\_\-to\-\_\-get. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_aed6550876e909ec97ea92f06f2ba5d3f}{void {\bfseries get\-\_\-command\-\_\-perm} (char key\-\_\-to\-\_\-get\mbox{[}\hyperlink{storage_8h_ad91bfaf106e42aa552f1605c5b8a9ef2}{M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N}\mbox{]}, F\-I\-L\-E $\ast$file\-Load\-Data, char value\-\_\-to\-\_\-get\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]})}\label{server_8c_aed6550876e909ec97ea92f06f2ba5d3f}
+
+\item 
+\hypertarget{server_8c_a258d8e2aa2d879c6a9d06f864773a68a}{void {\bfseries get\-\_\-command\-\_\-specific\-\_\-perm} (int line\-Number, F\-I\-L\-E $\ast$file\-Load\-Data, char value\-\_\-to\-\_\-get\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]})}\label{server_8c_a258d8e2aa2d879c6a9d06f864773a68a}
+
+\item 
+char $\ast$ \hyperlink{server_8c_a309d3355e6dbf8291c56a848b0ec5c31}{set\-\_\-command} (char key\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_ad91bfaf106e42aa552f1605c5b8a9ef2}{M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N}\mbox{]}, char value\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int first\-\_\-empty, int table\-\_\-num)
+\begin{DoxyCompactList}\small\item\em Set the item using key\-\_\-to\-\_\-set and value\-\_\-to\-\_\-set. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_abfe29c8cb2e722379fc7d75f69d391db}{char $\ast$ {\bfseries set\-\_\-command\-\_\-perm} (char key\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_ad91bfaf106e42aa552f1605c5b8a9ef2}{M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N}\mbox{]}, char value\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, F\-I\-L\-E $\ast$file\-Load\-Data, F\-I\-L\-E $\ast$file\-Write\-Data)}\label{server_8c_abfe29c8cb2e722379fc7d75f69d391db}
+
+\item 
+char $\ast$ \hyperlink{server_8c_a28f4d703d02316c3d135d6b7f0c5bcf5}{update\-\_\-command} (char key\-\_\-to\-\_\-update\mbox{[}\hyperlink{storage_8h_ad91bfaf106e42aa552f1605c5b8a9ef2}{M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N}\mbox{]}, char value\-\_\-to\-\_\-update\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int record\-\_\-loc, int table\-\_\-num, unsigned long int meta\-\_\-data\-\_\-recieved)
+\begin{DoxyCompactList}\small\item\em Set the item using key\-\_\-to\-\_\-set and value\-\_\-to\-\_\-set. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_ad8349c60c5abdbf00dcab7345afa05e9}{get\-\_\-column\-\_\-index} (char column\-\_\-name\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, int table\-\_\-num)
+\begin{DoxyCompactList}\small\item\em Get the index of the column based on the column name given. \end{DoxyCompactList}\item 
+int \hyperlink{server_8c_a519be3c2060d135f0e4690cace0dd1e0}{predicate\-\_\-true} (char predicate\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int table\-\_\-num, int column\-\_\-index, int row\-\_\-index, char column\-\_\-types\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}10\mbox{]})
+\begin{DoxyCompactList}\small\item\em Check if the value in the row index and column index passes the predicate. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a6e9e0f6665f56b589c8d04c20fa71f7c}{int {\bfseries predicate\-\_\-true\-\_\-perm} (char predicate\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, char line\-From\-File\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int table\-\_\-num, int column\-\_\-index, int row\-\_\-index, char column\-\_\-types\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}10\mbox{]})}\label{server_8c_a6e9e0f6665f56b589c8d04c20fa71f7c}
+
+\item 
+int \hyperlink{server_8c_a4264cba8f8610bb4ddc9046cd7c9e00e}{predicates\-\_\-true} (char predicates\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns, int table\-\_\-num, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, char column\-\_\-types\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}10\mbox{]}, int row\-\_\-index)
+\begin{DoxyCompactList}\small\item\em Check if the value in the row index and column index passes the predicates. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_abb45c07a82a6776d83eed8001a39409b}{int {\bfseries predicates\-\_\-true\-\_\-perm} (char predicates\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, char line\-From\-File\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int num\-\_\-columns, int table\-\_\-num, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, char column\-\_\-types\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}10\mbox{]}, int row\-\_\-index)}\label{server_8c_abb45c07a82a6776d83eed8001a39409b}
+
+\item 
+int \hyperlink{server_8c_a4ec1795948f7486ad7eefbf10cf1b8ff}{query\-\_\-command} (int sock, char predicates\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int first\-\_\-empty, int table\-\_\-num, int num\-\_\-columns, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, char column\-\_\-types\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}10\mbox{]})
+\begin{DoxyCompactList}\small\item\em Query the table for matching values. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_ac5e4ef16444695421dd966660c9d1f9e}{int {\bfseries query\-\_\-command\-\_\-perm} (int sock, char predicates\mbox{[}\hyperlink{storage_8h_a00a29850f2b5b985f776f864d83e5ac3}{M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N}\mbox{]}, int table\-\_\-num, int num\-\_\-columns, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]}, char column\-\_\-types\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}10\mbox{]}, F\-I\-L\-E $\ast$file\-To\-Load)}\label{server_8c_ac5e4ef16444695421dd966660c9d1f9e}
+
+\item 
+char $\ast$ \hyperlink{server_8c_af53cf2c3031be8151cbc8f6833effef0}{delete\-\_\-command} (char key\-\_\-to\-\_\-delete\mbox{[}\hyperlink{storage_8h_ad91bfaf106e42aa552f1605c5b8a9ef2}{M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N}\mbox{]}, int first\-\_\-empty, int table\-\_\-num, int num\-\_\-columns, char mycolumns\mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_a2c806bc7de304d1d07bb12c9d58dbdd1}{M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}\mbox{[}\hyperlink{storage_8h_a5cced553ee7679aebe25952d79c7b86b}{M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N}\mbox{]})
+\begin{DoxyCompactList}\small\item\em Delete the item in the server based on key\-\_\-to\-\_\-delete. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a9cfd9f5eabc050fa9524187fd45e2118}{char $\ast$ {\bfseries delete\-\_\-command\-\_\-perm} (char key\-\_\-to\-\_\-set\mbox{[}\hyperlink{storage_8h_ad91bfaf106e42aa552f1605c5b8a9ef2}{M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N}\mbox{]}, F\-I\-L\-E $\ast$file\-Load\-Data, F\-I\-L\-E $\ast$file\-Write\-Data)}\label{server_8c_a9cfd9f5eabc050fa9524187fd45e2118}
+
+\item 
+int \hyperlink{server_8c_a9776ce9ec28df0e16fba102c8c0f44c6}{handle\-\_\-command} (int sock, char cmd\mbox{[}\hyperlink{utils_8h_a1eb73c104b484cf18752169509cebfe2}{M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N}\mbox{]}, int $\ast$auth\-\_\-var)
+\begin{DoxyCompactList}\small\item\em Process a command from the client. \end{DoxyCompactList}\item 
+\hypertarget{server_8c_a9577d2599b18e4680156b949c3683bcc}{void $\ast$ {\bfseries handle\-\_\-client} (void $\ast$arg)}\label{server_8c_a9577d2599b18e4680156b949c3683bcc}
+
+\item 
+int \hyperlink{server_8c_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Start the storage server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{server_8c_ab6ebd8242ee8635563a21bacbfa2b9f5}{F\-I\-L\-E $\ast$ {\bfseries fserver\-Out}}\label{server_8c_ab6ebd8242ee8635563a21bacbfa2b9f5}
+
+\item 
+\hypertarget{server_8c_a2dfd2662dbe26868150e972b516e375a}{struct \hyperlink{structserver__record}{server\-\_\-record} {\bfseries tables} \mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}\mbox{[}\hyperlink{storage_8h_ad02d7128cbc04a5ec5ee79c6beb66730}{M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}}\label{server_8c_a2dfd2662dbe26868150e972b516e375a}
+
+\item 
+\hypertarget{server_8c_a47967abd748788b07b5408e2daf7a0aa}{int {\bfseries first\-\_\-empty} \mbox{[}\hyperlink{storage_8h_a6f4cdd0162e9f2ab251fa5b23410c8da}{M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S}\mbox{]}}\label{server_8c_a47967abd748788b07b5408e2daf7a0aa}
+
+\item 
+\hypertarget{server_8c_a0df479ae945ee930deb719f1d4451b84}{struct \hyperlink{structconfig__params}{config\-\_\-params} {\bfseries params}}\label{server_8c_a0df479ae945ee930deb719f1d4451b84}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file implements the storage server. The storage server should be named \char`\"{}server\char`\"{} and should take a single command line argument that refers to the configuration file.
+
+The storage server should be able to communicate with the client library functions declared in \hyperlink{storage_8h}{storage.\-h} and implemented in \hyperlink{storage_8c}{storage.\-c}. 
+
+Definition in file \hyperlink{server_8c_source}{server.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{server_8c_ac2d55273fd82b8bf4c0ebc7b981a67e4}{\index{server.\-c@{server.\-c}!check\-\_\-column\-\_\-types@{check\-\_\-column\-\_\-types}}
+\index{check\-\_\-column\-\_\-types@{check\-\_\-column\-\_\-types}!server.c@{server.\-c}}
+\subsubsection[{check\-\_\-column\-\_\-types}]{\setlength{\rightskip}{0pt plus 5cm}int check\-\_\-column\-\_\-types (
+\begin{DoxyParamCaption}
+\item[{char}]{val\-\_\-to\-\_\-set\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-columns, }
+\item[{int}]{table\-\_\-num, }
+\item[{char}]{column\-\_\-types\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}10\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_ac2d55273fd82b8bf4c0ebc7b981a67e4}
+
+
+Check if the column types match the values given. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val\-\_\-to\-\_\-set} & value to parse \\
+\hline
+{\em num\-\_\-columns} & number of columns for the table \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em column\-\_\-types} & types of the columns \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true(1) if all column types match, false(0) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 260 of file server.\-c.
+
+
+
+References get\-\_\-param(), and M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N.
+
+
+
+Referenced by parse\-\_\-value().
+
+\hypertarget{server_8c_a05ed999d057f20b4305dbb49f1feaece}{\index{server.\-c@{server.\-c}!check\-\_\-mycolumns@{check\-\_\-mycolumns}}
+\index{check\-\_\-mycolumns@{check\-\_\-mycolumns}!server.c@{server.\-c}}
+\subsubsection[{check\-\_\-mycolumns}]{\setlength{\rightskip}{0pt plus 5cm}int check\-\_\-mycolumns (
+\begin{DoxyParamCaption}
+\item[{char}]{val\-\_\-to\-\_\-set\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-columns, }
+\item[{int}]{table\-\_\-num, }
+\item[{char}]{mycolumns\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a05ed999d057f20b4305dbb49f1feaece}
+
+
+Check if the value has the correct matching column names. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val\-\_\-to\-\_\-set} & value to parse \\
+\hline
+{\em num\-\_\-columns} & number of columns for the table \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em mycolumns} & names of the columns \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true(1) if all column names match, false(-\/1) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 360 of file server.\-c.
+
+
+
+References get\-\_\-param(), and M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N.
+
+
+
+Referenced by parse\-\_\-value().
+
+\hypertarget{server_8c_a2a84645f2f244d5751250b88b21be88c}{\index{server.\-c@{server.\-c}!check\-\_\-mycolumns\-\_\-pred@{check\-\_\-mycolumns\-\_\-pred}}
+\index{check\-\_\-mycolumns\-\_\-pred@{check\-\_\-mycolumns\-\_\-pred}!server.c@{server.\-c}}
+\subsubsection[{check\-\_\-mycolumns\-\_\-pred}]{\setlength{\rightskip}{0pt plus 5cm}int check\-\_\-mycolumns\-\_\-pred (
+\begin{DoxyParamCaption}
+\item[{char}]{pred\-\_\-to\-\_\-set\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-columns, }
+\item[{int}]{table\-\_\-num, }
+\item[{char}]{mycolumns\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-pred}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a2a84645f2f244d5751250b88b21be88c}
+
+
+Check if the predicate has the correct matching column names. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pred\-\_\-to\-\_\-set} & predicate to parse \\
+\hline
+{\em num\-\_\-columns} & number of columns for the table \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em mycolumns} & names of the columns \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true(1) if all column names match, false(-\/1) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 514 of file server.\-c.
+
+
+
+References get\-\_\-param(), has\-\_\-column(), M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N, split\-\_\-query\-\_\-get\-\_\-column(), and trim().
+
+
+
+Referenced by parse\-\_\-predicates().
+
+\hypertarget{server_8c_a3d464ce1a95d6883220042500f998eb7}{\index{server.\-c@{server.\-c}!check\-\_\-predicates@{check\-\_\-predicates}}
+\index{check\-\_\-predicates@{check\-\_\-predicates}!server.c@{server.\-c}}
+\subsubsection[{check\-\_\-predicates}]{\setlength{\rightskip}{0pt plus 5cm}int check\-\_\-predicates (
+\begin{DoxyParamCaption}
+\item[{char}]{predicates\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-columns, }
+\item[{int}]{table\-\_\-num, }
+\item[{char}]{mycolumns\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{column\-\_\-types\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}10\mbox{]}, }
+\item[{int}]{num\-\_\-pred}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a3d464ce1a95d6883220042500f998eb7}
+
+
+Check if all the predicates in the string are formatted correctly. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em predicates} & predicates to parse \\
+\hline
+{\em num\-\_\-columns} & number of columns for the table \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em mycolumns} & names of the columns \\
+\hline
+{\em column\-\_\-types} & types of the columns \\
+\hline
+{\em num\-\_\-pred} & number of predicates to parse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true(1) if parses correctly, false(-\/1) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 455 of file server.\-c.
+
+
+
+References get\-\_\-column\-\_\-type(), get\-\_\-param(), M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N, split\-\_\-query\-\_\-get\-\_\-column(), split\-\_\-query\-\_\-get\-\_\-value(), and trim().
+
+
+
+Referenced by parse\-\_\-predicates().
+
+\hypertarget{server_8c_af53cf2c3031be8151cbc8f6833effef0}{\index{server.\-c@{server.\-c}!delete\-\_\-command@{delete\-\_\-command}}
+\index{delete\-\_\-command@{delete\-\_\-command}!server.c@{server.\-c}}
+\subsubsection[{delete\-\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ delete\-\_\-command (
+\begin{DoxyParamCaption}
+\item[{char}]{key\-\_\-to\-\_\-delete\mbox{[}\-M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{first\-\_\-empty, }
+\item[{int}]{table\-\_\-num, }
+\item[{int}]{num\-\_\-columns, }
+\item[{char}]{mycolumns\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_af53cf2c3031be8151cbc8f6833effef0}
+
+
+Delete the item in the server based on key\-\_\-to\-\_\-delete. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\-\_\-to\-\_\-delete} & key to set \\
+\hline
+{\em first\-\_\-empty} & index of the first empty spot in keys \& values \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em num\-\_\-columns} & number of columns in the table \\
+\hline
+{\em mycolumns} & names of the columns \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns success string if it works (E\-R\-R\-\_\-\-K\-E\-Y\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D if key\-\_\-to\-\_\-delete D\-N\-E in keys) 
+\end{DoxyReturn}
+
+
+Definition at line 1267 of file server.\-c.
+
+
+
+References M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N, and server\-\_\-record\-::metadata.
+
+
+
+Referenced by handle\-\_\-command().
+
+\hypertarget{server_8c_ad8349c60c5abdbf00dcab7345afa05e9}{\index{server.\-c@{server.\-c}!get\-\_\-column\-\_\-index@{get\-\_\-column\-\_\-index}}
+\index{get\-\_\-column\-\_\-index@{get\-\_\-column\-\_\-index}!server.c@{server.\-c}}
+\subsubsection[{get\-\_\-column\-\_\-index}]{\setlength{\rightskip}{0pt plus 5cm}int get\-\_\-column\-\_\-index (
+\begin{DoxyParamCaption}
+\item[{char}]{column\-\_\-name\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{mycolumns\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{table\-\_\-num}
+\end{DoxyParamCaption}
+)}}\label{server_8c_ad8349c60c5abdbf00dcab7345afa05e9}
+
+
+Get the index of the column based on the column name given. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em column\-\_\-name} & column name to find the type for \\
+\hline
+{\em mycolumns} & names of the columns \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return the index of the column name given 
+\end{DoxyReturn}
+
+
+Definition at line 906 of file server.\-c.
+
+
+
+References M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E.
+
+
+
+Referenced by predicates\-\_\-true().
+
+\hypertarget{server_8c_abd2fb51ab5a17288cdf4d0c2ffc6beb3}{\index{server.\-c@{server.\-c}!get\-\_\-column\-\_\-type@{get\-\_\-column\-\_\-type}}
+\index{get\-\_\-column\-\_\-type@{get\-\_\-column\-\_\-type}!server.c@{server.\-c}}
+\subsubsection[{get\-\_\-column\-\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ get\-\_\-column\-\_\-type (
+\begin{DoxyParamCaption}
+\item[{char}]{column\-\_\-name\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-columns, }
+\item[{int}]{table\-\_\-num, }
+\item[{char}]{mycolumns\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{column\-\_\-types\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}10\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_abd2fb51ab5a17288cdf4d0c2ffc6beb3}
+
+
+Get the name of the column based on name given to search for. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em column\-\_\-name} & column name to find the type for \\
+\hline
+{\em num\-\_\-columns} & number of columns for the table \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em mycolumns} & names of the columns \\
+\hline
+{\em column\-\_\-types} & types of the columns \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+return string of type of the column 
+\end{DoxyReturn}
+
+
+Definition at line 73 of file server.\-c.
+
+
+
+Referenced by check\-\_\-predicates().
+
+\hypertarget{server_8c_af514264bb0a833600274010d575cdcc1}{\index{server.\-c@{server.\-c}!get\-\_\-command@{get\-\_\-command}}
+\index{get\-\_\-command@{get\-\_\-command}!server.c@{server.\-c}}
+\subsubsection[{get\-\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}void get\-\_\-command (
+\begin{DoxyParamCaption}
+\item[{char}]{key\-\_\-to\-\_\-get\mbox{[}\-M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{value\-\_\-to\-\_\-get\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{first\-\_\-empty, }
+\item[{int}]{table\-\_\-num}
+\end{DoxyParamCaption}
+)}}\label{server_8c_af514264bb0a833600274010d575cdcc1}
+
+
+Get the specified value based on the key\-\_\-to\-\_\-get. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\-\_\-to\-\_\-get} & key to serach for in keys \\
+\hline
+{\em value\-\_\-to\-\_\-get} & value to get \\
+\hline
+{\em first\-\_\-empty} & index of the first empty spot in keys \& values \\
+\hline
+{\em table\-\_\-num} & which table the get is being preformed on \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns the value of the search (E\-R\-R\-\_\-\-K\-E\-Y\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D if it D\-N\-E) 
+\end{DoxyReturn}
+
+
+Definition at line 622 of file server.\-c.
+
+
+
+References M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, and M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N.
+
+
+
+Referenced by handle\-\_\-command().
+
+\hypertarget{server_8c_a9776ce9ec28df0e16fba102c8c0f44c6}{\index{server.\-c@{server.\-c}!handle\-\_\-command@{handle\-\_\-command}}
+\index{handle\-\_\-command@{handle\-\_\-command}!server.c@{server.\-c}}
+\subsubsection[{handle\-\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}int handle\-\_\-command (
+\begin{DoxyParamCaption}
+\item[{int}]{sock, }
+\item[{char}]{cmd\mbox{[}\-M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int $\ast$}]{auth\-\_\-var}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a9776ce9ec28df0e16fba102c8c0f44c6}
+
+
+Process a command from the client. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sock} & The socket connected to the client. \\
+\hline
+{\em cmd} & The command received from the client. \\
+\hline
+{\em $\ast$auth\-\_\-var} & variable that keeps track if client is authorized or not \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 0 on success, -\/1 otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line 1369 of file server.\-c.
+
+
+
+References delete\-\_\-command(), get\-\_\-command(), get\-\_\-param(), has\-\_\-table(), key\-\_\-exist(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-E\-N\-C\-\_\-\-P\-A\-S\-S\-W\-O\-R\-D\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-P\-A\-T\-H\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-U\-S\-E\-R\-N\-A\-M\-E\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N, parse\-\_\-predicates(), parse\-\_\-value(), config\-\_\-params\-::password, query\-\_\-command(), sendall(), set\-\_\-command(), trim(), update\-\_\-command(), and config\-\_\-params\-::username.
+
+
+
+Referenced by main().
+
+\hypertarget{server_8c_a987d9928862a44ca91238947d84362f6}{\index{server.\-c@{server.\-c}!has\-\_\-column@{has\-\_\-column}}
+\index{has\-\_\-column@{has\-\_\-column}!server.c@{server.\-c}}
+\subsubsection[{has\-\_\-column}]{\setlength{\rightskip}{0pt plus 5cm}int has\-\_\-column (
+\begin{DoxyParamCaption}
+\item[{char}]{col\-\_\-to\-\_\-search\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{mycolumns\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-columns, }
+\item[{int}]{table\-\_\-num}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a987d9928862a44ca91238947d84362f6}
+
+
+Check if table exists in the server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em col\-\_\-to\-\_\-search} & column name to search for \\
+\hline
+{\em mycolumns} & names of all the columns of all the tables \\
+\hline
+{\em num\-\_\-columns} & number of columns for the table \\
+\hline
+{\em table\-\_\-num} & index of the table that is being parsed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns column index if it exists, -\/1 if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 235 of file server.\-c.
+
+
+
+Referenced by check\-\_\-mycolumns\-\_\-pred().
+
+\hypertarget{server_8c_a26122d608fea873614895976a63dea05}{\index{server.\-c@{server.\-c}!has\-\_\-table@{has\-\_\-table}}
+\index{has\-\_\-table@{has\-\_\-table}!server.c@{server.\-c}}
+\subsubsection[{has\-\_\-table}]{\setlength{\rightskip}{0pt plus 5cm}int has\-\_\-table (
+\begin{DoxyParamCaption}
+\item[{char}]{table\-\_\-name\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-\_\-\-L\-E\-N\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a26122d608fea873614895976a63dea05}
+
+
+Check if table exists in the server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em table\-\_\-name} & table name to search for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns table index if it exists, false(0) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 210 of file server.\-c.
+
+
+
+Referenced by handle\-\_\-command().
+
+\hypertarget{server_8c_ac4345ba7989eed70b19d584d8df55d7e}{\index{server.\-c@{server.\-c}!key\-\_\-exist@{key\-\_\-exist}}
+\index{key\-\_\-exist@{key\-\_\-exist}!server.c@{server.\-c}}
+\subsubsection[{key\-\_\-exist}]{\setlength{\rightskip}{0pt plus 5cm}int key\-\_\-exist (
+\begin{DoxyParamCaption}
+\item[{char}]{key\-\_\-to\-\_\-search\-\_\-for\mbox{[}\-M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{first\-\_\-empty, }
+\item[{int}]{table\-\_\-num}
+\end{DoxyParamCaption}
+)}}\label{server_8c_ac4345ba7989eed70b19d584d8df55d7e}
+
+
+Check if key exists in the server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\-\_\-to\-\_\-search} & key to search for in server \\
+\hline
+{\em first\-\_\-empty} & index of the first empty spot in keys \& values \\
+\hline
+{\em table\-\_\-num} & the table to search the key for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns index of record with matching key if it exists, false(-\/1) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 47 of file server.\-c.
+
+
+
+Referenced by handle\-\_\-command().
+
+\hypertarget{server_8c_a0ddf1224851353fc92bfbff6f499fa97}{\index{server.\-c@{server.\-c}!main@{main}}
+\index{main@{main}!server.c@{server.\-c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a0ddf1224851353fc92bfbff6f499fa97}
+
+
+Start the storage server. 
+
+This is the main entry point for the storage server. It reads the configuration file, starts listening on a port, and proccesses commands from clients. 
+
+Definition at line 1879 of file server.\-c.
+
+
+
+References arguements\-::clientaddr\-\_\-, arguements\-::clientaddrlen\-\_\-, handle\-\_\-command(), logger(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-L\-I\-S\-T\-E\-N\-Q\-U\-E\-U\-E\-L\-E\-N, M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E, M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S, read\-\_\-config(), recvline(), config\-\_\-params\-::server\-\_\-host, config\-\_\-params\-::server\-\_\-port, and arguements\-::sock\-\_\-.
+
+\hypertarget{server_8c_aca78ee0cd989674d75af0350dd141319}{\index{server.\-c@{server.\-c}!num\-\_\-col\-\_\-val@{num\-\_\-col\-\_\-val}}
+\index{num\-\_\-col\-\_\-val@{num\-\_\-col\-\_\-val}!server.c@{server.\-c}}
+\subsubsection[{num\-\_\-col\-\_\-val}]{\setlength{\rightskip}{0pt plus 5cm}int num\-\_\-col\-\_\-val (
+\begin{DoxyParamCaption}
+\item[{char}]{val\-\_\-to\-\_\-set\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-columns}
+\end{DoxyParamCaption}
+)}}\label{server_8c_aca78ee0cd989674d75af0350dd141319}
+
+
+Check if the value has the correct number of columns. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val\-\_\-to\-\_\-set} & value to parse \\
+\hline
+{\em num\-\_\-columns} & number of columns for the table \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true(1) if right number of columns, false(-\/1) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 391 of file server.\-c.
+
+
+
+References get\-\_\-param(), and M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N.
+
+
+
+Referenced by parse\-\_\-value().
+
+\hypertarget{server_8c_ad9859876442b8f4c102395051e87a818}{\index{server.\-c@{server.\-c}!num\-\_\-of\-\_\-predicates@{num\-\_\-of\-\_\-predicates}}
+\index{num\-\_\-of\-\_\-predicates@{num\-\_\-of\-\_\-predicates}!server.c@{server.\-c}}
+\subsubsection[{num\-\_\-of\-\_\-predicates}]{\setlength{\rightskip}{0pt plus 5cm}int num\-\_\-of\-\_\-predicates (
+\begin{DoxyParamCaption}
+\item[{char}]{predicates\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-columns}
+\end{DoxyParamCaption}
+)}}\label{server_8c_ad9859876442b8f4c102395051e87a818}
+
+
+Check if the predicate string has the correct number of predicates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em predicates} & predicates to parse \\
+\hline
+{\em num\-\_\-columns} & number of columns for the table \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns number of predicates if right number of predicates, false(-\/1) if there are too many 
+\end{DoxyReturn}
+
+
+Definition at line 558 of file server.\-c.
+
+
+
+References get\-\_\-param(), and M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N.
+
+
+
+Referenced by parse\-\_\-predicates().
+
+\hypertarget{server_8c_adbcf898f1e1bcdf0a798e15fe0cdfb4c}{\index{server.\-c@{server.\-c}!parse\-\_\-predicates@{parse\-\_\-predicates}}
+\index{parse\-\_\-predicates@{parse\-\_\-predicates}!server.c@{server.\-c}}
+\subsubsection[{parse\-\_\-predicates}]{\setlength{\rightskip}{0pt plus 5cm}int parse\-\_\-predicates (
+\begin{DoxyParamCaption}
+\item[{char}]{predicates\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{table\-\_\-num}
+\end{DoxyParamCaption}
+)}}\label{server_8c_adbcf898f1e1bcdf0a798e15fe0cdfb4c}
+
+
+Umbrella function for all predicate parsing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em predicates} & predicates to parse \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em params} & config parameters from config file \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true(1) if matches all parsing, false(0) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 595 of file server.\-c.
+
+
+
+References check\-\_\-mycolumns\-\_\-pred(), check\-\_\-predicates(), and num\-\_\-of\-\_\-predicates().
+
+
+
+Referenced by handle\-\_\-command().
+
+\hypertarget{server_8c_acd5ca6d0d7a4ef941fc7fb68fcfc84a6}{\index{server.\-c@{server.\-c}!parse\-\_\-value@{parse\-\_\-value}}
+\index{parse\-\_\-value@{parse\-\_\-value}!server.c@{server.\-c}}
+\subsubsection[{parse\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}int parse\-\_\-value (
+\begin{DoxyParamCaption}
+\item[{char}]{val\-\_\-to\-\_\-set\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{table\-\_\-num}
+\end{DoxyParamCaption}
+)}}\label{server_8c_acd5ca6d0d7a4ef941fc7fb68fcfc84a6}
+
+
+Checks if the value passes all parsing. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val\-\_\-to\-\_\-set} & value to parse \\
+\hline
+{\em table\-\_\-num} & table index for the parsing \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true(1) if matches all parsing, false(-\/1) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 427 of file server.\-c.
+
+
+
+References check\-\_\-column\-\_\-types(), check\-\_\-mycolumns(), and num\-\_\-col\-\_\-val().
+
+
+
+Referenced by handle\-\_\-command().
+
+\hypertarget{server_8c_a519be3c2060d135f0e4690cace0dd1e0}{\index{server.\-c@{server.\-c}!predicate\-\_\-true@{predicate\-\_\-true}}
+\index{predicate\-\_\-true@{predicate\-\_\-true}!server.c@{server.\-c}}
+\subsubsection[{predicate\-\_\-true}]{\setlength{\rightskip}{0pt plus 5cm}int predicate\-\_\-true (
+\begin{DoxyParamCaption}
+\item[{char}]{predicate\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{table\-\_\-num, }
+\item[{int}]{column\-\_\-index, }
+\item[{int}]{row\-\_\-index, }
+\item[{char}]{column\-\_\-types\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}10\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a519be3c2060d135f0e4690cace0dd1e0}
+
+
+Check if the value in the row index and column index passes the predicate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em predicate} & predicate to test for true or false \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em column\-\_\-index} & index of the column to check the predicate for \\
+\hline
+{\em row\-\_\-index} & index of the row to check the predicate for \\
+\hline
+{\em column\-\_\-types} & types of the columns \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true(1) if the predicate is true, false(0) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 928 of file server.\-c.
+
+
+
+References get\-\_\-param(), M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N, and split\-\_\-query\-\_\-get\-\_\-value().
+
+
+
+Referenced by predicates\-\_\-true().
+
+\hypertarget{server_8c_a4264cba8f8610bb4ddc9046cd7c9e00e}{\index{server.\-c@{server.\-c}!predicates\-\_\-true@{predicates\-\_\-true}}
+\index{predicates\-\_\-true@{predicates\-\_\-true}!server.c@{server.\-c}}
+\subsubsection[{predicates\-\_\-true}]{\setlength{\rightskip}{0pt plus 5cm}int predicates\-\_\-true (
+\begin{DoxyParamCaption}
+\item[{char}]{predicates\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{num\-\_\-columns, }
+\item[{int}]{table\-\_\-num, }
+\item[{char}]{mycolumns\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{column\-\_\-types\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}10\mbox{]}, }
+\item[{int}]{row\-\_\-index}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a4264cba8f8610bb4ddc9046cd7c9e00e}
+
+
+Check if the value in the row index and column index passes the predicates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em predicates} & predicates to check if true or false \\
+\hline
+{\em numcolumns} & number of columns in the table \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em mycolumns} & names of the columns \\
+\hline
+{\em column\-\_\-types} & types of the columns \\
+\hline
+{\em row\-\_\-index} & index of the row to check the predicate for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns true(1) if the predicate is true, false(0) if it doesn't 
+\end{DoxyReturn}
+
+
+Definition at line 1084 of file server.\-c.
+
+
+
+References get\-\_\-column\-\_\-index(), get\-\_\-param(), M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N, predicate\-\_\-true(), split\-\_\-query\-\_\-get\-\_\-column(), and trim().
+
+
+
+Referenced by query\-\_\-command().
+
+\hypertarget{server_8c_a4ec1795948f7486ad7eefbf10cf1b8ff}{\index{server.\-c@{server.\-c}!query\-\_\-command@{query\-\_\-command}}
+\index{query\-\_\-command@{query\-\_\-command}!server.c@{server.\-c}}
+\subsubsection[{query\-\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}int query\-\_\-command (
+\begin{DoxyParamCaption}
+\item[{int}]{sock, }
+\item[{char}]{predicates\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{first\-\_\-empty, }
+\item[{int}]{table\-\_\-num, }
+\item[{int}]{num\-\_\-columns, }
+\item[{char}]{mycolumns\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-N\-A\-M\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{column\-\_\-types\mbox{[}\-M\-A\-X\-\_\-\-T\-A\-B\-L\-E\-S\mbox{]}\mbox{[}\-M\-A\-X\-\_\-\-C\-O\-L\-U\-M\-N\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E\mbox{]}\mbox{[}10\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a4ec1795948f7486ad7eefbf10cf1b8ff}
+
+
+Query the table for matching values. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sock} & The socket connected to the client. \\
+\hline
+{\em predicates} & predicates to check if true or false \\
+\hline
+{\em first\-\_\-empty} & index of the first empty spot in keys \& values \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em numcolumns} & number of columns in the table \\
+\hline
+{\em mycolumns} & names of the columns \\
+\hline
+{\em column\-\_\-types} & types of the columns \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns the status for the server 
+\end{DoxyReturn}
+
+
+Definition at line 1154 of file server.\-c.
+
+
+
+References M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E, predicates\-\_\-true(), recvline(), and sendall().
+
+
+
+Referenced by handle\-\_\-command().
+
+\hypertarget{server_8c_a309d3355e6dbf8291c56a848b0ec5c31}{\index{server.\-c@{server.\-c}!set\-\_\-command@{set\-\_\-command}}
+\index{set\-\_\-command@{set\-\_\-command}!server.c@{server.\-c}}
+\subsubsection[{set\-\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ set\-\_\-command (
+\begin{DoxyParamCaption}
+\item[{char}]{key\-\_\-to\-\_\-set\mbox{[}\-M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{value\-\_\-to\-\_\-set\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{first\-\_\-empty, }
+\item[{int}]{table\-\_\-num}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a309d3355e6dbf8291c56a848b0ec5c31}
+
+
+Set the item using key\-\_\-to\-\_\-set and value\-\_\-to\-\_\-set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\-\_\-to\-\_\-set} & key to set \\
+\hline
+{\em value\-\_\-to\-\_\-set} & value to set \\
+\hline
+{\em first\-\_\-empty} & index of the first empty spot in keys \& values \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns success string if it works (E\-R\-R\-\_\-\-U\-N\-K\-N\-O\-W\-N if table already at max) 
+\end{DoxyReturn}
+
+
+Definition at line 773 of file server.\-c.
+
+
+
+References M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E, and server\-\_\-record\-::metadata.
+
+
+
+Referenced by handle\-\_\-command().
+
+\hypertarget{server_8c_a6d7947e031e9aefdd998ebb9872b0a89}{\index{server.\-c@{server.\-c}!split\-\_\-query\-\_\-get\-\_\-column@{split\-\_\-query\-\_\-get\-\_\-column}}
+\index{split\-\_\-query\-\_\-get\-\_\-column@{split\-\_\-query\-\_\-get\-\_\-column}!server.c@{server.\-c}}
+\subsubsection[{split\-\_\-query\-\_\-get\-\_\-column}]{\setlength{\rightskip}{0pt plus 5cm}void split\-\_\-query\-\_\-get\-\_\-column (
+\begin{DoxyParamCaption}
+\item[{char}]{pred\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{ret\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a6d7947e031e9aefdd998ebb9872b0a89}
+
+
+Get the column name from a query predicate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pred} & predicate to get the column out of \\
+\hline
+{\em ret} & string to return the column name too \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+no return value 
+\end{DoxyReturn}
+
+
+Definition at line 103 of file server.\-c.
+
+
+
+References get\-\_\-param(), and M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N.
+
+
+
+Referenced by check\-\_\-mycolumns\-\_\-pred(), check\-\_\-predicates(), and predicates\-\_\-true().
+
+\hypertarget{server_8c_aa95f1890335c4fc794e4566d8ae3ad61}{\index{server.\-c@{server.\-c}!split\-\_\-query\-\_\-get\-\_\-value@{split\-\_\-query\-\_\-get\-\_\-value}}
+\index{split\-\_\-query\-\_\-get\-\_\-value@{split\-\_\-query\-\_\-get\-\_\-value}!server.c@{server.\-c}}
+\subsubsection[{split\-\_\-query\-\_\-get\-\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}void split\-\_\-query\-\_\-get\-\_\-value (
+\begin{DoxyParamCaption}
+\item[{char}]{pred\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{ret\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{server_8c_aa95f1890335c4fc794e4566d8ae3ad61}
+
+
+Get the comparison value from a query predicate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pred} & predicate to get the value out of \\
+\hline
+{\em ret} & string to return the column name too \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+no return value 
+\end{DoxyReturn}
+
+
+Definition at line 132 of file server.\-c.
+
+
+
+References get\-\_\-param(), and M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N.
+
+
+
+Referenced by check\-\_\-predicates(), and predicate\-\_\-true().
+
+\hypertarget{server_8c_a06798d058792d39a2eb6f3b784ae1532}{\index{server.\-c@{server.\-c}!trim@{trim}}
+\index{trim@{trim}!server.c@{server.\-c}}
+\subsubsection[{trim}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ trim (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a06798d058792d39a2eb6f3b784ae1532}
+
+
+Remove whitespace from beginning and end of string. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & string to remove leading and trailing whitespace from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+trimmed version of the string 
+\end{DoxyReturn}
+
+
+Definition at line 160 of file server.\-c.
+
+
+
+Referenced by check\-\_\-mycolumns\-\_\-pred(), check\-\_\-predicates(), handle\-\_\-command(), and predicates\-\_\-true().
+
+\hypertarget{server_8c_a28f4d703d02316c3d135d6b7f0c5bcf5}{\index{server.\-c@{server.\-c}!update\-\_\-command@{update\-\_\-command}}
+\index{update\-\_\-command@{update\-\_\-command}!server.c@{server.\-c}}
+\subsubsection[{update\-\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ update\-\_\-command (
+\begin{DoxyParamCaption}
+\item[{char}]{key\-\_\-to\-\_\-update\mbox{[}\-M\-A\-X\-\_\-\-K\-E\-Y\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{char}]{value\-\_\-to\-\_\-update\mbox{[}\-M\-A\-X\-\_\-\-V\-A\-L\-U\-E\-\_\-\-L\-E\-N\mbox{]}, }
+\item[{int}]{record\-\_\-loc, }
+\item[{int}]{table\-\_\-num, }
+\item[{unsigned long int}]{meta\-\_\-data\-\_\-recieved}
+\end{DoxyParamCaption}
+)}}\label{server_8c_a28f4d703d02316c3d135d6b7f0c5bcf5}
+
+
+Set the item using key\-\_\-to\-\_\-set and value\-\_\-to\-\_\-set. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key\-\_\-to\-\_\-update} & key to set \\
+\hline
+{\em value\-\_\-to\-\_\-update} & value to set \\
+\hline
+{\em record\-\_\-loc} & index of the record to update \\
+\hline
+{\em table\-\_\-num} & index of the table parsing \\
+\hline
+{\em meta\-\_\-data\-\_\-recieved} & meta data recieved from client \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns success string if it works (always successful, due to \hyperlink{server_8c_ac4345ba7989eed70b19d584d8df55d7e}{key\-\_\-exist()} check) 
+\end{DoxyReturn}
+
+
+Definition at line 874 of file server.\-c.
+
+
+
+References server\-\_\-record\-::metadata.
+
+
+
+Referenced by handle\-\_\-command().
+

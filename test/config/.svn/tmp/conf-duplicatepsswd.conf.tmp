@@ -1,0 +1,11 @@
+server_host localhost
+<<<<<<< .mine
+server_port 5387
+=======
+server_port 5284
+>>>>>>> .r84
+username admin
+username notmin
+password xxxnq.BMCifhU
+password xxxnq.BMCifhX
+table inttbl col:int

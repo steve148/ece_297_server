@@ -1,0 +1,2076 @@
+census
+Toronto
+Province Ont, Population 2503281, Change 09, Rank 1
+census
+Montral
+Province Que, Population 1620693, Change 23, Rank 2
+census
+Calgary
+Province Alta, Population 988193, Change 124, Rank 3
+census
+Ottawa
+Province Ont, Population 812129, Change 49, Rank 4
+census
+Edmonton
+Province Alta, Population 730372, Change 96, Rank 5
+census
+Mississauga
+Province Ont, Population 668549, Change 91, Rank 6
+census
+Winnipeg
+Province Man, Population 633451, Change 22, Rank 7
+census
+Vancouver
+Province BC, Population 578041, Change 59, Rank 8
+census
+Hamilton
+Province Ont, Population 504559, Change 1, Rank 9
+census
+Qubec
+Province Que, Population 491142, Change 31, Rank 10
+census
+Brampton
+Province Ont, Population 433806, Change 333, Rank 11
+census
+Surrey
+Province BC, Population 394976, Change 136, Rank 12
+census
+Halifax
+Province NS, Population 372679, Change 38, Rank 13
+census
+Laval
+Province Que, Population 368709, Change 75, Rank 14
+census
+London
+Province Ont, Population 352395, Change 47, Rank 15
+census
+Markham
+Province Ont, Population 261573, Change 254, Rank 16
+census
+Gatineau
+Province Que, Population 242124, Change 68, Rank 17
+census
+Vaughan
+Province Ont, Population 238866, Change 312, Rank 18
+census
+Longueuil
+Province Que, Population 229330, Change 16, Rank 19
+census
+Windsor
+Province Ont, Population 216473, Change 35, Rank 20
+census
+Kitchener
+Province Ont, Population 204668, Change 75, Rank 21
+census
+Burnaby
+Province BC, Population 202799, Change 46, Rank 22
+census
+Saskatoon
+Province Sask, Population 202340, Change 28, Rank 23
+census
+Regina
+Province Sask, Population 179246, Change 06, Rank 24
+census
+Richmond
+Province BC, Population 174461, Change 62, Rank 25
+census
+Oakville
+Province Ont, Population 165613, Change 144, Rank 26
+census
+Burlington
+Province Ont, Population 164415, Change 9, Rank 27
+census
+RichmondHill
+Province Ont, Population 162704, Change 232, Rank 28
+census
+GreaterSudburyGrandSudbury
+Province Ont, Population 157857, Change 17, Rank 29
+census
+Sherbrooke
+Province Que, Population 147427, Change 62, Rank 30
+census
+Saguenay
+Province Que, Population 143692, Change 23, Rank 31
+census
+Oshawa
+Province Ont, Population 141590, Change 18, Rank 32
+census
+StCatharines
+Province Ont, Population 131989, Change 22, Rank 33
+census
+Lvis
+Province Que, Population 130006, Change 66, Rank 34
+census
+Barrie
+Province Ont, Population 128430, Change 238, Rank 35
+census
+TroisRivires
+Province Que, Population 126323, Change 32, Rank 36
+census
+Abbotsford
+Province BC, Population 123864, Change 72, Rank 37
+census
+Cambridge
+Province Ont, Population 120371, Change 91, Rank 38
+census
+Kingston
+Province Ont, Population 117207, Change 26, Rank 39
+census
+Guelph
+Province Ont, Population 114943, Change 83, Rank 40
+census
+Coquitlam
+Province BC, Population 114565, Change 15, Rank 41
+census
+Whitby
+Province Ont, Population 111184, Change 272, Rank 42
+census
+ThunderBay
+Province Ont, Population 109140, Change 01, Rank 43
+census
+Saanich
+Province BC, Population 108265, Change 44, Rank 44
+census
+ChathamKent
+Province Ont, Population 108177, Change 08, Rank 45
+census
+Kelowna
+Province BC, Population 106707, Change 108, Rank 46
+census
+CapeBreton
+Province NS, Population 102250, Change 35, Rank 47
+census
+StJohns
+Province NL, Population 100646, Change 15, Rank 48
+census
+Waterloo
+Province Ont, Population 97475, Change 126, Rank 49
+census
+Delta
+Province BC, Population 96723, Change 02, Rank 50
+census
+Terrebonne
+Province Que, Population 94703, Change 176, Rank 51
+census
+Langley
+Province BC, Population 93726, Change 79, Rank 52
+census
+Brantford
+Province Ont, Population 90192, Change 44, Rank 53
+census
+Ajax
+Province Ont, Population 90167, Change 223, Rank 54
+census
+Pickering
+Province Ont, Population 87838, Change 08, Rank 55
+census
+SaintJeansurRichelieu
+Province Que, Population 87492, Change 99, Rank 56
+census
+RedDeer
+Province Alta, Population 82772, Change 22, Rank 57
+census
+NorthVancouver
+Province BC, Population 82562, Change 03, Rank 58
+census
+StrathconaCounty
+Province Alta, Population 82511, Change 146, Rank 59
+census
+NiagaraFalls
+Province Ont, Population 82184, Change 43, Rank 60
+census
+Kamloops
+Province BC, Population 80376, Change 4, Rank 61
+census
+Nanaimo
+Province BC, Population 78692, Change 78, Rank 62
+census
+Victoria
+Province BC, Population 78057, Change 53, Rank 63
+census
+Clarington
+Province Ont, Population 77820, Change 114, Rank 64
+census
+Repentigny
+Province Que, Population 76237, Change 56, Rank 65
+census
+SaultSteMarie
+Province Ont, Population 74948, Change 05, Rank 66
+census
+Peterborough
+Province Ont, Population 74898, Change 48, Rank 67
+census
+Lethbridge
+Province Alta, Population 74637, Change 108, Rank 68
+census
+KawarthaLakes
+Province Ont, Population 74561, Change 78, Rank 69
+census
+Newmarket
+Province Ont, Population 74295, Change 129, Rank 70
+census
+Sarnia
+Province Ont, Population 71419, Change 08, Rank 71
+census
+Brossard
+Province Que, Population 71154, Change 94, Rank 72
+census
+PrinceGeorge
+Province BC, Population 70981, Change 2, Rank 73
+census
+Chilliwack
+Province BC, Population 69217, Change 106, Rank 74
+census
+MapleRidge
+Province BC, Population 68949, Change 92, Rank 75
+census
+SaintJohn
+Province NB, Population 68043, Change 23, Rank 76
+census
+Drummondville
+Province Que, Population 67392, Change 69, Rank 77
+census
+Moncton
+Province NB, Population 64128, Change 5, Rank 78
+census
+SaintJrme
+Province Que, Population 63729, Change 69, Rank 79
+census
+NorfolkCounty
+Province Ont, Population 62563, Change 28, Rank 80
+census
+NewWestminster
+Province BC, Population 58549, Change 71, Rank 81
+census
+StAlbert
+Province Alta, Population 57719, Change 87, Rank 82
+census
+Caledon
+Province Ont, Population 57050, Change 127, Rank 83
+census
+MedicineHat
+Province Alta, Population 56997, Change 112, Rank 84
+census
+HaltonHills
+Province Ont, Population 55289, Change 147, Rank 85
+census
+NorthBay
+Province Ont, Population 53966, Change 23, Rank 86
+census
+Milton
+Province Ont, Population 53939, Change 714, Rank 87
+census
+PortCoquitlam
+Province BC, Population 52687, Change 28, Rank 88
+census
+Shawinigan
+Province Que, Population 51904, Change 03, Rank 89
+census
+SaintHyacinthe
+Province Que, Population 51616, Change 24, Rank 90
+census
+WoodBuffalo
+Province Alta, Population 51496, Change 243, Rank 91
+census
+Fredericton
+Province NB, Population 50535, Change 62, Rank 92
+census
+Welland
+Province Ont, Population 50331, Change 4, Rank 93
+census
+DollardDesOrmeaux
+Province Que, Population 48930, Change 15, Rank 94
+census
+Belleville
+Province Ont, Population 48821, Change 61, Rank 95
+census
+Granby
+Province Que, Population 47637, Change 8, Rank 96
+census
+Aurora
+Province Ont, Population 47629, Change 186, Rank 97
+census
+GrandePrairie
+Province Alta, Population 47076, Change 273, Rank 98
+census
+Blainville
+Province Que, Population 46493, Change 29, Rank 99
+census
+Cornwall
+Province Ont, Population 45965, Change 07, Rank 100
+census
+HaldimandCounty
+Province Ont, Population 45212, Change 34, Rank 101
+census
+NorthVancouver2
+Province BC, Population 45165, Change 24, Rank 102
+census
+Timmins
+Province Ont, Population 42997, Change 16, Rank 103
+census
+Chteauguay
+Province Que, Population 42786, Change 43, Rank 104
+census
+QuinteWest
+Province Ont, Population 42697, Change 32, Rank 105
+census
+Georgina
+Province Ont, Population 42346, Change 79, Rank 106
+census
+Rimouski
+Province Que, Population 42240, Change 17, Rank 107
+census
+WestVancouver
+Province BC, Population 42131, Change 17, Rank 108
+census
+SaintEustache
+Province Que, Population 42062, Change 42, Rank 109
+census
+Brandon
+Province Man, Population 41511, Change 45, Rank 110
+census
+Victoriaville
+Province Que, Population 40486, Change 42, Rank 111
+census
+RouynNoranda
+Province Que, Population 39924, Change 08, Rank 112
+census
+SalaberrydeValleyfield
+Province Que, Population 39672, Change 17, Rank 113
+census
+Boucherville
+Province Que, Population 39062, Change 77, Rank 114
+census
+StThomas
+Province Ont, Population 36110, Change 84, Rank 115
+census
+Vernon
+Province BC, Population 35944, Change 72, Rank 116
+census
+Woodstock
+Province Ont, Population 35480, Change 66, Rank 117
+census
+Mirabel
+Province Que, Population 34626, Change 268, Rank 118
+census
+Mission
+Province BC, Population 34505, Change 103, Rank 119
+census
+Brant
+Province Ont, Population 34415, Change 87, Rank 120
+census
+RockyViewNo44
+Province Alta, Population 34171, Change 142, Rank 121
+census
+PrinceAlbert
+Province Sask, Population 34138, Change 04, Rank 122
+census
+SorelTracy
+Province Que, Population 34076, Change 03, Rank 123
+census
+Mascouche
+Province Que, Population 33764, Change 142, Rank 124
+census
+Lakeshore
+Province Ont, Population 33245, Change 157, Rank 125
+census
+Charlottetown
+Province PEI, Population 32174, Change 02, Rank 126
+census
+MooseJaw
+Province Sask, Population 32132, Change 0, Rank 127
+census
+Penticton
+Province BC, Population 31909, Change 3, Rank 128
+census
+CteSaintLuc
+Province Que, Population 31395, Change 38, Rank 129
+census
+Innisfil
+Province Ont, Population 31175, Change 88, Rank 130
+census
+ValdOr
+Province Que, Population 31123, Change 1, Rank 131
+census
+Stratford
+Province Ont, Population 30461, Change 23, Rank 132
+census
+Orillia
+Province Ont, Population 30259, Change 39, Rank 133
+census
+PointeClaire
+Province Que, Population 30161, Change 3, Rank 134
+census
+Alma
+Province Que, Population 29998, Change 04, Rank 135
+census
+FortErie
+Province Ont, Population 29925, Change 63, Rank 136
+census
+SaintGeorges
+Province Que, Population 29616, Change 53, Rank 137
+census
+CampbellRiver
+Province BC, Population 29572, Change 46, Rank 138
+census
+ParklandCounty
+Province Alta, Population 29265, Change 75, Rank 139
+census
+SainteJulie
+Province Que, Population 29079, Change 94, Rank 140
+census
+CentralOkanaganJ
+Province BC, Population 28972, Change 114, Rank 141
+census
+Airdrie
+Province Alta, Population 28927, Change 418, Rank 142
+census
+Leamington
+Province Ont, Population 28833, Change 62, Rank 143
+census
+NewTecumseth
+Province Ont, Population 27701, Change 6, Rank 144
+census
+LaSalle
+Province Ont, Population 27652, Change 94, Rank 145
+census
+NorthCowichan
+Province BC, Population 27557, Change 54, Rank 146
+census
+PortMoody
+Province BC, Population 27512, Change 155, Rank 147
+census
+Orangeville
+Province Ont, Population 26925, Change 66, Rank 148
+census
+Boisbriand
+Province Que, Population 26483, Change 1, Rank 149
+census
+CentreWellington
+Province Ont, Population 26049, Change 74, Rank 150
+census
+VaudreuilDorion
+Province Que, Population 25789, Change 295, Rank 151
+census
+ThetfordMines
+Province Que, Population 25704, Change 24, Rank 152
+census
+Septles
+Province Que, Population 25514, Change 05, Rank 153
+census
+PrinceEdward
+Province Ont, Population 25496, Change 24, Rank 154
+census
+SainteThrse
+Province Que, Population 25224, Change 39, Rank 155
+census
+Lunenburg
+Province NS, Population 25164, Change 16, Rank 156
+census
+MountPearl
+Province NL, Population 24671, Change 12, Rank 157
+census
+WhitchurchStouffville
+Province Ont, Population 24390, Change 108, Rank 158
+census
+SaintBrunodeMontarville
+Province Que, Population 24388, Change 23, Rank 159
+census
+Tecumseh
+Province Ont, Population 24224, Change 03, Rank 160
+census
+BradfordWestGwillimbury
+Province Ont, Population 24039, Change 81, Rank 161
+census
+SaintConstant
+Province Que, Population 23957, Change 61, Rank 162
+census
+Grimsby
+Province Ont, Population 23937, Change 124, Rank 163
+census
+Magog
+Province Que, Population 23880, Change 6, Rank 164
+census
+Langley2
+Province BC, Population 23606, Change 02, Rank 165
+census
+Chambly
+Province Que, Population 22608, Change 111, Rank 166
+census
+BaieComeau
+Province Que, Population 22554, Change 23, Rank 167
+census
+Langford
+Province BC, Population 22459, Change 192, Rank 168
+census
+KingsSubdA
+Province NS, Population 22161, Change 12, Rank 169
+census
+ConceptionBaySouth
+Province NL, Population 21966, Change 111, Rank 170
+census
+Brockville
+Province Ont, Population 21957, Change 27, Rank 171
+census
+Courtenay
+Province BC, Population 21940, Change 145, Rank 172
+census
+LaPrairie
+Province Que, Population 21763, Change 152, Rank 173
+census
+OwenSound
+Province Ont, Population 21753, Change 14, Rank 174
+census
+Amherstburg
+Province Ont, Population 21748, Change 69, Rank 175
+census
+Lincoln
+Province Ont, Population 21722, Change 54, Rank 176
+census
+SaintLambert
+Province Que, Population 21599, Change 26, Rank 177
+census
+Scugog
+Province Ont, Population 21439, Change 63, Rank 178
+census
+EastHants
+Province NS, Population 21387, Change 27, Rank 179
+census
+EastGwillimbury
+Province Ont, Population 21069, Change 25, Rank 180
+census
+Varennes
+Province Que, Population 20950, Change 66, Rank 181
+census
+Kingsville
+Province Ont, Population 20908, Change 66, Rank 182
+census
+ClarenceRockland
+Province Ont, Population 20790, Change 6, Rank 183
+census
+Westmount
+Province Que, Population 20494, Change 39, Rank 184
+census
+Kirkland
+Province Que, Population 20491, Change 03, Rank 185
+census
+Whitehorse
+Province YT, Population 20461, Change 74, Rank 186
+census
+CornerBrook
+Province NL, Population 20083, Change 01, Rank 187
+census
+Essex
+Province Ont, Population 20032, Change 03, Rank 188
+census
+OroMedonte
+Province Ont, Population 20031, Change 94, Rank 189
+census
+StrathroyCaradoc
+Province Ont, Population 19977, Change 43, Rank 190
+census
+FoothillsNo31
+Province Alta, Population 19736, Change 189, Rank 191
+census
+Woolwich
+Province Ont, Population 19658, Change 8, Rank 192
+census
+SpruceGrove
+Province Alta, Population 19496, Change 22, Rank 193
+census
+King
+Province Ont, Population 19487, Change 51, Rank 194
+census
+ColchesterSubdB
+Province NS, Population 19297, Change 37, Rank 195
+census
+Beaconsfield
+Province Que, Population 19194, Change 06, Rank 196
+census
+Uxbridge
+Province Ont, Population 19169, Change 103, Rank 197
+census
+RedDeerCounty
+Province Alta, Population 19108, Change 33, Rank 198
+census
+Joliette
+Province Que, Population 19044, Change 68, Rank 199
+census
+MontRoyal
+Province Que, Population 18933, Change 13, Rank 200
+census
+Beloeil
+Province Que, Population 18927, Change 07, Rank 201
+census
+WhiteRock
+Province BC, Population 18755, Change 28, Rank 202
+census
+Yellowknife
+Province NWT, Population 18700, Change 131, Rank 203
+census
+SturgeonCounty
+Province Alta, Population 18621, Change 31, Rank 204
+census
+PortColborne
+Province Ont, Population 18599, Change 08, Rank 205
+census
+RivireduLoup
+Province Que, Population 18586, Change 46, Rank 206
+census
+Dieppe
+Province NB, Population 18565, Change 242, Rank 207
+census
+Huntsville
+Province Ont, Population 18280, Change 54, Rank 208
+census
+Cranbrook
+Province BC, Population 18267, Change 14, Rank 209
+census
+SouthFrontenac
+Province Ont, Population 18227, Change 11, Rank 210
+census
+Thorold
+Province Ont, Population 18224, Change 1, Rank 211
+census
+Cobourg
+Province Ont, Population 18210, Change 6, Rank 212
+census
+Miramichi
+Province NB, Population 18129, Change 2, Rank 213
+census
+Dorval
+Province Que, Population 18088, Change 22, Rank 214
+census
+GrandePrairieCountyNo1
+Province Alta, Population 17970, Change 149, Rank 215
+census
+OakBay
+Province BC, Population 17908, Change 06, Rank 216
+census
+Riverview
+Province NB, Population 17832, Change 48, Rank 217
+census
+PortAlberni
+Province BC, Population 17548, Change 11, Rank 218
+census
+Springwater
+Province Ont, Population 17456, Change 84, Rank 219
+census
+SmithEnnismoreLakefield
+Province Ont, Population 17413, Change 61, Rank 220
+census
+DeuxMontagnes
+Province Que, Population 17402, Change 19, Rank 221
+census
+FortStJohn
+Province BC, Population 17402, Change 84, Rank 221
+census
+Collingwood
+Province Ont, Population 17290, Change 78, Rank 223
+census
+SaintAugustindeDesmaures
+Province Que, Population 17281, Change 98, Rank 224
+census
+Okotoks
+Province Alta, Population 17145, Change 467, Rank 225
+census
+Wilmot
+Province Ont, Population 17097, Change 15, Rank 226
+census
+SaintLazare
+Province Que, Population 17016, Change 32, Rank 227
+census
+Leduc
+Province Alta, Population 16967, Change 129, Rank 228
+census
+Essa
+Province Ont, Population 16901, Change 06, Rank 229
+census
+Esquimalt
+Province BC, Population 16840, Change 44, Rank 230
+census
+LAssomption
+Province Que, Population 16738, Change 71, Rank 231
+census
+Edmundston
+Province NB, Population 16643, Change 42, Rank 232
+census
+LAncienneLorette
+Province Que, Population 16516, Change 37, Rank 233
+census
+PortHope
+Province Ont, Population 16390, Change 5, Rank 234
+census
+Midland
+Province Ont, Population 16300, Change 05, Rank 235
+census
+SainteCatherine
+Province Que, Population 16211, Change 16, Rank 236
+census
+Pelham
+Province Ont, Population 16155, Change 58, Rank 237
+census
+SalmonArm
+Province BC, Population 16012, Change 53, Rank 238
+census
+Candiac
+Province Que, Population 15947, Change 258, Rank 239
+census
+Lloydminster
+Province Part, Population 5910, Change 3, Rank 240
+census
+CentralSaanich
+Province BC, Population 15745, Change 26, Rank 241
+census
+MontSaintHilaire
+Province Que, Population 15720, Change 102, Rank 242
+census
+Bracebridge
+Province Ont, Population 15652, Change 138, Rank 243
+census
+PittMeadows
+Province BC, Population 15623, Change 65, Rank 244
+census
+Camrose
+Province Alta, Population 15620, Change 5, Rank 245
+census
+SaintBasileleGrand
+Province Que, Population 15605, Change 26, Rank 246
+census
+MiddlesexCentre
+Province Ont, Population 15589, Change 95, Rank 247
+census
+GreaterNapanee
+Province Ont, Population 15400, Change 18, Rank 248
+census
+Quispamsis
+Province NB, Population 15239, Change 108, Rank 249
+census
+Kenora
+Province Ont, Population 15177, Change 42, Rank 250
+census
+Loyalist
+Province Ont, Population 15062, Change 32, Rank 251
+census
+Yorkton
+Province Sask, Population 15038, Change 05, Rank 252
+census
+WasagaBeach
+Province Ont, Population 15029, Change 21, Rank 253
+census
+FortSaskatchewan
+Province Alta, Population 14957, Change 14, Rank 254
+census
+Squamish
+Province BC, Population 14949, Change 49, Rank 255
+census
+SwiftCurrent
+Province Sask, Population 14946, Change 08, Rank 256
+census
+Tillsonburg
+Province Ont, Population 14822, Change 55, Rank 257
+census
+Gasp
+Province Que, Population 14819, Change 08, Rank 258
+census
+Matane
+Province Que, Population 14742, Change 14, Rank 259
+census
+Colwood
+Province BC, Population 14687, Change 69, Rank 260
+census
+Petawawa
+Province Ont, Population 14651, Change 18, Rank 261
+census
+StClair
+Province Ont, Population 14649, Change 01, Rank 262
+census
+NiagaraontheLake
+Province Ont, Population 14587, Change 54, Rank 263
+census
+DolbeauMistassini
+Province Que, Population 14546, Change 22, Rank 264
+census
+Summerside
+Province PEI, Population 14500, Change 11, Rank 265
+census
+NorthGrenville
+Province Ont, Population 14198, Change 45, Rank 266
+census
+Rosemre
+Province Que, Population 14173, Change 58, Rank 267
+census
+SaintLinLaurentides
+Province Que, Population 14159, Change 144, Rank 268
+census
+Clearview
+Province Ont, Population 14088, Change 21, Rank 269
+census
+Pembroke
+Province Ont, Population 13930, Change 33, Rank 270
+census
+Russell
+Province Ont, Population 13883, Change 119, Rank 271
+census
+WestHants
+Province NS, Population 13881, Change 07, Rank 272
+census
+Cochrane
+Province Alta, Population 13760, Change 143, Rank 273
+census
+GrandFallsWindsor
+Province NL, Population 13558, Change 16, Rank 274
+census
+Thompson
+Province Man, Population 13446, Change 14, Rank 275
+census
+WestNipissingNipissingOuest
+Province Ont, Population 13410, Change 23, Rank 276
+census
+MontLaurier
+Province Que, Population 13405, Change 5, Rank 277
+census
+ColchesterSubdC
+Province NS, Population 13312, Change 06, Rank 278
+census
+NorthBattleford
+Province Sask, Population 13190, Change 37, Rank 279
+census
+WestLincoln
+Province Ont, Population 13167, Change 73, Rank 280
+census
+ThamesCentre
+Province Ont, Population 13085, Change 49, Rank 281
+census
+SainteAnnedesPlaines
+Province Que, Population 13001, Change 07, Rank 282
+census
+Springfield
+Province Man, Population 12990, Change 31, Rank 283
+census
+PowellRiver
+Province BC, Population 12957, Change 02, Rank 284
+census
+SouthGlengarry
+Province Ont, Population 12880, Change 14, Rank 285
+census
+PrinceRupert
+Province BC, Population 12815, Change 125, Rank 286
+census
+LeducCounty
+Province Alta, Population 12730, Change 16, Rank 287
+census
+PortagelaPrairie
+Province Man, Population 12728, Change 19, Rank 288
+census
+CentralElgin
+Province Ont, Population 12723, Change 35, Rank 289
+census
+Bathurst
+Province NB, Population 12714, Change 16, Rank 290
+census
+Paradise
+Province NL, Population 12584, Change 311, Rank 291
+census
+Amos
+Province Que, Population 12584, Change 35, Rank 291
+census
+LeslesdelaMadeleine
+Province Que, Population 12560, Change 23, Rank 293
+census
+SouthStormont
+Province Ont, Population 12520, Change 48, Rank 294
+census
+Brooks
+Province Alta, Population 12498, Change 77, Rank 295
+census
+MountainViewCounty
+Province Alta, Population 12391, Change 22, Rank 296
+census
+StonyPlain
+Province Alta, Population 12363, Change 285, Rank 297
+census
+NorthPerth
+Province Ont, Population 12254, Change 17, Rank 298
+census
+TrentHills
+Province Ont, Population 12247, Change 26, Rank 299
+census
+WestGrey
+Province Ont, Population 12193, Change 38, Rank 300
+census
+Cowansville
+Province Que, Population 12182, Change 12, Rank 301
+census
+Comox
+Province BC, Population 12136, Change 65, Rank 302
+census
+Lavaltrie
+Province Que, Population 12120, Change 86, Rank 303
+census
+GuelphEramosa
+Province Ont, Population 12066, Change 8, Rank 304
+census
+PerthEast
+Province Ont, Population 12041, Change 06, Rank 305
+census
+Canmore
+Province Alta, Population 12039, Change 116, Rank 306
+census
+KingsSubdB
+Province NS, Population 12033, Change 36, Rank 307
+census
+SaintCharlesBorrome
+Province Que, Population 12030, Change 128, Rank 308
+census
+Severn
+Province Ont, Population 12030, Change 8, Rank 308
+census
+ColdLake
+Province Alta, Population 11991, Change 41, Rank 310
+census
+Brock
+Province Ont, Population 11979, Change 11, Rank 311
+census
+Beauharnois
+Province Que, Population 11918, Change 4, Rank 312
+census
+Hanover
+Province Man, Population 11871, Change 10, Rank 313
+census
+Lachute
+Province Que, Population 11832, Change 18, Rank 314
+census
+ClearwaterCounty
+Province Alta, Population 11826, Change 28, Rank 315
+census
+LaTuque
+Province Que, Population 11821, Change 53, Rank 316
+census
+Truro
+Province NS, Population 11765, Change 27, Rank 317
+census
+Ingersoll
+Province Ont, Population 11760, Change 71, Rank 318
+census
+Granby
+Province Que, Population 11748, Change 36, Rank 319
+census
+MississippiMills
+Province Ont, Population 11734, Change 07, Rank 320
+census
+SaugeenShores
+Province Ont, Population 11720, Change 29, Rank 321
+census
+Wetaskiwin
+Province Alta, Population 11673, Change 47, Rank 322
+census
+Rothesay
+Province NB, Population 11637, Change 11, Rank 323
+census
+SainteMarie
+Province Que, Population 11584, Change 23, Rank 324
+census
+ElliotLake
+Province Ont, Population 11549, Change 34, Rank 325
+census
+StAndrews
+Province Man, Population 11359, Change 62, Rank 326
+census
+Montmagny
+Province Que, Population 11353, Change 26, Rank 327
+census
+Terrace
+Province BC, Population 11320, Change 65, Rank 328
+census
+Sidney
+Province BC, Population 11315, Change 35, Rank 329
+census
+SainteMarthesurleLac
+Province Que, Population 11311, Change 294, Rank 330
+census
+Pincourt
+Province Que, Population 11197, Change 108, Rank 331
+census
+Queens
+Province NS, Population 11177, Change 42, Rank 332
+census
+WellingtonNorth
+Province Ont, Population 11175, Change 11, Rank 333
+census
+Kincardine
+Province Ont, Population 11173, Change 13, Rank 334
+census
+LambtonShores
+Province Ont, Population 11150, Change 55, Rank 335
+census
+Erin
+Province Ont, Population 11148, Change 09, Rank 336
+census
+Bcancour
+Province Que, Population 11134, Change 08, Rank 337
+census
+NorthDundas
+Province Ont, Population 11095, Change 07, Rank 338
+census
+Steinbach
+Province Man, Population 11066, Change 199, Rank 339
+census
+GreaterVancouverA
+Province BC, Population 11050, Change 375, Rank 340
+census
+Gravenhurst
+Province Ont, Population 11046, Change 13, Rank 341
+census
+DawsonCreek
+Province BC, Population 10994, Change 22, Rank 342
+census
+Parksville
+Province BC, Population 10993, Change 65, Rank 343
+census
+Hamilton
+Province Ont, Population 10972, Change 17, Rank 344
+census
+Meaford
+Province Ont, Population 10948, Change 55, Rank 345
+census
+Hawkesbury
+Province Ont, Population 10869, Change 53, Rank 346
+census
+Summerland
+Province BC, Population 10828, Change 1, Rank 347
+census
+NorthSaanich
+Province BC, Population 10823, Change 37, Rank 348
+census
+Tiny
+Province Ont, Population 10784, Change 194, Rank 349
+census
+WilliamsLake
+Province BC, Population 10744, Change 37, Rank 350
+census
+Lacombe
+Province Alta, Population 10742, Change 145, Rank 351
+census
+Chester
+Province NS, Population 10741, Change 04, Rank 352
+census
+TemiskamingShores
+Province Ont, Population 10732, Change 1, Rank 353
+census
+HighRiver
+Province Alta, Population 10716, Change 142, Rank 354
+census
+AdjalaTosorontio
+Province Ont, Population 10695, Change 61, Rank 355
+census
+TheNationLaNation
+Province Ont, Population 10643, Change 04, Rank 356
+census
+NorthGlengarry
+Province Ont, Population 10635, Change 04, Rank 357
+census
+SainteAdle
+Province Que, Population 10634, Change 154, Rank 358
+census
+Roberval
+Province Que, Population 10544, Change 33, Rank 359
+census
+SouthDundas
+Province Ont, Population 10535, Change 23, Rank 360
+census
+WetaskiwinCountyNo10
+Province Alta, Population 10535, Change 15, Rank 360
+census
+GeorgianBluffs
+Province Ont, Population 10506, Change 37, Rank 362
+census
+Norwich
+Province Ont, Population 10481, Change 0, Rank 363
+census
+SaintFlicien
+Province Que, Population 10477, Change 14, Rank 364
+census
+LacombeCounty
+Province Alta, Population 10451, Change 11, Rank 365
+census
+SainteSophie
+Province Que, Population 10355, Change 155, Rank 366
+census
+RideauLakes
+Province Ont, Population 10350, Change 68, Rank 367
+census
+Yarmouth
+Province NS, Population 10304, Change 15, Rank 368
+census
+LethbridgeCounty
+Province Alta, Population 10302, Change 37, Rank 369
+census
+Brighton
+Province Ont, Population 10253, Change 85, Rank 370
+census
+Strathmore
+Province Alta, Population 10225, Change 342, Rank 371
+census
+SylvanLake
+Province Alta, Population 10208, Change 361, Rank 372
+census
+ElizabethtownKitley
+Province Ont, Population 10201, Change 16, Rank 373
+census
+BonnyvilleNo87
+Province Alta, Population 10194, Change 76, Rank 374
+census
+SaintColomban
+Province Que, Population 10136, Change 348, Rank 375
+census
+Prvost
+Province Que, Population 10132, Change 224, Rank 376
+census
+Mercier
+Province Que, Population 10121, Change 72, Rank 377
+census
+Estevan
+Province Sask, Population 10084, Change 15, Rank 378
+census
+Rawdon
+Province Que, Population 10058, Change 163, Rank 379
+census
+YellowheadCounty
+Province Alta, Population 10045, Change 17, Rank 380
+census
+MackenzieNo23
+Province Alta, Population 10002, Change 133, Rank 381
+census
+SouthHuron
+Province Ont, Population 9982, Change 04, Rank 382
+census
+Gander
+Province NL, Population 9951, Change 31, Rank 383
+census
+LlePerrot
+Province Que, Population 9927, Change 59, Rank 384
+census
+NotreDamedellePerrot
+Province Que, Population 9885, Change 157, Rank 385
+census
+Mapleton
+Province Ont, Population 9851, Change 59, Rank 386
+census
+Wellesley
+Province Ont, Population 9789, Change 45, Rank 387
+census
+Tay
+Province Ont, Population 9748, Change 64, Rank 388
+census
+Hinton
+Province Alta, Population 9738, Change 35, Rank 389
+census
+StClements
+Province Man, Population 9706, Change 65, Rank 390
+census
+Sooke
+Province BC, Population 9704, Change 111, Rank 391
+census
+SainteAgathedesMonts
+Province Que, Population 9679, Change 4, Rank 392
+census
+Brockton
+Province Ont, Population 9641, Change 02, Rank 393
+census
+CapitalF
+Province BC, Population 9640, Change 39, Rank 394
+census
+Lorraine
+Province Que, Population 9613, Change 14, Rank 395
+census
+LakeCountry
+Province BC, Population 9606, Change 37, Rank 396
+census
+Chestermere
+Province Alta, Population 9564, Change 148, Rank 397
+census
+ValdesMonts
+Province Que, Population 9539, Change 216, Rank 398
+census
+LacSteAnneCounty
+Province Alta, Population 9516, Change 63, Rank 399
+census
+Selkirk
+Province Man, Population 9515, Change 24, Rank 400
+census
+Amherst
+Province NS, Population 9505, Change 04, Rank 401
+census
+GreyHighlands
+Province Ont, Population 9480, Change 31, Rank 402
+census
+Coldstream
+Province BC, Population 9471, Change 4, Rank 403
+census
+NewGlasgow
+Province NS, Population 9455, Change 02, Rank 404
+census
+CarletonPlace
+Province Ont, Population 9453, Change 41, Rank 405
+census
+LeedsandtheThousandIslands
+Province Ont, Population 9435, Change 4, Rank 406
+census
+Weyburn
+Province Sask, Population 9433, Change 11, Rank 407
+census
+Ramara
+Province Ont, Population 9427, Change 94, Rank 408
+census
+Penetanguishene
+Province Ont, Population 9354, Change 125, Rank 409
+census
+Quesnel
+Province BC, Population 9326, Change 71, Rank 410
+census
+HuronEast
+Province Ont, Population 9310, Change 38, Rank 411
+census
+SaintRaymond
+Province Que, Population 9273, Change 49, Rank 412
+census
+LaurentianValley
+Province Ont, Population 9265, Change 61, Rank 413
+census
+Nelson
+Province BC, Population 9258, Change 06, Rank 414
+census
+Whistler
+Province BC, Population 9248, Change 4, Rank 415
+census
+Coaticook
+Province Que, Population 9204, Change 24, Rank 416
+census
+SaintSauveur
+Province Que, Population 9191, Change 132, Rank 417
+census
+Winkler
+Province Man, Population 9106, Change 146, Rank 418
+census
+Tach
+Province Man, Population 9083, Change 59, Rank 419
+census
+NorthDumfries
+Province Ont, Population 9063, Change 34, Rank 420
+census
+PictouSubdC
+Province NS, Population 9038, Change 16, Rank 421
+census
+Kitimat
+Province BC, Population 8987, Change 126, Rank 422
+census
+Whitecourt
+Province Alta, Population 8971, Change 76, Rank 423
+census
+Beaumont
+Province Alta, Population 8961, Change 279, Rank 424
+census
+LaMalbaie
+Province Que, Population 8959, Change 2, Rank 425
+census
+MontTremblant
+Province Que, Population 8892, Change 69, Rank 426
+census
+Moncton
+Province NB, Population 8861, Change 13, Rank 427
+census
+WestPerth
+Province Ont, Population 8839, Change 32, Rank 428
+census
+CavanMillbrookNorthMonaghan
+Province Ont, Population 8828, Change 44, Rank 429
+census
+Malahide
+Province Ont, Population 8828, Change 06, Rank 429
+census
+Clare
+Province NS, Population 8813, Change 28, Rank 431
+census
+SmithsFalls
+Province Ont, Population 8777, Change 4, Rank 432
+census
+ViewRoyal
+Province BC, Population 8768, Change 206, Rank 433
+census
+EastStPaul
+Province Man, Population 8733, Change 138, Rank 434
+census
+Champlain
+Province Ont, Population 8683, Change 11, Rank 435
+census
+Argyle
+Province NS, Population 8656, Change 05, Rank 436
+census
+AlfredandPlantagenet
+Province Ont, Population 8654, Change 07, Rank 437
+census
+PonokaCounty
+Province Alta, Population 8640, Change 17, Rank 438
+census
+Kapuskasing
+Province Ont, Population 8509, Change 79, Rank 439
+census
+Minto
+Province Ont, Population 8504, Change 42, Rank 440
+census
+QualicumBeach
+Province BC, Population 8502, Change 83, Rank 441
+census
+OtterburnPark
+Province Que, Population 8464, Change 76, Rank 442
+census
+Sechelt
+Province BC, Population 8454, Change 87, Rank 443
+census
+SouthBrucePeninsula
+Province Ont, Population 8415, Change 4, Rank 444
+census
+Oromocto
+Province NB, Population 8402, Change 5, Rank 445
+census
+SaintAmable
+Province Que, Population 8398, Change 154, Rank 446
+census
+BoisdesFilion
+Province Que, Population 8383, Change 87, Rank 447
+census
+CormanParkNo344
+Province Sask, Population 8349, Change 38, Rank 448
+census
+KirklandLake
+Province Ont, Population 8248, Change 43, Rank 449
+census
+NotreDamedesPrairies
+Province Que, Population 8230, Change 125, Rank 450
+census
+Dryden
+Province Ont, Population 8195, Change 0, Rank 451
+census
+WheatlandCounty
+Province Alta, Population 8164, Change 35, Rank 452
+census
+Zorra
+Province Ont, Population 8125, Change 09, Rank 453
+census
+KingsSubdC
+Province NS, Population 8121, Change 22, Rank 454
+census
+Lloydminster
+Province Part, Population 5455, Change 118, Rank 455
+census
+FortFrances
+Province Ont, Population 8103, Change 25, Rank 456
+census
+Edson
+Province Alta, Population 8098, Change 68, Rank 457
+census
+Digby
+Province NS, Population 7986, Change 36, Rank 458
+census
+SainteJulienne
+Province Que, Population 7983, Change 112, Rank 459
+census
+Bridgewater
+Province NS, Population 7944, Change 42, Rank 460
+census
+Drumheller
+Province Alta, Population 7932, Change 19, Rank 461
+census
+Cantley
+Province Que, Population 7926, Change 344, Rank 462
+census
+Chandler
+Province Que, Population 7914, Change 44, Rank 463
+census
+Dauphin
+Province Man, Population 7906, Change 22, Rank 464
+census
+Marieville
+Province Que, Population 7904, Change 92, Rank 465
+census
+Renfrew
+Province Ont, Population 7846, Change 12, Rank 466
+census
+Nicolet
+Province Que, Population 7827, Change 13, Rank 467
+census
+Farnham
+Province Que, Population 7809, Change 08, Rank 468
+census
+ActonVale
+Province Que, Population 7797, Change 64, Rank 469
+census
+AntigonishSubdA
+Province NS, Population 7730, Change 04, Rank 470
+census
+ColumbiaShuswapC
+Province BC, Population 7695, Change 138, Rank 471
+census
+Rockwood
+Province Man, Population 7692, Change 05, Rank 472
+census
+CentralHuron
+Province Ont, Population 7641, Change 21, Rank 473
+census
+Taber
+Province Alta, Population 7591, Change 1, Rank 474
+census
+SouthWestOxford
+Province Ont, Population 7589, Change 25, Rank 475
+census
+AthabascaCountyNo12
+Province Alta, Population 7587, Change 09, Rank 476
+census
+HappyValleyGooseBay
+Province NL, Population 7572, Change 5, Rank 477
+census
+StoneMills
+Province Ont, Population 7568, Change 31, Rank 478
+census
+Chibougamau
+Province Que, Population 7563, Change 45, Rank 479
+census
+Goderich
+Province Ont, Population 7563, Change 05, Rank 479
+census
+CowichanValleyB
+Province BC, Population 7562, Change 68, Rank 481
+census
+Ladysmith
+Province BC, Population 7538, Change 107, Rank 482
+census
+PontRouge
+Province Que, Population 7518, Change 52, Rank 483
+census
+Augusta
+Province Ont, Population 7510, Change 16, Rank 484
+census
+PlymptonWyoming
+Province Ont, Population 7506, Change 2, Rank 485
+census
+LaPche
+Province Que, Population 7477, Change 159, Rank 486
+census
+VermilionRiverCountyNo24
+Province Alta, Population 7467, Change 08, Rank 487
+census
+ComoxStrathconaC
+Province BC, Population 7441, Change 01, Rank 488
+census
+Louiseville
+Province Que, Population 7433, Change 25, Rank 489
+census
+Carignan
+Province Que, Population 7426, Change 255, Rank 490
+census
+Campbellton
+Province NB, Population 7384, Change 53, Rank 491
+census
+EastZorraTavistock
+Province Ont, Population 7350, Change 15, Rank 492
+census
+LaSarre
+Province Que, Population 7336, Change 51, Rank 493
+census
+Barrington
+Province NS, Population 7331, Change 41, Rank 494
+census
+Delson
+Province Que, Population 7322, Change 42, Rank 495
+census
+Innisfail
+Province Alta, Population 7316, Change 54, Rank 496
+census
+BaieSaintPaul
+Province Que, Population 7288, Change 0, Rank 497
+census
+Castlegar
+Province BC, Population 7259, Change 43, Rank 498
+census
+Olds
+Province Alta, Population 7248, Change 97, Rank 499
+census
+LabradorCity
+Province NL, Population 7240, Change 65, Rank 500
+census
+Trail
+Province BC, Population 7237, Change 45, Rank 501
+census
+Revelstoke
+Province BC, Population 7230, Change 36, Rank 502
+census
+McNabBraeside
+Province Ont, Population 7222, Change 55, Rank 503
+census
+SaintHippolyte
+Province Que, Population 7219, Change 195, Rank 504
+census
+ComoxStrathconaB
+Province BC, Population 7219, Change 29, Rank 504
+census
+Southgate
+Province Ont, Population 7167, Change 38, Rank 506
+census
+Yarmouth
+Province NS, Population 7162, Change 53, Rank 507
+census
+CamroseCountyNo22
+Province Alta, Population 7160, Change 16, Rank 508
+census
+Arnprior
+Province Ont, Population 7158, Change 05, Rank 509
+census
+BlandfordBlenheim
+Province Ont, Population 7149, Change 37, Rank 510
+census
+Hanover
+Province Ont, Population 7147, Change 4, Rank 511
+census
+Bluewater
+Province Ont, Population 7120, Change 29, Rank 512
+census
+DrummondNorthElmsley
+Province Ont, Population 7118, Change 67, Rank 513
+census
+Stratford
+Province PEI, Population 7083, Change 122, Rank 514
+census
+Mono
+Province Ont, Population 7071, Change 23, Rank 515
+census
+Aylmer
+Province Ont, Population 7069, Change 12, Rank 516
+census
+KenoraUnorganized
+Province Ont, Population 7041, Change 77, Rank 517
+census
+BrazeauCounty
+Province Alta, Population 7040, Change 66, Rank 518
+census
+NanaimoG
+Province BC, Population 7023, Change 149, Rank 519
+census
+Merritt
+Province BC, Population 6998, Change 13, Rank 520
+census
+Hampstead
+Province Que, Population 6996, Change 03, Rank 521
+census
+DouroDummer
+Province Ont, Population 6954, Change 45, Rank 522
+census
+OtonabeeSouthMonaghan
+Province Ont, Population 6934, Change 4, Rank 523
+census
+WestlockCounty
+Province Alta, Population 6910, Change 07, Rank 524
+census
+DraytonValley
+Province Alta, Population 6893, Change 132, Rank 525
+census
+RockyMountainHouse
+Province Alta, Population 6874, Change 107, Rank 526
+census
+NewellCountyNo4
+Province Alta, Population 6862, Change 39, Rank 527
+census
+Saumarez
+Province NB, Population 6837, Change 18, Rank 528
+census
+BlueMountains
+Province Ont, Population 6825, Change 116, Rank 529
+census
+Asbestos
+Province Que, Population 6819, Change 36, Rank 530
+census
+PortagelaPrairie
+Province Man, Population 6793, Change 0, Rank 531
+census
+Rigaud
+Province Que, Population 6780, Change 112, Rank 532
+census
+Morinville
+Province Alta, Population 6775, Change 36, Rank 533
+census
+SainteAnnedesMonts
+Province Que, Population 6772, Change 09, Rank 534
+census
+NorthStormont
+Province Ont, Population 6769, Change 13, Rank 535
+census
+PortCartier
+Province Que, Population 6758, Change 39, Rank 536
+census
+NanaimoA
+Province BC, Population 6751, Change 51, Rank 537
+census
+ArranElderslie
+Province Ont, Population 6747, Change 26, Rank 538
+census
+NorthMiddlesex
+Province Ont, Population 6740, Change 23, Rank 539
+census
+CypressCounty
+Province Alta, Population 6729, Change 101, Rank 540
+census
+Bayham
+Province Ont, Population 6727, Change 55, Rank 541
+census
+Chelsea
+Province Que, Population 6703, Change 111, Rank 542
+census
+SlaveLake
+Province Alta, Population 6703, Change 16, Rank 542
+census
+Banff
+Province Alta, Population 6700, Change 61, Rank 544
+census
+Kingsclear
+Province NB, Population 6689, Change 54, Rank 545
+census
+EdwardsburghCardinal
+Province Ont, Population 6689, Change 02, Rank 545
+census
+Puslinch
+Province Ont, Population 6689, Change 137, Rank 545
+census
+NanaimoF
+Province BC, Population 6680, Change 204, Rank 548
+census
+Plessisville
+Province Que, Population 6677, Change 12, Rank 549
+census
+BrownsburgChatham
+Province Que, Population 6664, Change 16, Rank 550
+census
+WhitewaterRegion
+Province Ont, Population 6631, Change 17, Rank 551
+census
+StMarys
+Province Ont, Population 6617, Change 51, Rank 552
+census
+Wainfleet
+Province Ont, Population 6601, Change 55, Rank 553
+census
+Stephenville
+Province NL, Population 6588, Change 73, Rank 554
+census
+ThunderBayUnorganized
+Province Ont, Population 6585, Change 58, Rank 555
+census
+Ponoka
+Province Alta, Population 6576, Change 35, Rank 556
+census
+PortugalCoveStPhilips
+Province NL, Population 6575, Change 121, Rank 557
+census
+PointeCalumet
+Province Que, Population 6574, Change 173, Rank 558
+census
+Morden
+Province Man, Population 6571, Change 67, Rank 559
+census
+MontJoli
+Province Que, Population 6568, Change 02, Rank 560
+census
+HuronKinloss
+Province Ont, Population 6515, Change 47, Rank 561
+census
+AntigonishSubdB
+Province NS, Population 6509, Change 45, Rank 562
+census
+MuskokaLakes
+Province Ont, Population 6467, Change 7, Rank 563
+census
+AlnwickHaldimand
+Province Ont, Population 6435, Change 101, Rank 564
+census
+BeaubassinEastBeaubassinest
+Province NB, Population 6429, Change 29, Rank 565
+census
+PictouSubdA
+Province NS, Population 6412, Change 09, Rank 566
+census
+Chatsworth
+Province Ont, Population 6392, Change 18, Rank 567
+census
+Beckwith
+Province Ont, Population 6387, Change 56, Rank 568
+census
+Stanley
+Province Man, Population 6367, Change 243, Rank 569
+census
+LakelandCounty
+Province Alta, Population 6365, Change 20, Rank 570
+census
+Dundas
+Province NB, Population 6356, Change 29, Rank 571
+census
+PeaceRiverC
+Province BC, Population 6350, Change 92, Rank 572
+census
+CoteauduLac
+Province Que, Population 6346, Change 139, Rank 573
+census
+AnnapolisSubdA
+Province NS, Population 6342, Change 36, Rank 574
+census
+PeaceRiver
+Province Alta, Population 6315, Change 12, Rank 575
+census
+Beresford
+Province NB, Population 6301, Change 48, Rank 576
+census
+Torbay
+Province NL, Population 6281, Change 147, Rank 577
+census
+Taber
+Province Alta, Population 6280, Change 45, Rank 578
+census
+Amqui
+Province Que, Population 6261, Change 33, Rank 579
+census
+Devon
+Province Alta, Population 6256, Change 259, Rank 580
+census
+Beauceville
+Province Que, Population 6226, Change 06, Rank 581
+census
+Hope
+Province BC, Population 6185, Change 0, Rank 582
+census
+Iqaluit
+Province Nvt, Population 6184, Change 181, Rank 583
+census
+Coaldale
+Province Alta, Population 6177, Change 28, Rank 584
+census
+Alnwick
+Province NB, Population 6152, Change 63, Rank 585
+census
+Kimberley
+Province BC, Population 6139, Change 53, Rank 586
+census
+SaintRmi
+Province Que, Population 6136, Change 7, Rank 587
+census
+PictouSubdB
+Province NS, Population 6103, Change 22, Rank 588
+census
+LacBeauport
+Province Que, Population 6081, Change 102, Rank 589
+census
+Bromont
+Province Que, Population 6049, Change 258, Rank 590
+census
+LacMgantic
+Province Que, Population 5967, Change 12, Rank 591
+census
+Cramahe
+Province Ont, Population 5950, Change 41, Rank 592
+census
+Shefford
+Province Que, Population 5941, Change 157, Rank 593
+census
+SouthBruce
+Province Ont, Population 5939, Change 2, Rank 594
+census
+StPaulCountyNo19
+Province Alta, Population 5925, Change 35, Rank 595
+census
+OkanaganSimilkameenD
+Province BC, Population 5913, Change 37, Rank 596
+census
+Perth
+Province Ont, Population 5907, Change 16, Rank 597
+census
+SouthwestMiddlesex
+Province Ont, Population 5890, Change 41, Rank 598
+census
+StonehametTewkesbury
+Province Que, Population 5866, Change 114, Rank 599
+census
+EastKootenayC
+Province BC, Population 5866, Change 2, Rank 599
+census
+InvernessSubdA
+Province NS, Population 5859, Change 25, Rank 601
+census
+CaribooA
+Province BC, Population 5859, Change 89, Rank 601
+census
+BarrheadCountyNo11
+Province Alta, Population 5845, Change 13, Rank 603
+census
+Bonnyville
+Province Alta, Population 5832, Change 22, Rank 604
+census
+ParrySound
+Province Ont, Population 5818, Change 5, Rank 605
+census
+Kentville
+Province NS, Population 5815, Change 37, Rank 606
+census
+BigLakes
+Province Alta, Population 5805, Change 07, Rank 607
+census
+Gimli
+Province Man, Population 5797, Change 124, Rank 608
+census
+Douglas
+Province NB, Population 5774, Change 1, Rank 609
+census
+Lincoln
+Province NB, Population 5764, Change 39, Rank 610
+census
+OliverPaipoonge
+Province Ont, Population 5757, Change 18, Rank 611
+census
+SaintFlixdeValois
+Province Que, Population 5755, Change 53, Rank 612
+census
+CrowsnestPass
+Province Alta, Population 5749, Change 82, Rank 613
+census
+PeaceRiverD
+Province BC, Population 5749, Change 18, Rank 613
+census
+LesCdres
+Province Que, Population 5732, Change 118, Rank 615
+census
+AlgomaUnorganizedNorthPart
+Province Ont, Population 5717, Change 65, Rank 616
+census
+SaintCalixte
+Province Que, Population 5687, Change 158, Rank 617
+census
+Contrecoeur
+Province Que, Population 5678, Change 87, Rank 618
+census
+BeaverCounty
+Province Alta, Population 5676, Change 06, Rank 619
+census
+Macdonald
+Province Man, Population 5653, Change 63, Rank 620
+census
+GrandFallsGrandSault
+Province NB, Population 5650, Change 36, Rank 621
+census
+TayValley
+Province Ont, Population 5634, Change 36, Rank 622
+census
+LacBrome
+Province Que, Population 5629, Change 34, Rank 623
+census
+Hearst
+Province Ont, Population 5620, Change 35, Rank 624
+census
+Tweed
+Province Ont, Population 5614, Change 0, Rank 625
+census
+Charlemagne
+Province Que, Population 5594, Change 12, Rank 626
+census
+FlinFlon
+Province Part, Population 5590, Change 13, Rank 627
+census
+ThePas
+Province Man, Population 5589, Change 36, Rank 628
+census
+Princeville
+Province Que, Population 5571, Change 23, Rank 629
+census
+Donnacona
+Province Que, Population 5564, Change 16, Rank 630
+census
+MindenHills
+Province Ont, Population 5556, Change 46, Rank 631
+census
+PeaceRiverB
+Province BC, Population 5538, Change 108, Rank 632
+census
+DysartandOthers
+Province Ont, Population 5526, Change 122, Rank 633
+census
+CumberlandSubdC
+Province NS, Population 5525, Change 59, Rank 634
+census
+Vegreville
+Province Alta, Population 5519, Change 27, Rank 635
+census
+KingsSubdD
+Province NS, Population 5499, Change 64, Rank 636
+census
+Shediac
+Province NB, Population 5497, Change 124, Rank 637
+census
+Cochrane
+Province Ont, Population 5487, Change 36, Rank 638
+census
+GreenviewNo16
+Province Alta, Population 5464, Change 05, Rank 639
+census
+NanaimoE
+Province BC, Population 5462, Change 133, Rank 640
+census
+Marystown
+Province NL, Population 5436, Change 8, Rank 641
+census
+Wainwright
+Province Alta, Population 5426, Change 6, Rank 642
+census
+Stettler
+Province Alta, Population 5418, Change 39, Rank 643
+census
+BayRoberts
+Province NL, Population 5414, Change 34, Rank 644
+census
+Sackville
+Province NB, Population 5411, Change 09, Rank 645
+census
+AshfieldColborneWawanosh
+Province Ont, Population 5409, Change 0, Rank 646
+census
+SaintLambertdeLauzon
+Province Que, Population 5401, Change 112, Rank 647
+census
+Shippagan
+Province NB, Population 5370, Change 33, Rank 648
+census
+InvernessSubdB
+Province NS, Population 5369, Change 69, Rank 649
+census
+WestElgin
+Province Ont, Population 5349, Change 21, Rank 650
+census
+WillowCreekNo26
+Province Alta, Population 5337, Change 14, Rank 651
+census
+Espanola
+Province Ont, Population 5314, Change 25, Rank 652
+census
+BulkleyNechakoA
+Province BC, Population 5290, Change 71, Rank 653
+census
+Boischatel
+Province Que, Population 5287, Change 229, Rank 654
+census
+Gananoque
+Province Ont, Population 5285, Change 23, Rank 655
+census
+GalwayCavendishandHarvey
+Province Ont, Population 5284, Change 209, Rank 656
+census
+Clarenville
+Province NL, Population 5274, Change 33, Rank 657
+census
+SaintZotique
+Province Que, Population 5251, Change 263, Rank 658
+census
+Verchres
+Province Que, Population 5243, Change 96, Rank 659
+census
+Windsor
+Province Que, Population 5239, Change 15, Rank 660
+census
+Pontiac
+Province Que, Population 5238, Change 128, Rank 661
+census
+McMasterville
+Province Que, Population 5234, Change 314, Rank 662
+census
+Petrolia
+Province Ont, Population 5222, Change 77, Rank 663
+census
+KneehillCounty
+Province Alta, Population 5218, Change 19, Rank 664
+census
+Smithers
+Province BC, Population 5217, Change 36, Rank 665
+census
+StettlerCountyNo6
+Province Alta, Population 5216, Change 26, Rank 666
+census
+Richelieu
+Province Que, Population 5208, Change 74, Rank 667
+census
+SainteAnnedeBellevue
+Province Que, Population 5197, Change 27, Rank 668
+census
+Melfort
+Province Sask, Population 5192, Change 66, Rank 669
+census
+MontrealOuest
+Province Que, Population 5184, Change 02, Rank 670
+census
+SiouxLookout
+Province Ont, Population 5183, Change 29, Rank 671
+census
+LanarkHighlands
+Province Ont, Population 5180, Change 8, Rank 672
+census
+Tsinstikeptum9
+Province BC, Population 5171, Change 3, Rank 673
+census
+SaintCesaire
+Province Que, Population 5151, Change 62, Rank 674
+census
+Shelburne
+Province Ont, Population 5149, Change 222, Rank 675
+census
+Bathurst
+Province NB, Population 5144, Change 64, Rank 676
+census
+NotreDameduMontCarmel
+Province Que, Population 5131, Change 15, Rank 677
+census
+SaintPhilippe
+Province Que, Population 5121, Change 316, Rank 678
+census
+Woodstock
+Province NB, Population 5113, Change 23, Rank 679
+census
+SaintPie
+Province Que, Population 5109, Change 37, Rank 680
+census
+StPaul
+Province Alta, Population 5106, Change 09, Rank 681
+census
+CapitalG
+Province BC, Population 5101, Change 184, Rank 682
+census
+Redcliff
+Province Alta, Population 5096, Change 166, Rank 683
+census
+Hudson
+Province Que, Population 5088, Change 61, Rank 684
+census
+Annapolis
+Province NS, Population 5085, Change 0, Rank 685
+census
+Ritchot
+Province Man, Population 5051, Change 19, Rank 686
+census
+SainteCatherinedelaJacquesCartier
+Province Que, Population 5021, Change 73, Rank 687
+census
+Burton
+Province NB, Population 5019, Change 04, Rank 688
+census
+NorthHuron
+Province Ont, Population 5015, Change 06, Rank 689
+census
+Westlock
+Province Alta, Population 5008, Change 39, Rank 690
+census
+Chertsey
+Province Que, Population 5006, Change 217, Rank 691
+census
+CookshireEaton
+Province Que, Population 5004, Change 27, Rank 692

@@ -1,0 +1,5 @@
+server_host localhost
+server_port 1225
+username admin
+password xxy1SYqVmDBH6
+table census

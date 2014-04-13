@@ -1,0 +1,27 @@
+Running suite a4-partial
+main.c:351:P:sanity:test_sanity_filemod:0: Passed
+main.c:366:P:configerror:test_configerror_nocomma:0: Passed
+main.c:373:P:configerror:test_configerror_negsize:0: Passed
+main.c:391:P:config:test_config_onetable:0: Passed
+main.c:413:P:conn:test_conn_basic:0: Passed
+main.c:422:P:conninvalid:test_conninvalid_connectinvalidparam:0: Passed
+main.c:443:P:getinvalid:test_getinvalid_badtable:0: Passed
+main.c:454:P:getmissing:test_getmissing_missingtable:0: Passed
+main.c:473:P:setinvalid:test_setinvalid_invalidtable:0: Passed
+main.c:488:P:setinvalid:test_setinvalid_badkey:0: Passed
+main.c:511:P:setinvalidcomplex:test_setinvalidcomplex_missingcolumn:0: Passed
+main.c:500:P:setmissing:test_setmissing_missingtable:0: Passed
+main.c:540:P:setget:test_setget_posint:0: Passed
+main.c:558:P:query:test_query_int0:0: Passed
+main.c:575:P:query:test_query_int1:0: Passed
+main.c:635:P:set:test_set_deleteint:0: Passed
+main.c:651:P:set:test_set_deletestr:0: Passed
+main.c:696:P:setcomplex:test_setcomplex_deletethreecols:0: Passed
+main.c:724:P:setcomplex:test_setcomplex_updatethreecols:0: Passed
+main.c:761:P:transaction:test_transaction_pass1:0: Passed
+main.c:800:P:transaction:test_transaction_fail1:0: Passed
+main.c:855:P:concurrency:test_concurrency_get:0: Passed
+main.c:909:P:concurrency:test_concurrency_setget:0: Passed
+main.c:954:P:concurrency:test_concurrency_txpass:0: Passed
+Results for all suites run:
+100%: Checks: 24, Failures: 0, Errors: 0

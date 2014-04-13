@@ -1,0 +1,220 @@
+\hypertarget{storage_8c}{\section{storage.\-c File Reference}
+\label{storage_8c}\index{storage.\-c@{storage.\-c}}
+}
+
+
+This file contains the implementation of the storage server interface as specified in \hyperlink{storage_8h}{storage.\-h}.  
+
+
+{\ttfamily \#include $<$errno.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$unistd.\-h$>$}\\*
+{\ttfamily \#include $<$string.\-h$>$}\\*
+{\ttfamily \#include $<$sys/types.\-h$>$}\\*
+{\ttfamily \#include $<$sys/socket.\-h$>$}\\*
+{\ttfamily \#include $<$netdb.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}storage.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}utils.\-h\char`\"{}}\\*
+{\ttfamily \#include $<$stdbool.\-h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \hyperlink{storage_8c_abc3751ffba629aad5a4b8c7c22a75e11}{storage\-\_\-connect} (const char $\ast$hostname, const int port)
+\begin{DoxyCompactList}\small\item\em Connects the client to the server. \end{DoxyCompactList}\item 
+int \hyperlink{storage_8c_aa97b5545b3eefb5055a4e6febd375796}{storage\-\_\-auth} (const char $\ast$username, const char $\ast$passwd, void $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Authenticate the client via the server. \end{DoxyCompactList}\item 
+int \hyperlink{storage_8c_ac75689ee50898a2f6580c6489e886b59}{storage\-\_\-get} (const char $\ast$table, const char $\ast$key, struct \hyperlink{structstorage__record}{storage\-\_\-record} $\ast$record, void $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Get a record from the server. \end{DoxyCompactList}\item 
+int \hyperlink{storage_8c_a8a42f72670cdcd7bf83416df1f1b090d}{storage\-\_\-set} (const char $\ast$table, const char $\ast$key, struct \hyperlink{structstorage__record}{storage\-\_\-record} $\ast$record, void $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Insert or delete a record from the server. \end{DoxyCompactList}\item 
+\hypertarget{storage_8c_a210a7dfb7b7a91e88bc75fbd25815421}{int {\bfseries storage\-\_\-query} (const char $\ast$table, const char $\ast$predicates, char $\ast$keys\mbox{[}\hyperlink{storage_8h_ad02d7128cbc04a5ec5ee79c6beb66730}{M\-A\-X\-\_\-\-R\-E\-C\-O\-R\-D\-S\-\_\-\-P\-E\-R\-\_\-\-T\-A\-B\-L\-E}\mbox{]}, const int max\-\_\-keys, void $\ast$conn)}\label{storage_8c_a210a7dfb7b7a91e88bc75fbd25815421}
+
+\item 
+int \hyperlink{storage_8c_acd449536193542befbae2ff5e916f657}{storage\-\_\-disconnect} (void $\ast$conn)
+\begin{DoxyCompactList}\small\item\em Connects the client to the server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{storage_8c_adc181010679cb2695bb8a963dfabd7e7}{F\-I\-L\-E $\ast$ {\bfseries fclient\-Out}}\label{storage_8c_adc181010679cb2695bb8a963dfabd7e7}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains the implementation of the storage server interface as specified in \hyperlink{storage_8h}{storage.\-h}. 
+
+Definition in file \hyperlink{storage_8c_source}{storage.\-c}.
+
+
+
+\subsection{Function Documentation}
+\hypertarget{storage_8c_aa97b5545b3eefb5055a4e6febd375796}{\index{storage.\-c@{storage.\-c}!storage\-\_\-auth@{storage\-\_\-auth}}
+\index{storage\-\_\-auth@{storage\-\_\-auth}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-auth}]{\setlength{\rightskip}{0pt plus 5cm}int storage\-\_\-auth (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{username, }
+\item[{const char $\ast$}]{passwd, }
+\item[{void $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_aa97b5545b3eefb5055a4e6febd375796}
+
+
+Authenticate the client via the server. 
+
+Authenticate the client's connection to the server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em username} & username of client \\
+\hline
+{\em passwd} & password of client \\
+\hline
+{\em conn} & represents connection to the server \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 if successful / -\/1 if unsuccessfull 
+\end{DoxyReturn}
+
+
+Definition at line 84 of file storage.\-c.
+
+
+
+References E\-R\-R\-\_\-\-A\-U\-T\-H\-E\-N\-T\-I\-C\-A\-T\-I\-O\-N\-\_\-\-F\-A\-I\-L\-E\-D, E\-R\-R\-\_\-\-C\-O\-N\-N\-E\-C\-T\-I\-O\-N\-\_\-\-F\-A\-I\-L, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, generate\-\_\-encrypted\-\_\-password(), logger(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, recvline(), and sendall().
+
+\hypertarget{storage_8c_abc3751ffba629aad5a4b8c7c22a75e11}{\index{storage.\-c@{storage.\-c}!storage\-\_\-connect@{storage\-\_\-connect}}
+\index{storage\-\_\-connect@{storage\-\_\-connect}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ storage\-\_\-connect (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{hostname, }
+\item[{const int}]{port}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_abc3751ffba629aad5a4b8c7c22a75e11}
+
+
+Connects the client to the server. 
+
+Establish a connection to the server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em hostname} & hostname of the server \\
+\hline
+{\em port} & port number of the server \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 27 of file storage.\-c.
+
+
+
+References E\-R\-R\-\_\-\-C\-O\-N\-N\-E\-C\-T\-I\-O\-N\-\_\-\-F\-A\-I\-L, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, E\-R\-R\-\_\-\-U\-N\-K\-N\-O\-W\-N, logger(), and M\-A\-X\-\_\-\-P\-O\-R\-T\-\_\-\-L\-E\-N.
+
+\hypertarget{storage_8c_acd449536193542befbae2ff5e916f657}{\index{storage.\-c@{storage.\-c}!storage\-\_\-disconnect@{storage\-\_\-disconnect}}
+\index{storage\-\_\-disconnect@{storage\-\_\-disconnect}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}int storage\-\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_acd449536193542befbae2ff5e916f657}
+
+
+Connects the client to the server. 
+
+Close the connection to the server.
+
+
+\begin{DoxyParams}{Parameters}
+{\em conn} & represents connection to the server \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if successful / -\/1 if unsuccessful 
+\end{DoxyReturn}
+
+
+Definition at line 531 of file storage.\-c.
+
+
+
+References E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M.
+
+\hypertarget{storage_8c_ac75689ee50898a2f6580c6489e886b59}{\index{storage.\-c@{storage.\-c}!storage\-\_\-get@{storage\-\_\-get}}
+\index{storage\-\_\-get@{storage\-\_\-get}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}int storage\-\_\-get (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{table, }
+\item[{const char $\ast$}]{key, }
+\item[{struct {\bf storage\-\_\-record} $\ast$}]{record, }
+\item[{void $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_ac75689ee50898a2f6580c6489e886b59}
+
+
+Get a record from the server. 
+
+Retrieve the value associated with a key in a table.
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$table} & name of table being searched \\
+\hline
+{\em $\ast$key} & key of the record being search \\
+\hline
+{\em $\ast$record} & struct to store the value of $\ast$key \\
+\hline
+{\em conn} & represents connection to the server \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 if successful / -\/1 if unsuccessfull 
+\end{DoxyReturn}
+
+
+Definition at line 132 of file storage.\-c.
+
+
+
+References E\-R\-R\-\_\-\-C\-O\-N\-N\-E\-C\-T\-I\-O\-N\-\_\-\-F\-A\-I\-L, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, E\-R\-R\-\_\-\-K\-E\-Y\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D, E\-R\-R\-\_\-\-N\-O\-T\-\_\-\-A\-U\-T\-H\-E\-N\-T\-I\-C\-A\-T\-E\-D, E\-R\-R\-\_\-\-T\-A\-B\-L\-E\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D, get\-\_\-param(), logger(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, storage\-\_\-record\-::metadata, recvline(), sendall(), and storage\-\_\-record\-::value.
+
+\hypertarget{storage_8c_a8a42f72670cdcd7bf83416df1f1b090d}{\index{storage.\-c@{storage.\-c}!storage\-\_\-set@{storage\-\_\-set}}
+\index{storage\-\_\-set@{storage\-\_\-set}!storage.c@{storage.\-c}}
+\subsubsection[{storage\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}int storage\-\_\-set (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{table, }
+\item[{const char $\ast$}]{key, }
+\item[{struct {\bf storage\-\_\-record} $\ast$}]{record, }
+\item[{void $\ast$}]{conn}
+\end{DoxyParamCaption}
+)}}\label{storage_8c_a8a42f72670cdcd7bf83416df1f1b090d}
+
+
+Insert or delete a record from the server. 
+
+Store a key/value pair in a table.
+
+
+\begin{DoxyParams}{Parameters}
+{\em $\ast$table} & name of table where record is being set \\
+\hline
+{\em $\ast$key} & key of the record being set \\
+\hline
+{\em $\ast$record} & struct to store the value of $\ast$key \\
+\hline
+{\em conn} & represents connection to the server \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+returns 0 if successful / -\/1 if unsuccessfull 
+\end{DoxyReturn}
+
+
+Definition at line 245 of file storage.\-c.
+
+
+
+References E\-R\-R\-\_\-\-C\-O\-N\-N\-E\-C\-T\-I\-O\-N\-\_\-\-F\-A\-I\-L, E\-R\-R\-\_\-\-I\-N\-V\-A\-L\-I\-D\-\_\-\-P\-A\-R\-A\-M, E\-R\-R\-\_\-\-K\-E\-Y\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D, E\-R\-R\-\_\-\-N\-O\-T\-\_\-\-A\-U\-T\-H\-E\-N\-T\-I\-C\-A\-T\-E\-D, E\-R\-R\-\_\-\-T\-A\-B\-L\-E\-\_\-\-N\-O\-T\-\_\-\-F\-O\-U\-N\-D, E\-R\-R\-\_\-\-T\-R\-A\-N\-S\-A\-C\-T\-I\-O\-N\-\_\-\-A\-B\-O\-R\-T, logger(), M\-A\-X\-\_\-\-C\-M\-D\-\_\-\-L\-E\-N, storage\-\_\-record\-::metadata, recvline(), sendall(), and storage\-\_\-record\-::value.
+

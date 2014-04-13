@@ -1,0 +1,11 @@
+Running suite query
+main.c:358:P:query invalid:test_invalid_colname:0: Passed
+main.c:366:P:query invalid:test_invalid_duplicate_col_predicates:0: Passed
+main.c:374:P:query invalid:test_invalid_operator_for_column:0: Passed
+main.c:382:P:query invalid:test_invalid_comparator_value_for_column:0: Passed
+main.c:399:P:query simple:test_simple_int0:0: Passed
+main.c:415:P:query simple:test_simple_int1:0: Passed
+main.c:436:P:query complex:test_comp_0:0: Passed
+main.c:454:P:query complex:test_comp_1:0: Passed
+Results for all suites run:
+100%: Checks: 8, Failures: 0, Errors: 0

@@ -1,0 +1,10 @@
+server_host localhost
+<<<<<<< .mine
+server_port 5954
+=======
+server_port 6864
+>>>>>>> .r125
+username admin
+password xxxnq.BMCifhU
+table inttbl col:int
+table strtbl col:char[10]

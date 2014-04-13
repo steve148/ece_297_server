@@ -1,0 +1,23 @@
+Running suite config
+main.c:115:P:sanity:test_sanity_filemod:0: Passed
+main.c:129:P:configerror:test_configerror_nocomma:0: Passed
+main.c:136:P:configerror:test_configerror_negsize:0: Passed
+main.c:143:P:configerror:test_too_many_tables:0: Passed
+main.c:150:P:configerror:test_column_name_too_long:0: Passed
+main.c:157:P:configerror:test_str_value_too_long:0: Passed
+main.c:172:P:configmissing:test_config_missingport:0: Passed
+main.c:179:P:configmissing:test_config_missinghost:0: Passed
+main.c:186:P:configmissing:test_config_missingadmin:0: Passed
+main.c:193:P:configmissing:test_config_missingpsswd:0: Passed
+main.c:200:P:configmissing:test_config_missingtable:0: Passed
+main.c:215:P:configduplicate:test_config_duplicateport:0: Passed
+main.c:222:P:configduplicate:test_config_duplicatehost:0: Passed
+main.c:226:E:configduplicate:test_config_duplicateadmin:0: (after this point) Test timeout expired
+main.c:236:P:configduplicate:test_config_duplicatepsswd:0: Passed
+main.c:243:P:configduplicate:test_duplicate_table_same_param:0: Passed
+main.c:250:P:configduplicate:test_duplicate_table_diff_param:0: Passed
+main.c:267:P:config:test_config_onetable:0: Passed
+main.c:274:P:config:test_config_twotables:0: Passed
+main.c:281:P:config:test_config_threetables:0: Passed
+Results for all suites run:
+95%: Checks: 20, Failures: 0, Errors: 1

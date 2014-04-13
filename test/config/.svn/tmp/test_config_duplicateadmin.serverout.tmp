@@ -1,0 +1,16 @@
+server_host is 
+server_port is 0
+username is 
+password is 
+mytables are , , , 
+mycolumns1 is , , 
+mycolumns2 is , , 
+mycolumns3 is , , 
+mycolumns4 is , , 
+tablecount is 0
+numcolumnspertable are 0, 0, 0, 0
+column_types1 is , , 
+column_types2 is , , 
+column_types3 is , , 
+column_types4 is , , 
+Error processing config file.

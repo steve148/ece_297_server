@@ -1,0 +1,893 @@
+cd src && make clean depend build
+make[1]: Entering directory `/nfs/ug/homes-0/s/steve148/ece297/storage/src'
+rm -rf libstorage.a server client encrypt_passwd *.o tags depend.mk
+cc -g -Wall -M server.c storage.c utils.c client.c encrypt_passwd.c > depend.mk
+cc -g -Wall -c storage.c -o storage.o
+storage.c: In function 'storage_connect':
+storage.c:66:9: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+storage.c: In function 'storage_auth':
+storage.c:86:13: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+storage.c: In function 'storage_get':
+storage.c:130:17: warning: comparison between pointer and integer [enabled by default]
+storage.c:143:16: warning: comparison between pointer and integer [enabled by default]
+storage.c:156:13: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+storage.c: In function 'storage_set':
+storage.c:213:19: warning: comparison between pointer and integer [enabled by default]
+storage.c:225:14: warning: comparison between pointer and integer [enabled by default]
+storage.c:238:13: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+storage.c: In function 'storage_disconnect':
+storage.c:311:13: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+cc -g -Wall -c utils.c -o utils.o
+utils.c: In function 'process_config_line':
+utils.c:149:21: warning: comparison between pointer and integer [enabled by default]
+utils.c:176:23: warning: comparison between pointer and integer [enabled by default]
+ar rcs libstorage.a storage.o utils.o
+cc -g -Wall -c server.c -o server.o
+server.c: In function 'set_command_perm':
+server.c:498:7: warning: unused variable 'found' [-Wunused-variable]
+server.c:494:8: warning: variable 'pch' set but not used [-Wunused-but-set-variable]
+server.c: In function 'delete_command_perm':
+server.c:765:7: warning: variable 'deletef' set but not used [-Wunused-but-set-variable]
+server.c:763:7: warning: unused variable 'found' [-Wunused-variable]
+server.c:759:8: warning: variable 'pch' set but not used [-Wunused-but-set-variable]
+server.c: In function 'main':
+server.c:1158:7: warning: unused variable 'tables' [-Wunused-variable]
+server.c: In function 'predicate_true':
+server.c:636:1: warning: control reaches end of non-void function [-Wreturn-type]
+server.c: In function 'get_column_index':
+server.c:589:1: warning: control reaches end of non-void function [-Wreturn-type]
+server.c: In function 'update_command':
+server.c:580:1: warning: control reaches end of non-void function [-Wreturn-type]
+server.c: In function 'get_column_type':
+server.c:281:1: warning: control reaches end of non-void function [-Wreturn-type]
+server.c: In function 'handle_command':
+server.c:1077:37: warning: 'table_index' may be used uninitialized in this function [-Wuninitialized]
+ulimit; cc -g -Wall -lcrypt -lm server.o utils.o -o server
+unlimited
+cc -g -Wall -c client.c -o client.o
+client.c: In function 'main':
+client.c:426:39: warning: assignment makes integer from pointer without a cast [enabled by default]
+client.c:429:39: warning: assignment makes integer from pointer without a cast [enabled by default]
+client.c:432:39: warning: assignment makes integer from pointer without a cast [enabled by default]
+cc -g -Wall -lcrypt -lm client.o libstorage.a -o client
+cc -g -Wall -c encrypt_passwd.c -o encrypt_passwd.o
+cc -g -Wall -lcrypt -lm encrypt_passwd.o utils.o -o encrypt_passwd
+make[1]: Leaving directory `/nfs/ug/homes-0/s/steve148/ece297/storage/src'
+cd doc && make clean build
+make[1]: Entering directory `/nfs/ug/homes-0/s/steve148/ece297/storage/doc'
+rm -rf doxygen
+doxygen doxygen.conf
+warning: Tag `USE_WINDOWS_ENCODING' at line 64 of file doxygen.conf has become obsolete.
+To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+warning: Tag `DETAILS_AT_TOP' at line 156 of file doxygen.conf has become obsolete.
+To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+warning: Tag `SHOW_DIRECTORIES' at line 390 of file doxygen.conf has become obsolete.
+To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+warning: Tag `HTML_ALIGN_MEMBERS' at line 674 of file doxygen.conf has become obsolete.
+To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+warning: Tag `MAX_DOT_GRAPH_WIDTH' at line 1196 of file doxygen.conf has become obsolete.
+To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+warning: Tag `MAX_DOT_GRAPH_HEIGHT' at line 1204 of file doxygen.conf has become obsolete.
+To avoid this warning please remove this line from your configuration file or upgrade it using "doxygen -u"
+Notice: Output directory `doxygen' does not exist. I have created it for you.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/encrypt_passwd.c:22: warning: Member main(int argc, char *argv[]) (function) of file encrypt_passwd.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:30: warning: Member storage_PERM (macro definition) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:31: warning: Member MAX_NUM_OF_VAL (macro definition) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:54: warning: Member trim(char *str) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:147: warning: Member check_column_types(char val_to_set[MAX_VALUE_LEN], int num_columns, int table_num, char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10]) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:194: warning: Member check_mycolumns(char val_to_set[MAX_VALUE_LEN], int num_columns, int table_num, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN]) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:212: warning: Member num_col_val(char val_to_set[MAX_VALUE_LEN], int num_columns) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:237: warning: Member parse_value(char val_to_set[MAX_VALUE_LEN], int first_empty, int table_num, struct config_params params) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:244: warning: Member num_of_predicates(char predicates[MAX_VALUE_LEN], int num_columns) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:269: warning: Member get_column_type(char column_name[MAX_COLNAME_LEN], int num_columns, int table_num, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10]) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:283: warning: Member check_predicates(char predicates[MAX_VALUE_LEN], int num_columns, int table_num, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10]) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:321: warning: Member parse_predicates(char predicates[MAX_VALUE_LEN], int table_num, struct config_params params) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:328: warning: Member get_all_values(char tables[MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], char row[MAX_VALUE_LEN], int table_num, int index, int num_columns) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:343: warning: Member set_all_values(char tables[MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], char row[MAX_VALUE_LEN], int table_num, int index, int num_columns) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:410: warning: Member get_command_perm(char key_to_get[MAX_KEY_LEN], FILE *fileLoadData, char value_to_get[MAX_VALUE_LEN]) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:487: warning: Member set_command_perm(char key_to_set[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], FILE *fileLoadData, FILE *fileWriteData) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:582: warning: Member get_column_index(char column_name[MAX_COLNAME_LEN], char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], int table_num) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:591: warning: Member predicate_true(char predicate[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int table_num, int column_index, int row_index, char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10]) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:638: warning: Member predicates_true(char predicates[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int num_columns, int table_num, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10], int row_index) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:752: warning: Member delete_command_perm(char key_to_set[MAX_KEY_LEN], FILE *fileLoadData, FILE *fileWriteData) (function) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:33: warning: Member fserverOut (variable) of file server.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:720: warning: argument 'keys' of command @param is not found in the argument list of delete_command(char key_to_delete[MAX_KEY_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns)
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:720: warning: argument 'values' of command @param is not found in the argument list of delete_command(char key_to_delete[MAX_KEY_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns)
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:720: warning: The following parameters of delete_command(char key_to_delete[MAX_KEY_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns) are not documented:
+  parameter 'tables'
+  parameter 'table_num'
+  parameter 'num_columns'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:365: warning: The following parameters of get_command(char key_to_get[MAX_KEY_LEN], char value_to_get[MAX_VALUE_LEN], char tables[MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int tablenum, int numcolumns) are not documented:
+  parameter 'value_to_get'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:98: warning: The following parameters of get_param(char str[MAX_VALUE_LEN], char to_return[MAX_VALUE_LEN], int param_num, char *delims) are not documented:
+  parameter 'delims'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:808: warning: argument 'keys' of command @param is not found in the argument list of handle_command(int sock, struct config_params params, char cmd[MAX_CMD_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty[MAX_TABLES], int *auth_var)
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:808: warning: argument 'values' of command @param is not found in the argument list of handle_command(int sock, struct config_params params, char cmd[MAX_CMD_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty[MAX_TABLES], int *auth_var)
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:808: warning: The following parameters of handle_command(int sock, struct config_params params, char cmd[MAX_CMD_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty[MAX_TABLES], int *auth_var) are not documented:
+  parameter 'tables'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:130: warning: argument 'key_to_search' of command @param is not found in the argument list of has_table(struct config_params params, char table_name[MAX_TABLE_LEN])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:130: warning: argument 'keys' of command @param is not found in the argument list of has_table(struct config_params params, char table_name[MAX_TABLE_LEN])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:130: warning: argument 'first_empty' of command @param is not found in the argument list of has_table(struct config_params params, char table_name[MAX_TABLE_LEN])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:130: warning: The following parameters of has_table(struct config_params params, char table_name[MAX_TABLE_LEN]) are not documented:
+  parameter 'params'
+  parameter 'table_name'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:36: warning: argument 'key_to_search' of command @param is not found in the argument list of key_exist(char key_to_search_for[MAX_KEY_LEN], char tables[MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num)
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:36: warning: argument 'keys' of command @param is not found in the argument list of key_exist(char key_to_search_for[MAX_KEY_LEN], char tables[MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num)
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:36: warning: The following parameters of key_exist(char key_to_search_for[MAX_KEY_LEN], char tables[MAX_TABLE_LEN][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num) are not documented:
+  parameter 'key_to_search_for'
+  parameter 'tables'
+  parameter 'table_num'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:664: warning: argument 'key_to_update' of command @param is not found in the argument list of query_command(int sock, char predicates[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:664: warning: argument 'value_to_update' of command @param is not found in the argument list of query_command(int sock, char predicates[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:664: warning: argument 'keys' of command @param is not found in the argument list of query_command(int sock, char predicates[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:664: warning: argument 'values' of command @param is not found in the argument list of query_command(int sock, char predicates[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:664: warning: The following parameters of query_command(int sock, char predicates[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN], char column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10]) are not documented:
+  parameter 'sock'
+  parameter 'predicates'
+  parameter 'tables'
+  parameter 'table_num'
+  parameter 'num_columns'
+  parameter 'mycolumns'
+  parameter 'column_types'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:462: warning: argument 'keys' of command @param is not found in the argument list of set_command(char key_to_set[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:462: warning: argument 'values' of command @param is not found in the argument list of set_command(char key_to_set[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:462: warning: The following parameters of set_command(char key_to_set[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN]) are not documented:
+  parameter 'tables'
+  parameter 'table_num'
+  parameter 'num_columns'
+  parameter 'mycolumns'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:554: warning: argument 'value_to_update' of command @param is not found in the argument list of update_command(char key_to_update[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:554: warning: argument 'keys' of command @param is not found in the argument list of update_command(char key_to_update[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:554: warning: argument 'values' of command @param is not found in the argument list of update_command(char key_to_update[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN])
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c:554: warning: The following parameters of update_command(char key_to_update[MAX_KEY_LEN], char value_to_set[MAX_VALUE_LEN], char tables[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_RECORDS_PER_TABLE][MAX_STRTYPE_SIZE], int first_empty, int table_num, int num_columns, char mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN]) are not documented:
+  parameter 'value_to_set'
+  parameter 'tables'
+  parameter 'table_num'
+  parameter 'num_columns'
+  parameter 'mycolumns'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/storage.c:17: warning: Member fclientOut (variable) of file storage.c is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h:113: warning: The following parameters of logger(FILE *file, char *message, int LOGGING) are not documented:
+  parameter 'LOGGING'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h:13: warning: Member LOGGING_CLIENT (macro definition) of file utils.h is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h:14: warning: Member LOGGING_SERVER (macro definition) of file utils.h is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h:113: warning: The following parameters of logger(FILE *file, char *message, int LOGGING) are not documented:
+  parameter 'LOGGING'
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h:63: warning: Member mytables[MAX_TABLES][MAX_TABLE_LEN] (variable) of class config_params is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h:66: warning: Member mycolumns[MAX_TABLES][MAX_COLUMNS_PER_TABLE][MAX_COLNAME_LEN] (variable) of class config_params is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h:68: warning: Member tablecount (variable) of class config_params is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h:70: warning: Member numcolumnspertable[MAX_TABLES] (variable) of class config_params is not documented.
+/nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h:72: warning: Member column_types[MAX_TABLES][MAX_COLUMNS_PER_TABLE][10] (variable) of class config_params is not documented.
+Searching for include files...
+Searching for example files...
+Searching for images...
+Searching for dot files...
+Searching for msc files...
+Searching for files to exclude
+Searching for files to process...
+Searching for files in directory /nfs/ug/homes-0/s/steve148/ece297/storage/src
+Searching for files in directory /nfs/ug/homes-0/s/steve148/ece297/storage/src/data
+Reading and parsing tag files
+Preprocessing /nfs/ug/homes-0/s/steve148/ece297/storage/src/client.c...
+Parsing file /nfs/ug/homes-0/s/steve148/ece297/storage/src/client.c...
+Preprocessing /nfs/ug/homes-0/s/steve148/ece297/storage/src/encrypt_passwd.c...
+Parsing file /nfs/ug/homes-0/s/steve148/ece297/storage/src/encrypt_passwd.c...
+Preprocessing /nfs/ug/homes-0/s/steve148/ece297/storage/src/newclient.c...
+Parsing file /nfs/ug/homes-0/s/steve148/ece297/storage/src/newclient.c...
+Preprocessing /nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c...
+Parsing file /nfs/ug/homes-0/s/steve148/ece297/storage/src/server.c...
+Preprocessing /nfs/ug/homes-0/s/steve148/ece297/storage/src/storage.c...
+Parsing file /nfs/ug/homes-0/s/steve148/ece297/storage/src/storage.c...
+Preprocessing /nfs/ug/homes-0/s/steve148/ece297/storage/src/storage.h...
+Parsing file /nfs/ug/homes-0/s/steve148/ece297/storage/src/storage.h...
+Preprocessing /nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.c...
+Parsing file /nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.c...
+Preprocessing /nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h...
+Parsing file /nfs/ug/homes-0/s/steve148/ece297/storage/src/utils.h...
+Building group list...
+Building directory list...
+Building namespace list...
+Building file list...
+Building class list...
+Associating documentation with classes...
+Computing nesting relations for classes...
+Building example list...
+Searching for enumerations...
+Searching for documented typedefs...
+Searching for members imported via using declarations...
+Searching for included using directives...
+Searching for documented variables...
+Building member list...
+Searching for friends...
+Searching for documented defines...
+Computing class inheritance relations...
+Computing class usage relations...
+Flushing cached template relations that have become invalid...
+Creating members for template instances...
+Computing class relations...
+Add enum values to enums...
+Searching for member function documentation...
+Building page list...
+Search for main page...
+Computing page relations...
+Determining the scope of groups...
+Sorting lists...
+Freeing entry tree
+Determining which enums are documented
+Computing member relations...
+Building full member lists recursively...
+Adding members to member groups.
+Computing member references...
+Inheriting documentation...
+Generating disk names...
+Adding source references...
+Adding xrefitems...
+Sorting member lists...
+Computing dependencies between directories...
+Generating citations page...
+Counting data structures...
+Resolving user defined references...
+Finding anchors and sections in the documentation...
+Combining using relations...
+Adding members to index pages...
+Generating style sheet...
+Generating example documentation...
+Generating file sources...
+Generating code for file client.c...
+Generating code for file encrypt_passwd.c...
+Generating code for file newclient.c...
+Generating code for file server.c...
+Generating code for file storage.c...
+Generating code for file storage.h...
+Generating code for file utils.c...
+Generating code for file utils.h...
+Generating file documentation...
+Generating docs for file encrypt_passwd.c...
+Generating docs for file server.c...
+Generating docs for file storage.c...
+Generating docs for file storage.h...
+Generating docs for file utils.c...
+Generating docs for file utils.h...
+Generating page documentation...
+Generating group documentation...
+Generating class documentation...
+Generating docs for compound config_params...
+Generating docs for compound storage_record...
+Generating namespace index...
+Generating graph info page...
+Generating directory documentation...
+Generating index page...
+Generating page index...
+Generating module index...
+Generating namespace index...
+Generating namespace member index...
+Generating annotated compound index...
+Generating alphabetical compound index...
+Generating hierarchical class index...
+Generating member index...
+Generating file index...
+Generating file member index...
+Generating example index...
+finalizing index lists...
+symbol cache used 107/65536 hits=6057 misses=107
+lookup cache used 86/65536 hits=518 misses=87
+finished...
+cd doxygen/latex && make
+make[2]: Entering directory `/nfs/ug/homes-0/s/steve148/ece297/storage/doc/doxygen/latex'
+rm -f *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log *.out *.brf *.blg *.bbl refman.pdf
+pdflatex refman
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian)
+ restricted \write18 enabled.
+entering extended mode
+(./refman.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
+aded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty))))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/backref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty))
+
+Package hyperref Message: Driver: hpdftex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathptmx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/helvet.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/courier.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/sectsty/sectsty.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty) (./doxygen.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/xtab/xtab.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def)))
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty)
+Writing index file refman.idx
+No file refman.aux.
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd) [1] [2]
+Chapter 1.
+(./annotated.tex (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlztmcm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsztmcm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd)
+
+LaTeX Warning: Reference `structconfig__params' on page 1 undefined on input li
+ne 3.
+
+
+LaTeX Warning: Reference `structstorage__record' on page 1 undefined on input l
+ine 4.
+
+) [1] [2]
+Chapter 2.
+(./files.tex
+
+LaTeX Warning: Reference `client_8c' on page 3 undefined on input line 3.
+
+
+LaTeX Warning: Reference `encrypt__passwd_8c' on page 3 undefined on input line
+ 4.
+
+
+LaTeX Warning: Reference `newclient_8c' on page 3 undefined on input line 5.
+
+
+LaTeX Warning: Reference `server_8c' on page 3 undefined on input line 6.
+
+
+LaTeX Warning: Reference `storage_8c' on page 3 undefined on input line 7.
+
+
+LaTeX Warning: Reference `storage_8h' on page 3 undefined on input line 8.
+
+
+LaTeX Warning: Reference `utils_8c' on page 3 undefined on input line 9.
+
+
+LaTeX Warning: Reference `utils_8h' on page 3 undefined on input line 10.
+
+) [3] [4]
+Chapter 3.
+(./structconfig__params.tex
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd))
+(./structstorage__record.tex [5]) [6]
+Chapter 4.
+(./encrypt__passwd_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--12
+
+) (./server_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--25
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [7]
+Underfull \hbox (badness 2478) in paragraph at lines 45--46
+[]\T1/phv/m/n/10 void [][]get-_-param[][] (char str[][][]M-A-X-_--V-A-L-U-E-_--
+L-E-N[][][], char to-_-return[][][]M-A-X-_--V-A-L-U-E-_--L-E-N[][][], int param
+-_-num, char
+
+Underfull \hbox (badness 6708) in paragraph at lines 52--53
+[]\T1/phv/m/n/10 int \T1/phv/b/n/10 check-_-mycolumns \T1/phv/m/n/10 (char val-
+_-to-_-set[][][]M-A-X-_--V-A-L-U-E-_--L-E-N[][][], int num-_-columns, int table
+-_-num, char
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+\T1/phv/m/n/10 tables[][][]M-A-X-_--T-A-B-L-E-S[][][][][][]M-A-X-_--C-O-L-U-M-N
+-S-_--P-E-R-_--T-A-B-L-E[][][][][][]M-A-X-_--R-E-C-O-R-D-S-_--P-E-R-_--T-A-B-L-
+E[][][][][][]M-A-X-_--S-T-R-T-Y-P-E-_--S-I-Z-
+
+Underfull \hbox (badness 1803) in paragraph at lines 97--98
+[]\T1/phv/m/n/10 int \T1/phv/b/n/10 predicates-_-true \T1/phv/m/n/10 (char pred
+icates[][][]M-A-X-_--V-A-L-U-E-_--L-E-N[][][], char tables[][][]M-A-X-_--T-A-B-
+L-E-S[][][][][][]M-A-X-_--C-O-L-U-M-N-S-_--P-
+
+Underfull \hbox (badness 756) in paragraph at lines 97--98
+\T1/phv/m/n/10 E-R-_--T-A-B-L-E[][][][][][]M-A-X-_--R-E-C-O-R-D-S-_--P-E-R-_--T
+-A-B-L-E[][][][][][]M-A-X-_--S-T-R-T-Y-P-E-_--S-I-Z-E[][][], int num-_-columns,
+ int table-_-num, char
+[9]
+Underfull \vbox (badness 10000) detected at line 154
+
+Underfull \vbox (badness 10000) detected at line 198
+[10]
+Underfull \vbox (badness 10000) detected at line 236
+
+Underfull \vbox (badness 10000) detected at line 280
+[11]
+Underfull \vbox (badness 10000) detected at line 312
+
+Underfull \vbox (badness 10000) detected at line 346
+[12]
+Underfull \vbox (badness 10000) detected at line 408
+
+Underfull \vbox (badness 10000) detected at line 453
+
+Underfull \vbox (badness 10000) detected at line 498
+
+Underfull \vbox (badness 10000) has occurred while \output is active [13])
+(./storage_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--19
+
+[14]
+Underfull \vbox (badness 10000) detected at line 71
+
+Underfull \hbox (badness 4927) in paragraph at lines 81--82
+[]\T1/phv/m/n/10 References E-R-R-_--A-U-T-H-E-N-T-I-C-A-T-I-O-N-_--F-A-I-L-E-D
+, E-R-R-_--C-O-N-N-E-C-T-I-O-N-_--F-A-I-L, E-R-R-_--I-N-V-A-L-I-D-_--P-A-R-A-M,
+ generate-_-
+
+Underfull \vbox (badness 10000) detected at line 103
+
+Underfull \vbox (badness 10000) detected at line 129
+[15]
+Underfull \vbox (badness 10000) detected at line 167
+
+Underfull \vbox (badness 10000) detected at line 205
+) (./storage_8h.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+
+[16] [17]
+Underfull \vbox (badness 10000) detected at line 135
+
+Underfull \vbox (badness 10000) detected at line 151
+[18]
+Underfull \hbox (badness 4927) in paragraph at lines 161--162
+[]\T1/phv/m/n/10 References E-R-R-_--A-U-T-H-E-N-T-I-C-A-T-I-O-N-_--F-A-I-L-E-D
+, E-R-R-_--C-O-N-N-E-C-T-I-O-N-_--F-A-I-L, E-R-R-_--I-N-V-A-L-I-D-_--P-A-R-A-M,
+ generate-_-
+
+Underfull \vbox (badness 10000) detected at line 181
+
+Underfull \vbox (badness 10000) detected at line 195
+
+Underfull \vbox (badness 10000) detected at line 219
+
+Underfull \vbox (badness 10000) detected at line 231
+
+Underfull \vbox (badness 10000) has occurred while \output is active [19]
+Underfull \vbox (badness 10000) detected at line 267
+
+Underfull \vbox (badness 10000) detected at line 287
+
+Underfull \vbox (badness 10000) detected at line 326
+[20]
+Underfull \vbox (badness 10000) detected at line 356
+
+Underfull \vbox (badness 10000) detected at line 376
+[21]) (./utils_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--16
+
+
+Underfull \vbox (badness 10000) detected at line 60
+[22]
+Underfull \vbox (badness 10000) detected at line 95
+
+Underfull \vbox (badness 10000) detected at line 122
+[23]) (./utils_8h.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--11
+
+[24] (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd)
+
+LaTeX Font Warning: Font shape `OMS/phv/bc/n' undefined
+(Font)              using `OMS/phv/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 64.
+
+
+Underfull \vbox (badness 10000) detected at line 111
+
+Underfull \vbox (badness 10000) detected at line 146
+
+Underfull \vbox (badness 10000) has occurred while \output is active [25]
+Underfull \vbox (badness 10000) detected at line 173
+)
+No file refman.ind.
+[26] (./refman.aux)
+
+Package rerunfilecheck Warning: File `refman.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{utils_8h_source} has been referenced but does not exist, replaced by a fixed o
+ne
+
+pdfTeX warning (dest): name{utils_8c_source} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{storage_8h_source} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{storage_8c_source} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{server_8c_source} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{encrypt__passwd_8c_source} has been referenced but 
+does not exist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/u
+hvb8ac.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8ac.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on refman.pdf (30 pages, 145941 bytes).
+Transcript written on refman.log.
+makeindex refman.idx
+This is makeindex, version 2.15 [TeX Live 2012] (kpathsea + Thai support).
+Scanning input file refman.idx....done (74 entries accepted, 0 rejected).
+Sorting entries....done (481 comparisons).
+Generating output file refman.ind....done (163 lines written, 0 warnings).
+Output written in refman.ind.
+Transcript written in refman.ilg.
+pdflatex refman
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian)
+ restricted \write18 enabled.
+entering extended mode
+(./refman.tex
+LaTeX2e <2011/06/27>
+Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
+aded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
+Document Class: book 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo))
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/base/makeidx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty)
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty))))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty)
+(/usr/share/texmf/tex/latex/xcolor/xcolor.sty
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/colortbl/colortbl.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty)))
+(/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.def))
+(/usr/share/texlive/texmf-dist/tex/latex/base/alltt.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc.def)
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/backref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty))
+
+Package hyperref Message: Driver: hpdftex.
+
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def)
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ot1enc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/omsenc.dfu)
+(/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.dfu)))
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/mathptmx.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/helvet.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/courier.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/sectsty/sectsty.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty))
+(/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty) (./doxygen.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/calc.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/xtab/xtab.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def)))
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty)
+Writing index file refman.idx
+(./refman.aux) (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd)
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg))
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty))
+(./refman.out) (./refman.out) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.
+map}] [2] (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd)
+(./refman.toc (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ztmcm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omlztmcm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsztmcm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omxztmcm.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd) [1]) [2]
+Chapter 1.
+(./annotated.tex) [1] [2]
+Chapter 2.
+(./files.tex
+
+LaTeX Warning: Reference `client_8c' on page 3 undefined on input line 3.
+
+
+LaTeX Warning: Reference `newclient_8c' on page 3 undefined on input line 5.
+
+) [3] [4]
+Chapter 3.
+(./structconfig__params.tex
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd)
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd))
+(./structstorage__record.tex [5]) [6]
+Chapter 4.
+(./encrypt__passwd_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--12
+
+) (./server_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--25
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active [7]
+Underfull \hbox (badness 2478) in paragraph at lines 45--46
+[]\T1/phv/m/n/10 void [][]get-_-param[][] (char str[][][]M-A-X-_--V-A-L-U-E-_--
+L-E-N[][][], char to-_-return[][][]M-A-X-_--V-A-L-U-E-_--L-E-N[][][], int param
+-_-num, char
+
+Underfull \hbox (badness 6708) in paragraph at lines 52--53
+[]\T1/phv/m/n/10 int \T1/phv/b/n/10 check-_-mycolumns \T1/phv/m/n/10 (char val-
+_-to-_-set[][][]M-A-X-_--V-A-L-U-E-_--L-E-N[][][], int num-_-columns, int table
+-_-num, char
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 89--90
+\T1/phv/m/n/10 tables[][][]M-A-X-_--T-A-B-L-E-S[][][][][][]M-A-X-_--C-O-L-U-M-N
+-S-_--P-E-R-_--T-A-B-L-E[][][][][][]M-A-X-_--R-E-C-O-R-D-S-_--P-E-R-_--T-A-B-L-
+E[][][][][][]M-A-X-_--S-T-R-T-Y-P-E-_--S-I-Z-
+
+Underfull \hbox (badness 1803) in paragraph at lines 97--98
+[]\T1/phv/m/n/10 int \T1/phv/b/n/10 predicates-_-true \T1/phv/m/n/10 (char pred
+icates[][][]M-A-X-_--V-A-L-U-E-_--L-E-N[][][], char tables[][][]M-A-X-_--T-A-B-
+L-E-S[][][][][][]M-A-X-_--C-O-L-U-M-N-S-_--P-
+
+Underfull \hbox (badness 756) in paragraph at lines 97--98
+\T1/phv/m/n/10 E-R-_--T-A-B-L-E[][][][][][]M-A-X-_--R-E-C-O-R-D-S-_--P-E-R-_--T
+-A-B-L-E[][][][][][]M-A-X-_--S-T-R-T-Y-P-E-_--S-I-Z-E[][][], int num-_-columns,
+ int table-_-num, char
+[9]
+Underfull \vbox (badness 10000) detected at line 154
+
+Underfull \vbox (badness 10000) detected at line 198
+[10]
+Underfull \vbox (badness 10000) detected at line 236
+
+Underfull \vbox (badness 10000) detected at line 280
+[11]
+Underfull \vbox (badness 10000) detected at line 312
+
+Underfull \vbox (badness 10000) detected at line 346
+[12]
+Underfull \vbox (badness 10000) detected at line 408
+
+Underfull \vbox (badness 10000) detected at line 453
+
+Underfull \vbox (badness 10000) detected at line 498
+
+Underfull \vbox (badness 10000) has occurred while \output is active [13])
+(./storage_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--19
+
+[14]
+Underfull \vbox (badness 10000) detected at line 71
+
+Underfull \hbox (badness 4927) in paragraph at lines 81--82
+[]\T1/phv/m/n/10 References E-R-R-_--A-U-T-H-E-N-T-I-C-A-T-I-O-N-_--F-A-I-L-E-D
+, E-R-R-_--C-O-N-N-E-C-T-I-O-N-_--F-A-I-L, E-R-R-_--I-N-V-A-L-I-D-_--P-A-R-A-M,
+ generate-_-
+
+Underfull \vbox (badness 10000) detected at line 103
+
+Underfull \vbox (badness 10000) detected at line 129
+[15]
+Underfull \vbox (badness 10000) detected at line 167
+
+Underfull \vbox (badness 10000) detected at line 205
+) (./storage_8h.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+
+[16] [17]
+Underfull \vbox (badness 10000) detected at line 135
+
+Underfull \vbox (badness 10000) detected at line 151
+[18]
+Underfull \hbox (badness 4927) in paragraph at lines 161--162
+[]\T1/phv/m/n/10 References E-R-R-_--A-U-T-H-E-N-T-I-C-A-T-I-O-N-_--F-A-I-L-E-D
+, E-R-R-_--C-O-N-N-E-C-T-I-O-N-_--F-A-I-L, E-R-R-_--I-N-V-A-L-I-D-_--P-A-R-A-M,
+ generate-_-
+
+Underfull \vbox (badness 10000) detected at line 181
+
+Underfull \vbox (badness 10000) detected at line 195
+
+Underfull \vbox (badness 10000) detected at line 219
+
+Underfull \vbox (badness 10000) detected at line 231
+
+Underfull \vbox (badness 10000) has occurred while \output is active [19]
+Underfull \vbox (badness 10000) detected at line 267
+
+Underfull \vbox (badness 10000) detected at line 287
+
+Underfull \vbox (badness 10000) detected at line 326
+[20]
+Underfull \vbox (badness 10000) detected at line 356
+
+Underfull \vbox (badness 10000) detected at line 376
+[21]) (./utils_8c.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--16
+
+
+Underfull \vbox (badness 10000) detected at line 60
+[22]
+Underfull \vbox (badness 10000) detected at line 95
+
+Underfull \vbox (badness 10000) detected at line 122
+[23]) (./utils_8h.tex
+Underfull \hbox (badness 10000) in paragraph at lines 9--11
+
+[24] (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsphv.fd)
+
+LaTeX Font Warning: Font shape `OMS/phv/bc/n' undefined
+(Font)              using `OMS/phv/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 64.
+
+
+Underfull \vbox (badness 10000) detected at line 111
+
+Underfull \vbox (badness 10000) detected at line 146
+
+Underfull \vbox (badness 10000) has occurred while \output is active [25]
+Underfull \vbox (badness 10000) detected at line 173
+) (./refman.ind [26] [27] [28]) (./refman.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were undefined references.
+
+ )
+(see the transcript file for additional information)pdfTeX warning (dest): name
+{utils_8h_source} has been referenced but does not exist, replaced by a fixed o
+ne
+
+pdfTeX warning (dest): name{utils_8c_source} has been referenced but does not e
+xist, replaced by a fixed one
+
+pdfTeX warning (dest): name{storage_8h_source} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{storage_8c_source} has been referenced but does not
+ exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{server_8c_source} has been referenced but does not 
+exist, replaced by a fixed one
+
+pdfTeX warning (dest): name{encrypt__passwd_8c_source} has been referenced but 
+does not exist, replaced by a fixed one
+
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/u
+hvb8ac.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvbo8ac.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share
+/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
+Output written on refman.pdf (32 pages, 157140 bytes).
+Transcript written on refman.log.
+latex_count=5 ; \
+	while egrep -s 'Rerun (LaTeX|to get cross-references right)' refman.log && [ $latex_count -gt 0 ] ;\
+	    do \
+	      echo "Rerunning latex...." ;\
+	      pdflatex refman ;\
+	      latex_count=`expr $latex_count - 1` ;\
+	    done
+make[2]: Leaving directory `/nfs/ug/homes-0/s/steve148/ece297/storage/doc/doxygen/latex'
+make[1]: Leaving directory `/nfs/ug/homes-0/s/steve148/ece297/storage/doc'
+cd test && make clean build
+make[1]: Entering directory `/nfs/ug/homes-0/s/steve148/ece297/storage/test'
+cd a1-partial && make -s clean
+make[2]: Entering directory `/nfs/ug/homes-0/s/steve148/ece297/storage/test/a1-partial'
+make[2]: Leaving directory `/nfs/ug/homes-0/s/steve148/ece297/storage/test/a1-partial'
+cd a1-partial && make -s
+make[2]: Entering directory `/nfs/ug/homes-0/s/steve148/ece297/storage/test/a1-partial'
+make[2]: Leaving directory `/nfs/ug/homes-0/s/steve148/ece297/storage/test/a1-partial'
+make[1]: Leaving directory `/nfs/ug/homes-0/s/steve148/ece297/storage/test'

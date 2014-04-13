@@ -1,0 +1,4 @@
+server_host localhost
+server_port 5873
+username admin
+table inttbl col:int

@@ -1,0 +1,54 @@
+/* BUGS.TXT FILE */
+
+FORMAT:
+
+USER
+DATE
+DESCRIPTION (WHICH FILE, EXPECTED VS ACTUAL OUTPUT, CODE SNIPPET)
+
+*******************
+
+
+1.
+
+USER: Maxim Antipin
+DATE: March 10, 2014
+DESCRIPTION: Bug found in "server.c" file, related to on-disk storage. Issuing a set command would result in all entries in the table file being replaced with the new entry and it's values.
+The bug was found on this line:
+
+fprintf(fileWriteData,"%s:%s;\n",key_to_set,value_to_set);
+
+This line is executed if the key in the table storage file does not match the key in the set command. This line should reprint a line read from the old file, but instead is printing the new
+key and value. Replacing this line with:
+
+fprintf(fileWriteData,"%s\n".bulkLoadLine1);
+
+fixed the problem. bulkLoadLine1 is a string that was read from the old file.
+
+/*** END OF BUG ***/
+
+
+2.
+
+USER:
+DATE:
+DESCRIPTION:
+
+/*** END OF BUG ***/
+
+
+3.
+
+USER:
+DATE:
+DESCRIPTION:
+
+/*** END OF BUG ***/
+
+
+FOR LENNOX:
+I used SET for students 65 47 => successful
+and i used GET for students 65, i got a reply of "47 47"
+
+I used SET for cars, "bmw", 35, i got an error code 2, and a segmentation fault from the server
+(note bmw is a char value)

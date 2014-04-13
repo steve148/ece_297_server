@@ -1,0 +1,10 @@
+server_host localhost
+<<<<<<< .mine
+server_port 5765
+=======
+server_port 5857
+>>>>>>> .r157
+username admin
+password xxxnq.BMCifhU
+table subwayLines stops:int, kilometres:int
+table subwayLines stops:int, kilometres:int

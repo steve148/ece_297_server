@@ -1,0 +1,15 @@
+server_host localhost
+server_port 5942
+username admin
+password xxxnq.BMCifhU
+table inttbl col:int
+table strtbl col:char[10]
+table inttbl3 col:int
+table inttbl4 col:int
+table inttbl5 col:int
+table inttbl6 col:int
+table inttbl7 col:int
+table inttbl8 col:int
+table inttbl9 col:int
+table inttbl10 col:int
+table inttbl11 col:int

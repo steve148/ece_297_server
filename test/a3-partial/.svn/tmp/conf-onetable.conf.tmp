@@ -1,0 +1,13 @@
+<<<<<<< .mine
+server_host localhost
+server_port 6013
+username admin
+password xxxnq.BMCifhU
+table inttbl col:int
+=======
+server_host localhost
+server_port 6309
+username admin
+password xxxnq.BMCifhU
+table inttbl col:int
+>>>>>>> .r133

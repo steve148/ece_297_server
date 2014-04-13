@@ -1,0 +1,42 @@
+COLSSSSS ARE THESEEE  and number is 0 and temp is server_host
+COLSSSSS ARE THESEEE  and number is 0 and temp is server_port
+COLSSSSS ARE THESEEE  and number is 0 and temp is username
+COLSSSSS ARE THESEEE  and number is 0 and temp is password
+COLSSSSS ARE THESEEE name:char[30] and number is 0 and temp is table
+COLSSSSS ARE THESEEE stops:int and number is 1 and temp is table
+COLSSSSS ARE THESEEE kilometres:int
+ and number is 2 and temp is table
+COLSSSSS ARE THESEEE  and number is 3 and temp is table
+x isssssssssssssssss 3count isssssssssssssssss 3COUNT ISSSSSSS 3
+COL1 ISSSSSSS name:char[30]
+type issssssssssssss char[30]
+type issssssssssssss int
+type issssssssssssss int
+THE TYPE[x] ISSSSS char[30]
+ THE NUMBER is 30COLSSSSS ARE THESEEE name:char[40] and number is 0 and temp is table
+COLSSSSS ARE THESEEE stops:int and number is 1 and temp is table
+COLSSSSS ARE THESEEE kilometres:int
+ and number is 2 and temp is table
+COLSSSSS ARE THESEEE  and number is 3 and temp is table
+x isssssssssssssssss 3count isssssssssssssssss 3COUNT ISSSSSSS 3
+COL1 ISSSSSSS name:char[40]
+type issssssssssssss char[40]
+type issssssssssssss int
+type issssssssssssss int
+THE TYPE[x] ISSSSS char[40]
+ THE NUMBER is 40server_host is localhost
+server_port is 6821
+username is admin
+password is xxxnq.BMCifhU
+mytables are subwayLines, subwayLines, , 
+mycolumns1 is name, stops, kilometres
+mycolumns2 is name, stops, kilometres
+mycolumns3 is , , 
+mycolumns4 is , , 
+tablecount is 2
+numcolumnspertable are 3, 3, 0, 0
+column_types1 is char[30], int, int
+column_types2 is char[40], int, int
+column_types3 is , , 
+column_types4 is , , 
+Error processing config file.

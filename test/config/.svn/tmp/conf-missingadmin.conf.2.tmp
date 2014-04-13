@@ -1,0 +1,4 @@
+server_host localhost
+server_port 6821
+password xxxnq.BMCifhU
+table inttbl col:int

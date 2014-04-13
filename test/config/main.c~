@@ -1,0 +1,352 @@
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <fcntl.h>
+#include <check.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <errno.h>
+#include <math.h>
+#include "storage.h"
+
+#define TESTTIMEOUT 									10      
+#define SERVEREXEC  									"./server" 
+#define SERVEROUT   									"default.serverout"
+#define SERVEROUT_MODE  							0666
+#define SERVERPORT 										4848
+
+#define NO_COMMA_CONF									"conf-nocomma.conf"
+#define NEG_SIZE_CONF									"conf-negsize.conf"
+#define TOO_MANY_TABLES_CONF					"conf-too-many-tables.conf"
+#define COL_NAME_TOO_LONG_CONF				"conf-column-name-too-long.conf"
+#define STR_VAL_TOO_LONG_CONF					"conf-str-value-too-long.conf"
+#define ONETABLE_CONF           			"conf-onetable.conf"
+#define TWOTABLES_CONF      					"conf-twotables.conf"
+#define THREETABLES_CONF    					"conf-threetables.conf"
+
+#define MISSING_PORT__CONF						"conf-missingport.conf"
+#define MISSING_HOST_CONF							"conf-missinghost.conf"
+#define MISSING_ADMIN_CONF						"conf-missingadmin.conf"
+#define MISSING_PSSWD_CONF						"conf-missingpsswd.conf"
+#define NO_TABLES_CONF								"conf-notables.conf"
+
+#define DUPLICATEPORT_CONF     				"conf-duplicateport.conf"
+#define DUPLICATEHOST_CONF						"conf-duplicatehost.conf"
+#define DUPLICATEADMIN_CONF						"conf-duplicateadmin.conf"
+#define DUPLICATEPSSWD_CONF						"conf-duplicatepsswd.conf"
+#define DUPL_TABLE_SAME_PARAMS_CONF		"conf-duplicate-table-same-param.conf"
+#define DUPL_TABLE_DIFF_PARAMS_CONF		"conf-duplicate-table-diff-param.conf"
+
+
+/* Server port used by test */
+int server_port;
+
+/**
+ * @brief Start the storage server.
+ *
+ * @param config_file The configuration file the server should use.
+ * @param status Status info about the server (from waitpid).
+ * @param serverout_file File where server output is stored.
+ * @return Return server process id on success, or -1 otherwise.
+ */
+int start_server(char *config_file, int *status, const char *serverout_file)
+{
+    sleep(1);       // Give the OS enough time to kill previous process
+
+    pid_t childpid = fork();
+    if (childpid < 0)
+    {
+        // Failed to create child.
+        return -1;
+    }
+    else if (childpid == 0)
+    {
+        // The child.
+
+        // Redirect stdout and stderr to a file.
+        const char *outfile = serverout_file == NULL ? SERVEROUT : serverout_file;
+        //int outfd = creat(outfile, SERVEROUT_MODE);
+        int outfd = open(outfile, O_CREAT | O_WRONLY, SERVEROUT_MODE);
+        close(STDOUT_FILENO);
+        close(STDERR_FILENO);
+        if (dup2(outfd, STDOUT_FILENO) < 0 || dup2(outfd, STDERR_FILENO) < 0)
+        {
+            perror("dup2 error");
+            return -1;
+        }
+
+        // Start the server
+        execl(SERVEREXEC, SERVEREXEC, config_file, NULL);
+
+        // Should never get here.
+        perror("Couldn't start server");
+        exit(EXIT_FAILURE);
+    }
+    else
+    {
+        // The parent.
+
+        // If the child terminates quickly, then there was probably a
+        // problem running the server (e.g., config file not found).
+        sleep(1);
+        int pid = waitpid(childpid, status, WNOHANG);
+        //printf("Parent returned %d with child status %d\n", pid, WEXITSTATUS(*status));
+        if (pid == childpid)
+            return -1; // Probably a problem starting the server.
+        else
+            return childpid; // Probably ok.
+    }
+}
+
+
+/**
+ * This test makes sure that the storage.h file has not been modified.
+ */
+START_TEST (test_sanity_filemod)
+{
+    // Compare with the original version of storage.h.
+    int status = system("md5sum --status -c md5sum.check &> /dev/null");
+    fail_if(status == -1, "Error computing md5sum of storage.h.");
+    int matches = WIFEXITED(status) && WEXITSTATUS(status) == 0;
+
+    // Fail if it doesn't match original version.
+    fail_if(!matches, "storage.h has been modified.");
+}
+END_TEST
+
+/*
+ * Test how the server processes the configuration file.
+ *
+ * Config file error tests:
+ *  start server with bad table specs (fail)
+ */
+
+START_TEST (test_configerror_nocomma)
+{
+    int serverpid = start_server(NO_COMMA_CONF, NULL, "test_configerror_nocomma.serverout");
+    fail_unless(serverpid == -1, "Server should exit due to error in config file.");
+}
+END_TEST
+
+START_TEST (test_configerror_negsize)
+{
+    int serverpid = start_server(NEG_SIZE_CONF, NULL, "test_configerror_negsize.serverout");
+    fail_unless(serverpid == -1, "Server should exit due to error in config file.");
+}
+END_TEST
+
+START_TEST (test_too_many_tables)
+{
+    int serverpid = start_server(TOO_MANY_TABLES_CONF, NULL, "test_too_many_tables.serverout");
+    fail_unless(serverpid == -1, "Server should exit due to error in config file.");
+}
+END_TEST
+
+START_TEST (test_column_name_too_long)
+{
+    int serverpid = start_server(COL_NAME_TOO_LONG_CONF, NULL, "test_column_name_too_long.serverout");
+    fail_unless(serverpid == -1, "Server should exit due to error in config file.");
+}
+END_TEST
+
+START_TEST (test_str_value_too_long)
+{
+    int serverpid = start_server(STR_VAL_TOO_LONG_CONF, NULL, "test_str_value_too_long.serverout");
+    fail_unless(serverpid == -1, "Server should exit due to error in config file.");
+}
+END_TEST
+
+
+/*
+ * Test how the server processes the configuration file.
+ *
+ * Config file error tests:
+ *  start server with missing specs (fail)
+ */
+
+START_TEST (test_config_missingport)
+{
+    int serverpid = start_server(MISSING_PORT__CONF, NULL, "test_config_missingport.serverout");
+    fail_unless(serverpid < 0, "Server should not run with no port numbers in the config file.");
+}
+END_TEST
+
+START_TEST (test_config_missinghost)
+{
+    int serverpid = start_server(MISSING_HOST_CONF, NULL, "test_config_missinghost.serverout");
+    fail_unless(serverpid < 0, "Server should not run with no host names in the config file.");
+}
+END_TEST
+
+START_TEST (test_config_missingadmin)
+{
+    int serverpid = start_server(MISSING_ADMIN_CONF, NULL, "test_config_missingadmin.serverout");
+    fail_unless(serverpid < 0, "Server should not run with no admin names in the config file.");
+}
+END_TEST
+
+START_TEST (test_config_missingpsswd)
+{
+    int serverpid = start_server(MISSING_PSSWD_CONF, NULL, "test_config_missingpsswd.serverout");
+    fail_unless(serverpid < 0, "Server should not run with no passwords strings in the config file.");
+}
+END_TEST
+
+START_TEST (test_config_missingtable)
+{
+    int serverpid = start_server(NO_TABLES_CONF, NULL, "test_config_notables.serverout");
+    fail_unless(serverpid < 0, "Server should not run with no table names in the config file.");
+}
+END_TEST
+
+
+/*
+ * Test how the server processes the configuration file.
+ *
+ * Config file error tests:
+ *  start server with duplicate specs (fail)
+ */
+
+START_TEST (test_config_duplicateport)
+{
+    int serverpid = start_server(DUPLICATEPORT_CONF, NULL, "test_config_duplicateport.serverout");
+    fail_unless(serverpid < 0, "Server should not run with duplicate port numbers in the config file.");
+}
+END_TEST
+
+START_TEST (test_config_duplicatehost)
+{
+    int serverpid = start_server(DUPLICATEHOST_CONF, NULL, "test_config_duplicatehost.serverout");
+    fail_unless(serverpid < 0, "Server should not run with duplicate host names in the config file.");
+}
+END_TEST
+
+START_TEST (test_config_duplicateadmin)
+{
+    int serverpid = start_server(DUPLICATEADMIN_CONF, NULL, "test_config_duplicateadmin.serverout");
+    fail_unless(serverpid < 0, "Server should not run with duplicate admin names in the config file.");
+}
+END_TEST
+
+START_TEST (test_config_duplicatepsswd)
+{
+    int serverpid = start_server(DUPLICATEPSSWD_CONF, NULL, "test_config_duplicatepsswd.serverout");
+    fail_unless(serverpid < 0, "Server should not run with duplicate passwords in the config file.");
+}
+END_TEST
+
+START_TEST (test_duplicate_table_same_param)
+{
+    int serverpid = start_server(DUPL_TABLE_SAME_PARAMS_CONF, NULL, "test_duplicate_table_same_param.serverout");
+    fail_unless(serverpid == -1, "Server should exit due to error in config file.");
+}
+END_TEST
+
+START_TEST (test_duplicate_table_diff_param)
+{
+    int serverpid = start_server(DUPL_TABLE_DIFF_PARAMS_CONF, NULL, "test_duplicate_table_diff_param.serverout");
+    fail_unless(serverpid == -1, "Server should exit due to error in config file.");
+}
+END_TEST
+
+/*
+ * Test how the server processes the configuration file.
+ *
+ * Config file (server start) tests:
+ *  start server with one simple table (pass)
+ *  start server with tables with single columns (pass)
+ *  start server with tables with multiple columns (pass)
+ *  start server with whitespaced table (pass)
+ */
+
+START_TEST (test_config_onetable)
+{
+    int serverpid = start_server(ONETABLE_CONF, NULL, "test_config_onetable.serverout");
+    fail_unless(serverpid > 0, "Server didn't run properly.");
+}
+END_TEST
+
+START_TEST (test_config_twotables)
+{
+    int serverpid = start_server(TWOTABLES_CONF, NULL, "test_config_twotables.serverout");
+    fail_unless(serverpid > 0, "Server didn't run properly.");
+}
+END_TEST
+
+START_TEST (test_config_threetables)
+{
+    int serverpid = start_server(THREETABLES_CONF, NULL, "test_config_threetables.serverout");
+    fail_unless(serverpid > 0, "Server didn't run properly.");
+}
+END_TEST
+
+/**
+ * @brief This runs the marking tests for Assignment 3.
+ */
+int main(int argc, char *argv[])
+{
+    if (argc == 2)
+        server_port = atoi(argv[1]);
+    else
+        server_port = SERVERPORT;
+    printf("Using server port: %d.\n", server_port);
+    Suite *s = suite_create("a3-partial");
+    TCase *tc;
+
+    // Sanity tests
+    tc = tcase_create("sanity");
+    tcase_set_timeout(tc, TESTTIMEOUT);
+    tcase_add_test(tc, test_sanity_filemod);
+    suite_add_tcase(s, tc);
+
+    // Config file incorrect parameters
+    tc = tcase_create("configerror");
+    tcase_set_timeout(tc, TESTTIMEOUT);
+    tcase_add_test(tc, test_configerror_nocomma);
+    tcase_add_test(tc, test_configerror_negsize);
+    tcase_add_test(tc, test_too_many_tables);
+    tcase_add_test(tc, test_column_name_too_long);
+    tcase_add_test(tc, test_str_value_too_long);
+    suite_add_tcase(s, tc);
+
+    // Config file missing parameters tests
+    tc = tcase_create("configmissing");
+    tcase_set_timeout(tc, TESTTIMEOUT);
+    tcase_add_test(tc, test_config_missingport);
+    tcase_add_test(tc, test_config_missinghost);
+    tcase_add_test(tc, test_config_missingadmin);
+    tcase_add_test(tc, test_config_missingpsswd);
+    tcase_add_test(tc, test_config_missingtable);
+    suite_add_tcase(s, tc);
+
+
+    // Config file duplicate parameters tests
+    tc = tcase_create("configduplicate");
+    tcase_set_timeout(tc, TESTTIMEOUT);
+    tcase_add_test(tc, test_config_duplicateport);
+    tcase_add_test(tc, test_config_duplicatehost);
+    tcase_add_test(tc, test_config_duplicateadmin);
+    tcase_add_test(tc, test_config_duplicatepsswd);
+    tcase_add_test(tc, test_duplicate_table_same_param);
+    tcase_add_test(tc, test_duplicate_table_diff_param);
+    suite_add_tcase(s, tc);
+
+    // Config file tests
+    tc = tcase_create("config");
+    tcase_set_timeout(tc, TESTTIMEOUT);
+    tcase_add_test(tc, test_config_onetable);
+    tcase_add_test(tc, test_config_twotables);
+    tcase_add_test(tc, test_config_threetables);
+    suite_add_tcase(s, tc);
+
+    SRunner *sr = srunner_create(s);
+    srunner_set_log(sr, "results.log");
+    srunner_run_all(sr, CK_ENV);
+    srunner_ntests_failed(sr);
+    srunner_free(sr);
+
+    return EXIT_SUCCESS;
+}
+

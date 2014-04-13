@@ -1,0 +1,14 @@
+Running suite get
+main.c:355:P:getinvalid:test_getinvalid_badtable:0: Passed
+main.c:364:P:getinvalid:test_getinvalid_badkey:0: Passed
+main.c:372:P:getinvalid:test_getinvalid_record:0: Passed
+main.c:381:P:getinvalid:test_getinvalid_conn:0: Passed
+main.c:396:P:getmissing:test_getmissing_missingtable:0: Passed
+main.c:405:P:getmissing:test_getmissing_missingkey:0: Passed
+main.c:431:P:getsimple:test_get_simple_int:0: Passed
+main.c:455:P:getsimple:test_get_simple_str:0: Passed
+main.c:491:P:getcomplex:test_getcomplex_threecols:0: Passed
+main.c:515:P:getcomplex:test_getcomplex_fourcols:0: Passed
+main.c:541:P:getcomplex:test_getcomplex_sixcols:0: Passed
+Results for all suites run:
+100%: Checks: 11, Failures: 0, Errors: 0

@@ -1,0 +1,615 @@
+#include <errno.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include "storage.h"
+#include "utils.h"
+#include <time.h>
+
+FILE *fclientOut;
+FILE *fbulkLoad;
+
+void getString (char **stringS)
+{
+
+    // Clear input stream
+    fflush(stdin);
+
+    char c;
+    int stringLen = 1;
+    int charCount = 0;
+
+    if (*stringS)
+    {
+        free(*stringS);
+    }
+
+    // Allocate memory for one character and a NULL terminator
+    (*stringS) = (char *)malloc( (stringLen + 1));
+
+    // Skip all newlines
+    do
+    {
+        c = getc(stdin);
+    }
+    while (c == '\n');
+
+    do
+    {
+        // If more space is needed in string, reallocate it
+        if (charCount >= stringLen)
+        {
+            stringLen = stringLen * 2;
+            (*stringS) = realloc((*stringS), (stringLen + 1));
+        }
+        // Add to string
+        (*stringS)[charCount] = c;
+        charCount++;
+        c = getc(stdin);
+    }
+    while (c != '\n');
+
+    (*stringS)[charCount] = '\0';
+
+}
+
+// Checks if the string has characters other than integers
+bool intCheck (char *stringS)
+{
+
+    int i = 0;
+    int temp;
+
+    do
+    {
+        temp = stringS[i] - 48;
+        if (temp > 9 || temp < 0)
+            return false;
+        i++;
+    }
+    while (stringS[i] != '\0');
+
+    return true;
+
+}
+
+int main(int argc, char *argv[])
+{
+
+    int commandValue;
+    int portNumber;
+
+    bool exitClient = false;
+
+    char *commandKey = NULL;
+    char *hostnameString = NULL;
+    char *portString = NULL;
+    char *usernameString = NULL;
+    char *passwordString = NULL;
+    char *tableGetString = NULL;
+    char *keyGetString = NULL;
+    char *tableSetString = NULL;
+    char *keySetString = NULL;
+    char *recordSetString = NULL;
+    char *confirmString = NULL;
+    char *predicatesGetString = NULL;
+    char *matchingNum = NULL;
+    char *maxKeysString = NULL;
+
+    char *escapeSeq = "!";
+
+    char *bulkLoadLine1;
+    char *bulkLoadLine2;
+    char *bulkLoadLine3;
+    char *bulkLoadTemp;
+
+    (bulkLoadLine1) = (char *)malloc( (100 + 1));
+    (bulkLoadLine2) = (char *)malloc( (100 + 1));
+    (bulkLoadLine3) = (char *)malloc( (100 + 1));
+    (bulkLoadTemp) = (char *)malloc( (100 + 1));
+    size_t lengthBulkString;
+
+    void *conn = NULL;
+
+    bool stopLoad;
+    bool firstPass;
+    time_t rawtime;
+    struct tm *timeinfo;
+    char timeStamp [50];
+
+    fbulkLoad = fopen ("bulkload.txt", "rt");
+
+    time (&rawtime);
+    timeinfo = localtime (&rawtime);
+
+    strftime (timeStamp, 50, "Client-%F-%H-%M-%S.log", timeinfo);
+
+    if (LOGGING_CLIENT == 2)
+    {
+        fclientOut = fopen (timeStamp, "w+");
+    }
+    do
+    {
+        fflush(stdin);
+
+        // Show Menu
+        printf("> Menu: (Escape Sequence is '%s') \n", escapeSeq);
+        printf("> --------------------- \n");
+        printf("> 1) Connect \n");
+        printf("> 2) Authenticate \n");
+        printf("> 3) Get \n");
+        printf("> 4) Set \n");
+        printf("> 5) Disconnect \n");
+        printf("> 6) Exit \n");
+        printf("> 7) Bulk Load \n");
+        printf("> 8) Query \n");
+        printf("> --------------------- \n");
+
+        // Command Input
+        printf("> Enter command key: ");
+        getString(&commandKey);
+
+        commandValue = (*commandKey) - 48; // ASCII Value of '0' is 48
+
+        switch (commandValue)
+        {
+
+        case 1: // Connect
+
+            printf("> \n");
+            printf("> Connect Selected \n");
+            printf("> \n");
+
+            printf("> Input the hostname: ");
+            getString(&hostnameString);
+
+            if ((*hostnameString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            printf("> Input the port: ");
+            getString(&portString);
+
+            if ((*portString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            while (!intCheck(portString))
+            {
+                printf("> Port is not a proper number, please reenter port: ");
+                getString(&portString);
+                errno = ERR_INVALID_PARAM;
+                if ((*portString) == (*escapeSeq))
+                {
+                    printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                    break;
+                }
+            }
+
+            portNumber = atoi(portString); // Converts the string to an integer for proper function argument
+
+            printf("> \n");
+
+            conn = storage_connect(hostnameString, portNumber);
+
+            if (!conn)
+            {
+                errno = ERR_CONNECTION_FAIL;
+                printf("Cannot connect to server @ %s:%d. Error code: %d.\n",
+                       hostnameString, portNumber, errno);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return -1;
+            }
+            printf("storage_connect: successful.\n");
+            printf("> \n");
+
+            break;
+        case 2: // Authenticate
+
+            if (!conn)
+            {
+                errno = ERR_CONNECTION_FAIL;
+                printf("Cannot connect to server @ %s:%d. Error code: %d.\n",
+                       hostnameString, portNumber, errno);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return -1;
+            }
+
+            printf("> \n");
+            printf("> Authenticate Selected \n");
+            printf("> \n");
+
+            printf("> Input the username: ");
+            getString(&usernameString);
+
+            if ((*usernameString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            printf("> Input the password: ");
+            getString(&passwordString);
+
+            if ((*passwordString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            int status = storage_auth(usernameString, passwordString, conn);
+
+            if (status != 0)
+            {
+                errno = ERR_AUTHENTICATION_FAILED;
+                printf("storage_auth failed with username '%s' and password '%s'. " \
+                       "Error code: %d.\n", usernameString, passwordString, errno);
+                storage_disconnect(conn);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return status;
+            }
+            printf("storage_auth: successful.\n");
+
+            printf("> \n");
+            break;
+
+        case 4: // Set
+
+            if (!conn)
+            {
+                errno = ERR_CONNECTION_FAIL;
+                printf("Cannot connect to server @ %s:%d. Error code: %d.\n",
+                       hostnameString, portNumber, errno);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return -1;
+            }
+
+
+            printf("> \n");
+            printf("> Set Selected \n");
+            printf("> \n");
+
+            printf("> Input the table: ");
+            getString(&tableSetString);
+
+            if ((*tableSetString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            printf("> Input the key: ");
+            getString(&keySetString);
+
+            if ((*keySetString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            printf("> Input the record: ");
+            getString(&recordSetString);
+
+            if ((*recordSetString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            struct storage_record r;
+            strncpy(r.value, recordSetString, sizeof r.value);
+            status = storage_set(tableSetString, keySetString, &r, conn);
+            if (status != 0)
+            {
+                printf("storage_set failed. Error code: %d.\n", errno);
+                storage_disconnect(conn);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return status;
+            }
+            printf("storage_set: successful.\n");
+
+            printf("> \n");
+            break;
+
+        case 3: // Get
+
+
+            if (!conn)
+            {
+                errno = ERR_CONNECTION_FAIL;
+                printf("Cannot connect to server @ %s:%d. Error code: %d.\n",
+                       hostnameString, portNumber, errno);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return -1;
+            }
+
+
+            printf("> \n");
+            printf("> Get Selected \n");
+            printf("> \n");
+
+            printf("> Input the table: ");
+            getString(&tableGetString);
+
+            if ((*tableGetString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            printf("> Input the key: ");
+            getString(&keyGetString);
+
+            if ((*keyGetString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            status = storage_get(tableGetString, keyGetString, &r, conn);
+            if (status != 0)
+            {
+                printf("storage_get failed. Error code: %d.\n", errno);
+                storage_disconnect(conn);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return status;
+            }
+            printf("storage_get: the value returned for key '%s' is '%s'.\n", keyGetString, r.value);
+
+            printf("> \n");
+            break;
+
+        case 5: // Disconnect
+
+            if (!conn)
+            {
+                errno = ERR_CONNECTION_FAIL;
+                printf("Cannot connect to server @ %s:%d. Error code: %d.\n",
+                       hostnameString, portNumber, errno);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return -1;
+            }
+
+
+            printf("> \n");
+            printf("> Disconnect Selected \n");
+            printf("> \n");
+
+            printf("> To confirm input any integer (to cancel input escape sequence): ");
+            getString(&confirmString);
+
+            if ((*confirmString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            status = storage_disconnect(conn);
+            if (status != 0)
+            {
+                printf("storage_disconnect failed. Error code: %d.\n", errno);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return status;
+            }
+
+            printf("> \n");
+            break;
+        case 6: // Exit
+
+            printf("> \n");
+            printf("> Exit Selected \n");
+            printf("> \n");
+
+            printf("> To confirm input any integer (to cancel input escape sequence): ");
+            getString(&confirmString);
+
+            if ((*confirmString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            exitClient = true;
+            break;
+
+
+        case 7: // Bulk Load
+
+            firstPass = true;
+            stopLoad = false;
+
+            printf("> \n");
+            printf("> Bulk Load Selected \n");
+            printf("> \n");
+
+            printf("> To confirm input any integer (to cancel input escape sequence): ");
+            getString(&confirmString);
+
+            if ((*confirmString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            do
+            {
+
+                if (!conn)
+                {
+                    errno = ERR_CONNECTION_FAIL;
+                    printf("Cannot connect to server @ %s:%d. Error code: %d.\n",
+                           hostnameString, portNumber, errno);
+                    if (LOGGING_CLIENT == 2)
+                        fclose(fclientOut);
+                    return -1;
+                }
+
+                strcpy (bulkLoadTemp, bulkLoadLine2);
+
+                fgets(bulkLoadLine1, 100, fbulkLoad);
+                fgets(bulkLoadLine2, 100, fbulkLoad);
+                fgets(bulkLoadLine3, 100, fbulkLoad);
+
+                lengthBulkString = strlen(bulkLoadLine1) - 1;
+                if (bulkLoadLine1[lengthBulkString] == '\n')
+                    bulkLoadLine1[lengthBulkString] = NULL;
+                lengthBulkString = strlen(bulkLoadLine2) - 1;
+                if (bulkLoadLine2[lengthBulkString] == '\n')
+                    bulkLoadLine2[lengthBulkString] = NULL;
+                lengthBulkString = strlen(bulkLoadLine3) - 1;
+                if (bulkLoadLine3[lengthBulkString] == '\n')
+                    bulkLoadLine3[lengthBulkString] = NULL;
+
+                if ( (firstPass == false) && (strcmp(bulkLoadTemp, bulkLoadLine2) == 0) )
+                    stopLoad = true;
+
+                if (firstPass == true)
+                    firstPass = false;
+
+                if (stopLoad == false)
+                {
+                    struct storage_record r;
+                    strncpy(r.value, bulkLoadLine3, sizeof r.value);
+                    status = storage_set(bulkLoadLine1, bulkLoadLine2, &r, conn);
+                    if (status != 0)
+                    {
+                        printf("storage_set failed. Error code: %d.\n", errno);
+                        storage_disconnect(conn);
+                        if (LOGGING_CLIENT == 2)
+                            fclose(fclientOut);
+                        return status;
+                    }
+
+                    printf("storage_set: successful.\n");
+                }
+
+            }
+            while (stopLoad == false);
+
+            fclose(fbulkLoad);
+            break;
+        case 8: // Query => storage_query function has the format of tableString, predicatesString, matchingnum, conn
+            //where matchingnum is passed by reference and needs to be changed by storage
+
+            if (!conn)
+            {
+                errno = ERR_CONNECTION_FAIL;
+                printf("Cannot connect to server @ %s:%d. Error code: %d.\n",
+                       hostnameString, portNumber, errno);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return -1;
+            }
+
+            printf("> \n");
+            printf("> Query Selected \n");
+            printf("> \n");
+
+            printf("> Input the table: ");
+            getString(&tableGetString);
+
+            if ((*tableGetString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            printf("> Input the predicates: ");
+            getString(&predicatesGetString);
+
+            if ((*predicatesGetString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+
+            printf("> Input the max keys: ");
+            getString(&maxKeysString);
+
+            if ((*maxKeysString) == (*escapeSeq))
+            {
+                printf(">\n> Escape Sequence Detected - Aborting Command \n>\n");
+                break;
+            }
+            int keynumint = atoi(maxKeysString);
+<<<<<<< .mine
+            char **keys;
+            status = storage_query(tableGetString, predicatesGetString,  keys, keynumint, conn);
+=======
+            char **keys;
+            status = storage_query(tableGetString, predicatesGetString,  &keys, keynumint, conn);
+>>>>>>> .r100
+
+            if (status == -1)
+            {
+                printf("storage_query failed. Error code: %d.\n", errno);
+                storage_disconnect(conn);
+                if (LOGGING_CLIENT == 2)
+                    fclose(fclientOut);
+                return status;
+            }
+            printf("storage_query: the value returned for table '%s' is '%d'.\n", tableGetString, status);
+
+            printf("> \n");
+
+
+            break;
+        default: // Error
+            printf("> --------------------- \n");
+            printf("Error: invalid command \n");
+            printf("> --------------------- \n");
+
+        }
+
+    }
+    while (exitClient == false);
+
+    if (commandKey)
+        free(commandKey);
+    if (hostnameString)
+        free(hostnameString);
+    if (portString)
+        free(portString);
+    if (usernameString)
+        free(usernameString);
+    if (passwordString)
+        free(passwordString);
+    if (tableGetString)
+        free(tableGetString);
+    if (keyGetString)
+        free(keyGetString);
+    if (tableSetString)
+        free(tableSetString);
+    if (keySetString)
+        free(keySetString);
+    if (recordSetString)
+        free(recordSetString);
+    if (confirmString)
+        free(confirmString);
+    if (predicatesGetString)
+        free(predicatesGetString);
+    if (matchingNum)
+        free(matchingNum);
+    if (maxKeysString)
+        free(maxKeysString);
+
+    if (LOGGING_CLIENT == 2)
+    {
+        fclose(fclientOut);
+    }
+    return 0;
+}

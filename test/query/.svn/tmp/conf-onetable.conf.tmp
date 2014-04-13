@@ -1,0 +1,9 @@
+server_host localhost
+<<<<<<< .mine
+server_port 6843
+=======
+server_port 5421
+>>>>>>> .r125
+username admin
+password xxxnq.BMCifhU
+table inttbl col:int

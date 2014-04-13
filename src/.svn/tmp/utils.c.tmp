@@ -1,0 +1,175 @@
+/**
+ * @file
+ * @brief This file implements various utility functions that are
+ * can be used by the storage server and client library.
+ */
+
+#define _XOPEN_SOURCE
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <unistd.h>
+#include "utils.h"
+#include "parser.tab.h"
+
+extern int yyparse();
+extern FILE *yyin;
+
+int error_occurred=0;
+int server_hostcount=0;
+int server_portcount=0;
+int usernamecount=0;
+int passwordcount=0;
+int tablecount=0;
+int storagepolicycount=0;
+int datadirectorycount=0;
+
+
+struct config_params paramslex;
+
+int sendall(const int sock, const char *buf, const size_t len)
+{
+    size_t tosend = len;
+    while (tosend > 0) {
+        ssize_t bytes = send(sock, buf, tosend, 0);
+        if (bytes <= 0)
+            break; // send() was not successful, so stop.
+        tosend -= (size_t) bytes;
+        buf += bytes;
+    };
+
+    return tosend == 0 ? 0 : -1;
+}
+
+/**
+ * In order to avoid reading more than a line from the stream,
+ * this function only reads one byte at a time.  This is very
+ * inefficient, and you are free to optimize it or implement your
+ * own function.
+ */
+int recvline(const int sock, char *buf, const size_t buflen)
+{
+    int status = 0; // Return status.
+    size_t bufleft = buflen;
+
+    while (bufleft > 1) {
+        // Read one byte from scoket.
+        ssize_t bytes = recv(sock, buf, 1, 0);
+        if (bytes <= 0) {
+            // recv() was not successful, so stop.
+            status = -1;
+            break;
+        } else if (*buf == '\n') {
+            // Found end of line, so stop.
+            *buf = 0; // Replace end of line with a null terminator.
+            status = 0;
+            break;
+        } else {
+            // Keep going.
+            bufleft -= 1;
+            buf += 1;
+        }
+    }
+    *buf = 0; // add null terminator in case it's not already there.
+
+    return status;
+}
+
+
+int read_config(const char *config_file, struct config_params *params)
+{
+	// Open file for reading.
+    yyin = fopen(config_file, "r");
+    yyparse();
+
+    //If any of params is missing, give error
+    if(!(server_hostcount&&server_portcount&&usernamecount&&passwordcount&&tablecount)) {
+        error_occurred = 1;
+    }
+    if((server_hostcount>1)||(server_portcount>1)||(usernamecount>1)||(passwordcount>1)||(storagepolicycount>1)||(datadirectorycount>1)){
+       error_occurred=1;
+    }
+
+    if(!storagepolicycount){
+    	params->storage_policy=0;
+    }
+
+
+ strncpy(params->server_host, paramslex.server_host, sizeof params->server_host);
+ strncpy(params->username, paramslex.username, sizeof params->username);
+ strncpy(params->password, paramslex.password, sizeof params->password);
+ strncpy(params->data_directory, paramslex.data_directory, sizeof params->data_directory);
+ params->storage_policy=paramslex.storage_policy;
+ params->server_port=paramslex.server_port;
+ params->tablecount=paramslex.tablecount;
+
+ int x=0;
+ int y=0;
+ while(x<tablecount){
+	 y=0;
+	 strncpy(params->mytables[x], paramslex.mytables[x], sizeof params->mytables[x]);
+	 params->numcolumnspertable[x]=paramslex.numcolumnspertable[x];
+	 while(y<MAX_COLUMNS_PER_TABLE){
+		 strncpy(params->mycolumns[x][y], paramslex.mycolumns[x][y], sizeof params->mycolumns[x][y]);
+		 strncpy(params->column_types[x][y], paramslex.column_types[x][y], sizeof params->column_types[x][y]);
+		 y=y+1;
+	 }
+	 x=x+1;
+ }
+
+
+
+
+ //PRINTING VALUES HERE
+ printf("PRINTING VALUES HERE\n");
+     printf("server_host is %s\n", params->server_host);
+     printf("server_port is %d\n", params->server_port);
+     printf("username is %s\n", params->username);
+     printf("password is %s\n", params->password);
+
+     printf("mytables are %s, %s, %s, %s\n", params->mytables[0],params->mytables[1],params->mytables[2],params->mytables[3]);
+     printf("mycolumns1 is %s, %s, %s\n", params->mycolumns[0][0],params->mycolumns[0][1],params->mycolumns[0][2]);
+     printf("mycolumns2 is %s, %s, %s\n", params->mycolumns[1][0],params->mycolumns[1][1],params->mycolumns[1][2]);
+     printf("mycolumns3 is %s, %s, %s\n", params->mycolumns[2][0],params->mycolumns[2][1],params->mycolumns[2][2]);
+     printf("mycolumns4 is %s, %s, %s\n", params->mycolumns[3][0],params->mycolumns[3][1],params->mycolumns[3][2]);
+     printf("tablecount is %d\n", params->tablecount);
+     printf("numcolumnspertable are %d, %d, %d, %d\n", params->numcolumnspertable[0],params->numcolumnspertable[1],params->numcolumnspertable[2],params->numcolumnspertable[3]);
+
+     printf("column_types1 is %s, %s, %s\n", params->column_types[0][0],params->column_types[0][1],params->column_types[0][2]);
+     printf("column_types2 is %s, %s, %s\n", params->column_types[1][0],params->column_types[1][1],params->column_types[1][2]);
+     printf("column_types3 is %s, %s, %s\n", params->column_types[2][0],params->column_types[2][1],params->column_types[2][2]);
+     printf("column_types4 is %s, %s, %s\n", params->column_types[3][0],params->column_types[3][1],params->column_types[3][2]);
+    return error_occurred ? -1 : 0;
+}
+
+void logger(FILE *file, char *message, int loggingConstant)
+{
+    if (loggingConstant==2) {
+        fprintf(file,"%s",message);
+        fflush(file);
+    }
+    else if (loggingConstant==1) {
+        printf("%s\n",message);
+    }
+    else if (loggingConstant==0) {
+        // Disabled
+    }
+    else {
+        // Nothing
+    }
+
+    return;
+
+}
+
+char *generate_encrypted_password(const char *passwd, const char *salt)
+{
+    if(salt != NULL)
+        return crypt(passwd, salt);
+    else
+        return crypt(passwd, DEFAULT_CRYPT_SALT);
+}
+

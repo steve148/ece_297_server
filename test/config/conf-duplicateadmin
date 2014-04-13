@@ -1,0 +1,6 @@
+server_host localhost
+server_port 5634
+username admin
+username notmin
+password xxxnq.BMCifhU
+table inttbl col:int

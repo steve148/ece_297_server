@@ -1,0 +1,10 @@
+server_host localhost
+<<<<<<< .mine
+server_port 6641
+=======
+server_port 5295
+>>>>>>> .r120
+server_port 2222
+username admin
+password xxxnq.BMCifhU
+table foo

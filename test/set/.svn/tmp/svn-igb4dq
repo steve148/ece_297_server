@@ -1,0 +1,22 @@
+Running suite set
+main.c:352:P:setinvalid:test_setinvalid_table:0: Passed
+main.c:362:P:setinvalid:test_setinvalid_key:0: Passed
+main.c:372:P:setinvalid:test_setinvalid_conn:0: Passed
+main.c:382:P:setinvalid:test_setbad_table:0: Passed
+main.c:392:P:setinvalid:test_setbad_key:0: Passed
+main.c:401:F:setinvalid:test_setbad_value:0: storage_set with value should fail.
+main.c:412:P:setinvalid:test_setmissing_table:0: Passed
+main.c:430:P:setinvalidcomplex:test_setinvalidcomplex_missingcolumn:0: Passed
+main.c:440:P:setinvalidcomplex:test_setinvalidcomplex_toomanycolumns:0: Passed
+main.c:450:P:setinvalidcomplex:test_setinvalidcomplex_wrongname:0: Passed
+main.c:460:P:setinvalidcomplex:test_setinvalidcomplex_wrongtype:0: Passed
+main.c:487:P:setget:test_setsimple_int:0: Passed
+main.c:507:P:setget:test_setsimple_str:0: Passed
+main.c:540:P:update:test_set_updateint:0: Passed
+main.c:565:P:update:test_set_updatestr:0: Passed
+main.c:587:P:update:test_set_deleteint:0: Passed
+main.c:609:P:update:test_set_deletestr:0: Passed
+main.c:637:P:setcomplex:test_setcomplex_deletethreecols:0: Passed
+main.c:668:P:setcomplex:test_setcomplex_updatethreecols:0: Passed
+Results for all suites run:
+100%: Checks: 19, Failures: 0, Errors: 0

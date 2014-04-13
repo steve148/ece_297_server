@@ -1,0 +1,36 @@
+COLSSSSS ARE THESEEE  and number is 0 and temp is server_host
+COLSSSSS ARE THESEEE  and number is 0 and temp is server_port
+COLSSSSS ARE THESEEE  and number is 0 and temp is username
+COLSSSSS ARE THESEEE  and number is 0 and temp is password
+COLSSSSS ARE THESEEE stops:int and number is 0 and temp is table
+COLSSSSS ARE THESEEE kilometres:int
+ and number is 1 and temp is table
+COLSSSSS ARE THESEEE  and number is 2 and temp is table
+x isssssssssssssssss 2count isssssssssssssssss 2COUNT ISSSSSSS 2
+COL1 ISSSSSSS stops:int
+type issssssssssssss int
+type issssssssssssss int
+COLSSSSS ARE THESEEE stops:int and number is 0 and temp is table
+COLSSSSS ARE THESEEE kilometres:int
+ and number is 1 and temp is table
+COLSSSSS ARE THESEEE  and number is 2 and temp is table
+x isssssssssssssssss 2count isssssssssssssssss 2COUNT ISSSSSSS 2
+COL1 ISSSSSSS stops:int
+type issssssssssssss int
+type issssssssssssss int
+server_host is localhost
+server_port is 6821
+username is admin
+password is xxxnq.BMCifhU
+mytables are subwayLines, subwayLines, , 
+mycolumns1 is stops, kilometres, 
+mycolumns2 is stops, kilometres, 
+mycolumns3 is , , 
+mycolumns4 is , , 
+tablecount is 2
+numcolumnspertable are 2, 2, 0, 0
+column_types1 is int, int, 
+column_types2 is int, int, 
+column_types3 is , , 
+column_types4 is , , 
+Error processing config file.

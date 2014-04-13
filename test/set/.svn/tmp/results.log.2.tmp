@@ -1,0 +1,22 @@
+Running suite set
+main.c:352:P:setinvalid:test_setinvalid_table:0: Passed
+main.c:362:P:setinvalid:test_setinvalid_key:0: Passed
+main.c:372:P:setinvalid:test_setinvalid_conn:0: Passed
+main.c:382:P:setinvalid:test_setbad_table:0: Passed
+main.c:392:P:setinvalid:test_setbad_key:0: Passed
+main.c:402:P:setinvalid:test_setbad_value:0: Passed
+main.c:412:P:setinvalid:test_setmissing_table:0: Passed
+main.c:430:P:setinvalidcomplex:test_setinvalidcomplex_missingcolumn:0: Passed
+main.c:440:P:setinvalidcomplex:test_setinvalidcomplex_toomanycolumns:0: Passed
+main.c:450:P:setinvalidcomplex:test_setinvalidcomplex_wrongname:0: Passed
+main.c:460:P:setinvalidcomplex:test_setinvalidcomplex_wrongtype:0: Passed
+main.c:487:P:setget:test_setsimple_int:0: Passed
+main.c:507:P:setget:test_setsimple_str:0: Passed
+main.c:533:F:update:test_set_updateint:0: Error updating key/value pair.
+main.c:560:F:update:test_set_updatestr:0: Error setting a key/value pair.
+main.c:589:P:update:test_set_deleteint:0: Passed
+main.c:611:P:update:test_set_deletestr:0: Passed
+main.c:639:P:setcomplex:test_setcomplex_deletethreecols:0: Passed
+main.c:660:F:setcomplex:test_setcomplex_updatethreecols:0: Error updating a value.
+Results for all suites run:
+84%: Checks: 19, Failures: 3, Errors: 0

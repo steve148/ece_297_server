@@ -1,0 +1,9 @@
+server_host localhost
+<<<<<<< .mine
+server_port 1140
+=======
+server_port 1138
+>>>>>>> .r62
+username admin
+password xxxnq.BMCifhU
+table census

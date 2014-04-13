@@ -1,0 +1,9 @@
+server_host localhost
+<<<<<<< .mine
+server_port 6049
+=======
+server_port 5208
+>>>>>>> .r120
+username admin
+password xxxnq.BMCifhU
+table tbl col1:int col2:int

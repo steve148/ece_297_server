@@ -1,0 +1,15 @@
+server_host localhost
+server_port 6626
+username admin
+password xxctSuj21wKEQ
+table inttbl col:int
+table flttbl col:int
+table strtbl col:char[10]
+table intinttbl col1:int,col2:int
+table complextbl col1:int,col2:char[10],col3:int
+table hard col1:int,col2:int,col3:char[10],col4:char[10],col5:char[10],col6:int
+table threecols col1:int,col2:int,col3:char[10]
+table fourcols col1:char[10],col2:int,col3:int,col4:char[20]
+table sixcols col1:char[10],col2:char[20],col3:int,col4:int,col5:int,col6:int
+table census Province:char[40],Population:int,Change:int,Rank:int
+concurrency 0
